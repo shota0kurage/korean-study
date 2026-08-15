@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<title>苦手問題の学習</title>
+
+<link
+    rel="stylesheet"
+    href="style.css">
+
+<script src="study-tracker.js"></script>
+
+<style>
+
+.wrong-quiz-page{
+    max-width:700px;
+    margin:0 auto;
+}
+
+.quiz-top{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.quiz-title{
+    font-size:1.3rem;
+    font-weight:700;
+}
+
+.quiz-subtitle{
+    color:var(--sub);
+    margin-top:6px;
+}
+
+.progress{
+    color:var(--sub);
+    margin-top:8px;
+}
+
+.quiz-question{
+    text-align:center;
+    font-size:clamp(2rem,6vw,3rem);
+    font-weight:700;
+    margin:50px 0 35px;
+}
+
+.quiz-answer{
+    width:100%;
+    padding:15px;
+    background:#0f1115;
+    color:var(--text);
+    border:2px solid var(--border);
+    border-radius:12px;
+    outline:none;
+    font-size:1.05rem;
+}
+
+.quiz-answer:focus{
+    border-color:var(--primary);
+}
+
+.quiz-answer:disabled{
+    opacity:.7;
+}
+
+.quiz-buttons{
+    margin-top:14px;
+}
+
+.quiz-buttons .btn + .btn{
+    margin-top:10px;
+}
+
+.quiz-hint{
+    min-height:24px;
+    margin-top:14px;
+    text-align:center;
+    color:var(--sub);
+}
+
+.quiz-result{
+    margin-top:18px;
+    padding:15px;
+    border-radius:12px;
+    text-align:center;
+    line-height:1.7;
+}
+
+.quiz-result.correct{
+    background:rgba(0,186,124,.12);
+    color:#00ba7c;
+}
+
+.quiz-result.wrong{
+    background:rgba(244,33,46,.12);
+    color:#f4212e;
+}
+
+.quiz-result.unknown{
+    background:rgba(29,155,240,.12);
+    color:#1d9bf0;
+}
+
+.finish{
+    text-align:center;
+}
+
+.finish-icon{
+    font-size:3rem;
+}
+
+.finish-title{
+    font-size:1.6rem;
+    font-weight:700;
+    margin-top:10px;
+}
+
+.finish-score{
+    font-size:3rem;
+    font-weight:800;
+    color:var(--primary);
+    margin:20px 0;
+}
+
+.finish-stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin:20px 0;
+}
+
+.finish-stat{
+    background:#0f1115;
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:18px;
+}
+
+.finish-stat-label{
+    color:var(--sub);
+    font-size:.8rem;
+}
+
+.finish-stat-value{
+    font-size:1.4rem;
+    font-weight:700;
+    margin-top:5px;
+}
+
+.quiz-correct-animation{
+    animation:correctShake .3s ease;
+}
+
+.quiz-wrong-animation{
+    animation:wrongShake .32s ease;
+}
+
+.quiz-unknown-animation{
+    animation:unknownPop .28s ease;
+}
+
+.quiz-pop-animation{
+    animation:quizPop .25s ease;
+}
+
+@keyframes correctShake{
+
+    0%{transform:translateY(0)}
+    25%{transform:translateY(-2px)}
+    50%{transform:translateY(2px)}
+    75%{transform:translateY(-1px)}
+    100%{transform:translateY(0)}
+
+}
+
+@keyframes wrongShake{
+
+    0%{transform:translateX(0)}
+    25%{transform:translateX(-3px)}
+    50%{transform:translateX(3px)}
+    75%{transform:translateX(-2px)}
+    100%{transform:translateX(0)}
+
+}
+
+@keyframes unknownPop{
+
+    0%{
+        transform:scale(.98);
+        opacity:.6;
+    }
+
+    100%{
+        transform:scale(1);
+        opacity:1;
+    }
+
+}
+
+@keyframes quizPop{
+
+    0%{
+        opacity:.6;
+        transform:
+            scale(.98)
+            translateY(3px);
+    }
+
+    100%{
+        opacity:1;
+        transform:
+            scale(1)
+            translateY(0);
+    }
+
+}
+
+@media(max-width:650px){
+
+    .finish-stats{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container wrong-quiz-page">
+
+    <div class="site-header">
+
+        <div class="logo">
+            Korean <span>Study</span>
+        </div>
+
+    </div>
+
+
+    <div class="quiz-top">
+
+        <div class="quiz-title">
+            📕 苦手問題
+        </div>
+
+        <div class="quiz-subtitle">
+            間違えた問題を復習しましょう
+        </div>
+
+        <div
+            id="progress"
+            class="progress">
+        </div>
+
+    </div>
+
+
+    <div
+        id="quizCard"
+        class="card">
+
+
+        <div
+            id="question"
+            class="quiz-question">
+
+        </div>
+
+
+        <input
+            id="answer"
+            class="quiz-answer"
+            type="text"
+            placeholder="韓国語を入力"
+            autocomplete="off">
+
+
+        <div class="quiz-buttons">
+
+            <button
+                id="checkBtn"
+                class="btn btn-primary">
+
+                答え合わせ
+
+            </button>
+
+
+            <button
+                id="unknownBtn"
+                class="btn btn-secondary">
+
+                わからない
+
+            </button>
+
+
+            <button
+                id="hintBtn"
+                class="btn btn-secondary">
+
+                ヒント
+
+            </button>
+
+
+            <button
+                id="nextBtn"
+                class="btn btn-success"
+                style="display:none;">
+
+                次の問題
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="hint"
+            class="quiz-hint">
+        </div>
+
+
+        <div
+            id="result"
+            class="quiz-result">
+        </div>
+
+
+        <button
+            id="homeBtn"
+            class="btn btn-secondary"
+            style="margin-top:20px;">
+
+            ← ホームへ戻る
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let studyWords =
+    JSON.parse(
+        localStorage.getItem(
+            "wrongStudyWords"
+        ) || "[]"
+    );
+
+
+if(
+    studyWords.length === 0
+){
+
+    alert(
+        "学習できる苦手問題がありません。"
+    );
+
+    location.href =
+        "wrong.html";
+
+}
+
+
+let wrongWords =
+    JSON.parse(
+        localStorage.getItem(
+            "wrongWords"
+        ) || "[]"
+    );
+
+
+let currentIndex = 0;
+
+let currentQuestion =
+    studyWords[currentIndex];
+
+let answered = false;
+
+let correctCount = 0;
+
+let unknownCount = 0;
+
+
+const quizCard =
+    document.getElementById(
+        "quizCard"
+    );
+
+const questionElement =
+    document.getElementById(
+        "question"
+    );
+
+const answerElement =
+    document.getElementById(
+        "answer"
+    );
+
+const resultElement =
+    document.getElementById(
+        "result"
+    );
+
+const hintElement =
+    document.getElementById(
+        "hint"
+    );
+
+const checkButton =
+    document.getElementById(
+        "checkBtn"
+    );
+
+const unknownButton =
+    document.getElementById(
+        "unknownBtn"
+    );
+
+const hintButton =
+    document.getElementById(
+        "hintBtn"
+    );
+
+const nextButton =
+    document.getElementById(
+        "nextBtn"
+    );
+
+const progressElement =
+    document.getElementById(
+        "progress"
+    );
+
+
+function playAnimation(className){
+
+    quizCard.classList.remove(
+        "quiz-correct-animation",
+        "quiz-wrong-animation",
+        "quiz-unknown-animation",
+        "quiz-pop-animation"
+    );
+
+    void quizCard.offsetWidth;
+
+    quizCard.classList.add(
+        className
+    );
+
+}
+
+
+function findWrongWordIndex(){
+
+    return wrongWords.findIndex(
+        word =>
+
+            (
+                word.category ===
+                currentQuestion.category &&
+
+                word.id ===
+                currentQuestion.id
+            )
+
+            ||
+
+            (
+                word.question ===
+                currentQuestion.question &&
+
+                word.answer ===
+                currentQuestion.answer
+            )
+    );
+
+}
+
+
+function saveWrongWords(){
+
+    localStorage.setItem(
+        "wrongWords",
+        JSON.stringify(
+            wrongWords
+        )
+    );
+
+}
+
+
+/*
+    正解連続数
+*/
+
+function increaseCorrectStreak(){
+
+    const index =
+        findWrongWordIndex();
+
+
+    if(index === -1){
+
+        return 0;
+
+    }
+
+
+    if(
+        typeof
+        wrongWords[index].correctStreak
+        !== "number"
+    ){
+
+        wrongWords[index].correctStreak =
+            0;
+
+    }
+
+
+    wrongWords[index].correctStreak++;
+
+
+    const streak =
+        wrongWords[index].correctStreak;
+
+
+    if(streak >= 3){
+
+        wrongWords.splice(
+            index,
+            1
+        );
+
+    }
+
+
+    saveWrongWords();
+
+
+    return streak;
+
+}
+
+
+/*
+    不正解・わからない
+*/
+
+function resetCorrectStreak(){
+
+    const index =
+        findWrongWordIndex();
+
+
+    if(index === -1){
+
+        return;
+
+    }
+
+
+    wrongWords[index].correctStreak =
+        0;
+
+
+    saveWrongWords();
+
+}
+
+
+/*
+    問題表示
+*/
+
+function showQuestion(){
+
+    currentQuestion =
+        studyWords[currentIndex];
+
+
+    answered = false;
+
+
+    questionElement.textContent =
+        currentQuestion.question;
+
+
+    progressElement.textContent =
+        `${currentIndex+1} / ${studyWords.length}`;
+
+
+    answerElement.value =
+        "";
+
+    answerElement.disabled =
+        false;
+
+
+    resultElement.textContent =
+        "";
+
+    resultElement.className =
+        "quiz-result";
+
+
+    hintElement.textContent =
+        "";
+
+
+    checkButton.style.display =
+        "flex";
+
+    unknownButton.style.display =
+        "flex";
+
+    hintButton.style.display =
+        "flex";
+
+
+    nextButton.style.display =
+        "none";
+
+
+    playAnimation(
+        "quiz-pop-animation"
+    );
+
+
+    answerElement.focus();
+
+}
+
+
+/*
+    共通終了
+*/
+
+function finishQuestion(){
+
+    answered =
+        true;
+
+
+    answerElement.disabled =
+        true;
+
+
+    checkButton.style.display =
+        "none";
+
+    unknownButton.style.display =
+        "none";
+
+    nextButton.style.display =
+        "flex";
+
+
+    if(
+        currentIndex + 1 >=
+        studyWords.length
+    ){
+
+        nextButton.textContent =
+            "結果を見る";
+
+    }else{
+
+        nextButton.textContent =
+            "次の問題";
+
+    }
+
+}
+
+
+/*
+    正解・不正解
+*/
+
+function checkAnswer(){
+
+    if(answered){
+
+        return;
+
+    }
+
+
+    const userAnswer =
+        answerElement.value.trim();
+
+
+    if(!userAnswer){
+
+        alert(
+            "答えを入力してください。"
+        );
+
+        answerElement.focus();
+
+        return;
+
+    }
+
+
+    const isCorrect =
+        userAnswer ===
+        currentQuestion.answer;
+
+
+    if(isCorrect){
+
+        correctCount++;
+
+
+        const streak =
+            increaseCorrectStreak();
+
+
+        resultElement.className =
+            "quiz-result correct";
+
+
+        if(streak >= 3){
+
+            resultElement.innerHTML =
+                "⭕ 正解！<br>" +
+                "🎉 3回連続正解！<br>" +
+                "この問題を苦手リストから削除しました。";
+
+        }else{
+
+            resultElement.innerHTML =
+                "⭕ 正解！<br>" +
+                "連続正解：" +
+                streak +
+                " / 3";
+
+        }
+
+
+        playAnimation(
+            "quiz-correct-animation"
+        );
+
+
+        saveStudyResult({
+
+            category:
+                currentQuestion.category,
+
+            categoryName:
+                currentQuestion.categoryName,
+
+            id:
+                currentQuestion.id,
+
+            level:
+                currentQuestion.level,
+
+            question:
+                currentQuestion.question,
+
+            answer:
+                currentQuestion.answer,
+
+            correct:
+                true,
+
+            resultType:
+                "correct"
+
+        });
+
+    }else{
+
+        resetCorrectStreak();
+
+
+        resultElement.className =
+            "quiz-result wrong";
+
+
+        resultElement.innerHTML =
+            "❌ 不正解<br>" +
+            "正解：<b>" +
+            escapeHtml(
+                currentQuestion.answer
+            ) +
+            "</b><br>" +
+            "連続正解数をリセットしました。";
+
+
+        playAnimation(
+            "quiz-wrong-animation"
+        );
+
+
+        saveStudyResult({
+
+            category:
+                currentQuestion.category,
+
+            categoryName:
+                currentQuestion.categoryName,
+
+            id:
+                currentQuestion.id,
+
+            level:
+                currentQuestion.level,
+
+            question:
+                currentQuestion.question,
+
+            answer:
+                currentQuestion.answer,
+
+            correct:
+                false,
+
+            resultType:
+                "wrong"
+
+        });
+
+    }
+
+
+    finishQuestion();
+
+}
+
+
+/*
+    わからない
+*/
+
+function markUnknown(){
+
+    if(answered){
+
+        return;
+
+    }
+
+
+    unknownCount++;
+
+
+    resetCorrectStreak();
+
+
+    resultElement.className =
+        "quiz-result unknown";
+
+
+    resultElement.innerHTML =
+        "🤔 わからない<br>" +
+        "正解：<b>" +
+        escapeHtml(
+            currentQuestion.answer
+        ) +
+        "</b><br>" +
+        "連続正解数をリセットしました。";
+
+
+    saveStudyResult({
+
+        category:
+            currentQuestion.category,
+
+        categoryName:
+            currentQuestion.categoryName,
+
+        id:
+            currentQuestion.id,
+
+        level:
+            currentQuestion.level,
+
+        question:
+            currentQuestion.question,
+
+        answer:
+            currentQuestion.answer,
+
+        correct:
+            false,
+
+        resultType:
+            "unknown"
+
+    });
+
+
+    playAnimation(
+        "quiz-unknown-animation"
+    );
+
+
+    finishQuestion();
+
+}
+
+
+/*
+    ヒント
+*/
+
+function showHint(){
+
+    hintElement.textContent =
+        "ヒント：" +
+        (
+            currentQuestion.hint ||
+            "ヒントはありません。"
+        );
+
+}
+
+
+/*
+    次へ
+*/
+
+function nextQuestion(){
+
+    if(!answered){
+
+        return;
+
+    }
+
+
+    currentIndex++;
+
+
+    if(
+        currentIndex >=
+        studyWords.length
+    ){
+
+        showResult();
+
+        return;
+
+    }
+
+
+    showQuestion();
+
+}
+
+
+/*
+    結果
+*/
+
+function showResult(){
+
+    const rate =
+        Math.round(
+            correctCount /
+            studyWords.length *
+            100
+        );
+
+
+    quizCard.innerHTML = `
+
+        <div class="finish">
+
+            <div class="finish-icon">
+                🎉
+            </div>
+
+            <div class="finish-title">
+                苦手問題の学習終了！
+            </div>
+
+            <div class="finish-score">
+                ${rate}%
+            </div>
+
+            <div class="finish-stats">
+
+                <div class="finish-stat">
+
+                    <div class="finish-stat-label">
+                        問題数
+                    </div>
+
+                    <div class="finish-stat-value">
+                        ${studyWords.length}問
+                    </div>
+
+                </div>
+
+                <div class="finish-stat">
+
+                    <div class="finish-stat-label">
+                        正解数
+                    </div>
+
+                    <div class="finish-stat-value">
+                        ${correctCount}問
+                    </div>
+
+                </div>
+
+                <div class="finish-stat">
+
+                    <div class="finish-stat-label">
+                        わからない
+                    </div>
+
+                    <div class="finish-stat-value">
+                        ${unknownCount}問
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <button
+                id="retryButton"
+                class="btn btn-primary">
+
+                もう一度問題を解く
+
+            </button>
+
+
+            <button
+                id="wrongButton"
+                class="btn btn-secondary">
+
+                苦手問題一覧へ戻る
+
+            </button>
+
+
+            <button
+                id="homeButton"
+                class="btn btn-secondary">
+
+                ホームへ戻る
+
+            </button>
+
+        </div>
+
+    `;
+
+
+    document.getElementById(
+        "retryButton"
+    ).onclick =
+        () =>
+            location.href =
+                "wrong.html";
+
+
+    document.getElementById(
+        "wrongButton"
+    ).onclick =
+        () =>
+            location.href =
+                "wrong.html";
+
+
+    document.getElementById(
+        "homeButton"
+    ).onclick =
+        () =>
+            location.href =
+                "index.html";
+
+
+    playAnimation(
+        "quiz-pop-animation"
+    );
+
+}
+
+
+function escapeHtml(text){
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+
+}
+
+
+checkButton.onclick =
+    checkAnswer;
+
+unknownButton.onclick =
+    markUnknown;
+
+hintButton.onclick =
+    showHint;
+
+nextButton.onclick =
+    nextQuestion;
+
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key !==
+            "Enter"
+        ){
+
+            return;
+
+        }
+
+
+        if(
+            event.isComposing
+        ){
+
+            return;
+
+        }
+
+
+        if(answered){
+
+            nextQuestion();
+
+        }else{
+
+            checkAnswer();
+
+        }
+
+    }
+);
+
+
+document.getElementById(
+    "homeBtn"
+).onclick =
+    () =>
+        location.href =
+            "index.html";
+
+
+showQuestion();
+
+</script>
+
+</body>
+
+</html>

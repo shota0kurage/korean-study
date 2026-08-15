@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "level": "pre2",
+    "korean": "유래",
+    "japanese": "由来"
+  },
+  {
+    "id": 2,
+    "level": "pre2",
+    "korean": "근거",
+    "japanese": "根拠"
+  },
+  {
+    "id": 3,
+    "level": "3",
+    "korean": "경험",
+    "japanese": "経験"
+  }
+]

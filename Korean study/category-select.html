@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>学習設定 - Korean Study</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+/* =========================================
+   学習設定画面
+========================================= */
+
+.quiz-select-card{
+    padding:30px;
+}
+
+.quiz-select-header{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.quiz-select-icon{
+    font-size:3rem;
+    margin-bottom:10px;
+}
+
+.quiz-select-header h1{
+    margin:0;
+    font-size:1.8rem;
+}
+
+.quiz-select-header p{
+    margin-top:8px;
+    color:var(--sub);
+}
+
+
+/* =========================================
+   級選択
+========================================= */
+
+.level-title{
+    font-size:1rem;
+    font-weight:700;
+    margin-bottom:12px;
+}
+
+.level-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:10px;
+
+    margin-bottom:20px;
+}
+
+.level-button{
+    padding:14px 10px;
+
+    border-radius:12px;
+
+    border:1px solid var(--border);
+
+    background:#16181c;
+
+    color:var(--text);
+
+    cursor:pointer;
+
+    transition:
+        background .2s ease,
+        border-color .2s ease,
+        transform .15s ease;
+}
+
+.level-button:hover{
+    border-color:var(--primary);
+
+    transform:translateY(-2px);
+}
+
+.level-button.selected{
+    background:var(--primary);
+
+    color:white;
+
+    border-color:var(--primary);
+
+    box-shadow:
+        0 5px 15px
+        rgba(29,155,240,.25);
+}
+
+
+/* =========================================
+   選択状況
+========================================= */
+
+.selected-info{
+    text-align:center;
+
+    color:var(--sub);
+
+    font-size:.9rem;
+
+    min-height:24px;
+
+    margin-bottom:28px;
+}
+
+
+/* =========================================
+   問題数
+========================================= */
+
+.count-title{
+    font-size:1rem;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+}
+
+.count-input{
+    width:100%;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    border:
+        2px solid var(--border);
+
+    background:#0f1114;
+
+    color:var(--text);
+
+    outline:none;
+
+    font-size:1rem;
+
+    margin-bottom:20px;
+}
+
+.count-input:focus{
+    border-color:var(--primary);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(29,155,240,.10);
+}
+
+
+/* =========================================
+   ボタン
+========================================= */
+
+.start-button{
+    margin-top:0;
+}
+
+
+/* =========================================
+   スマホ
+========================================= */
+
+@media(max-width:650px){
+
+    .quiz-select-card{
+        padding:22px;
+    }
+
+    .level-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container container-small">
+
+    <div class="site-header">
+
+        <div class="logo">
+            Korean <span>Study</span>
+        </div>
+
+    </div>
+
+
+    <div class="card quiz-select-card">
+
+
+        <!-- =====================================
+             ヘッダー
+        ====================================== -->
+
+        <div class="quiz-select-header">
+
+            <div
+                id="categoryIcon"
+                class="quiz-select-icon">
+
+                📚
+
+            </div>
+
+
+            <h1 id="categoryTitle">
+                読み込み中...
+            </h1>
+
+
+            <p>
+                学習したい級と問題数を設定してください
+            </p>
+
+        </div>
+
+
+        <!-- =====================================
+             級選択
+        ====================================== -->
+
+        <div class="level-title">
+            学習する級
+        </div>
+
+
+        <div class="level-grid">
+
+
+            <button
+                type="button"
+                class="level-button"
+                data-level="5"
+                onclick="toggleLevel(this)">
+
+                5級
+
+            </button>
+
+
+            <button
+                type="button"
+                class="level-button"
+                data-level="4"
+                onclick="toggleLevel(this)">
+
+                4級
+
+            </button>
+
+
+            <button
+                type="button"
+                class="level-button"
+                data-level="3"
+                onclick="toggleLevel(this)">
+
+                3級
+
+            </button>
+
+
+            <button
+                type="button"
+                class="level-button"
+                data-level="pre2"
+                onclick="toggleLevel(this)">
+
+                準2級
+
+            </button>
+
+
+            <button
+                type="button"
+                class="level-button"
+                data-level="2"
+                onclick="toggleLevel(this)">
+
+                2級
+
+            </button>
+
+
+            <button
+                type="button"
+                class="level-button"
+                data-level="1"
+                onclick="toggleLevel(this)">
+
+                1級
+
+            </button>
+
+
+        </div>
+
+
+        <!-- =====================================
+             選択状況
+        ====================================== -->
+
+        <div
+            id="selectedInfo"
+            class="selected-info">
+
+            まだ級が選択されていません
+
+        </div>
+
+
+        <!-- =====================================
+             問題数
+        ====================================== -->
+
+        <div class="count-title">
+
+            問題数
+
+        </div>
+
+
+        <input
+            id="questionCount"
+            class="count-input"
+            type="number"
+            min="1"
+            value="10"
+            placeholder="問題数を入力"
+        >
+
+
+        <!-- =====================================
+             学習開始
+        ====================================== -->
+
+        <button
+            class="btn btn-primary start-button"
+            onclick="startQuiz()">
+
+            この設定で学習する
+
+        </button>
+
+
+        <!-- =====================================
+             ホーム
+        ====================================== -->
+
+        <button
+            class="btn btn-secondary"
+            onclick="location.href='index.html'">
+
+            ホームへ戻る
+
+        </button>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   カテゴリー情報
+========================================= */
+
+const categoryNames = {
+
+    vocab:
+        "単語",
+
+    idiom:
+        "慣用句",
+
+    expression:
+        "慣用表現",
+
+    proverb:
+        "ことわざ",
+
+    saja:
+        "四字熟語"
+
+};
+
+
+const categoryIcons = {
+
+    vocab:
+        "📚",
+
+    idiom:
+        "💬",
+
+    expression:
+        "🗣️",
+
+    proverb:
+        "🌱",
+
+    saja:
+        "漢"
+
+};
+
+
+/* =========================================
+   現在のカテゴリー
+========================================= */
+
+const category =
+    localStorage.getItem(
+        "selectedCategory"
+    );
+
+
+/* =========================================
+   カテゴリー確認
+========================================= */
+
+if(
+    !category ||
+    !categoryNames[category]
+){
+
+    alert(
+        "カテゴリー情報がありません。"
+    );
+
+    location.href =
+        "index.html";
+
+}
+
+
+/* =========================================
+   カテゴリー表示
+========================================= */
+
+document.getElementById(
+    "categoryTitle"
+).textContent =
+    categoryNames[category];
+
+
+document.getElementById(
+    "categoryIcon"
+).textContent =
+    categoryIcons[category];
+
+
+/* =========================================
+   選択中の級
+========================================= */
+
+const selectedLevels = [];
+
+
+/* =========================================
+   級選択
+========================================= */
+
+function toggleLevel(button){
+
+    const level =
+        button.dataset.level;
+
+
+    const index =
+        selectedLevels.indexOf(
+            level
+        );
+
+
+    if(index === -1){
+
+        selectedLevels.push(
+            level
+        );
+
+        button.classList.add(
+            "selected"
+        );
+
+    }else{
+
+        selectedLevels.splice(
+            index,
+            1
+        );
+
+        button.classList.remove(
+            "selected"
+        );
+
+    }
+
+
+    updateSelectedInfo();
+
+}
+
+
+/* =========================================
+   選択状況表示
+========================================= */
+
+function updateSelectedInfo(){
+
+    const info =
+        document.getElementById(
+            "selectedInfo"
+        );
+
+
+    if(
+        selectedLevels.length === 0
+    ){
+
+        info.textContent =
+            "まだ級が選択されていません";
+
+        return;
+
+    }
+
+
+    const levelNames =
+        selectedLevels.map(
+            level => {
+
+                if(
+                    level === "pre2"
+                ){
+
+                    return "準2級";
+
+                }
+
+
+                return level + "級";
+
+            }
+        );
+
+
+    info.textContent =
+        "選択中：" +
+        levelNames.join("・");
+
+}
+
+
+/* =========================================
+   学習開始
+========================================= */
+
+function startQuiz(){
+
+    /* -------------------------------
+       級チェック
+    ------------------------------- */
+
+    if(
+        selectedLevels.length === 0
+    ){
+
+        alert(
+            "学習する級を1つ以上選択してください。"
+        );
+
+        return;
+
+    }
+
+
+    /* -------------------------------
+       問題数
+    ------------------------------- */
+
+    const count =
+        Number(
+            document.getElementById(
+                "questionCount"
+            ).value
+        );
+
+
+    if(
+        !Number.isInteger(count) ||
+        count < 1
+    ){
+
+        alert(
+            "問題数は1以上の数字を入力してください。"
+        );
+
+        return;
+
+    }
+
+
+    /* -------------------------------
+       カテゴリー保存
+    ------------------------------- */
+
+    localStorage.setItem(
+        "selectedCategory",
+        category
+    );
+
+
+    /* -------------------------------
+       級保存
+    ------------------------------- */
+
+    localStorage.setItem(
+        "selectedLevels",
+        JSON.stringify(
+            selectedLevels
+        )
+    );
+
+
+    /* -------------------------------
+       問題数保存
+    ------------------------------- */
+
+    localStorage.setItem(
+        "questionCount",
+        count
+    );
+
+
+    /* -------------------------------
+       クイズ開始
+    ------------------------------- */
+
+    location.href =
+        "category-quiz.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

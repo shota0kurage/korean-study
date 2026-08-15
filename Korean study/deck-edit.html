@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>単語帳を編集</title>
+
+<link
+    rel="stylesheet"
+    href="style.css"
+>
+
+<style>
+
+.edit-page{
+    max-width:800px;
+    margin:0 auto;
+}
+
+.edit-header{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.edit-icon{
+    font-size:2.8rem;
+}
+
+.edit-title{
+    font-size:1.7rem;
+    font-weight:800;
+    margin-top:8px;
+}
+
+.edit-count{
+    color:var(--sub);
+    margin-top:5px;
+}
+
+.edit-panel{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:22px;
+    margin-bottom:20px;
+}
+
+.panel-title{
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.form-group{
+    margin-bottom:13px;
+}
+
+.form-label{
+    display:block;
+    color:var(--sub);
+    font-size:.85rem;
+    margin-bottom:6px;
+}
+
+.form-input{
+    width:100%;
+    padding:13px;
+
+    background:#0f1115;
+    color:var(--text);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:10px;
+    outline:none;
+}
+
+.form-input:focus{
+    border-color:var(--primary);
+}
+
+.word-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.word-card{
+    display:flex;
+    align-items:center;
+    gap:15px;
+
+    background:#0f1115;
+
+    border:1px solid var(--border);
+    border-radius:14px;
+
+    padding:16px;
+}
+
+.word-info{
+    flex:1;
+}
+
+.word-japanese{
+    font-weight:700;
+}
+
+.word-korean{
+    color:var(--primary);
+    margin-top:4px;
+    font-weight:600;
+}
+
+.word-level{
+    color:var(--sub);
+    font-size:.8rem;
+    margin-top:4px;
+}
+
+.delete-word{
+    width:auto;
+
+    padding:8px 12px;
+
+    border-radius:8px;
+
+    background:
+        rgba(244,33,46,.1);
+
+    color:var(--danger);
+
+    cursor:pointer;
+}
+
+.empty{
+    text-align:center;
+    color:var(--sub);
+    padding:30px;
+}
+
+@media(max-width:650px){
+
+    .word-card{
+        align-items:flex-start;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container edit-page">
+
+    <div class="site-header">
+
+        <div class="logo">
+            Korean <span>Study</span>
+        </div>
+
+    </div>
+
+
+    <div class="edit-header">
+
+        <div class="edit-icon">
+            ✏️
+        </div>
+
+        <div
+            id="deckName"
+            class="edit-title">
+
+            読み込み中...
+
+        </div>
+
+        <div
+            id="deckCount"
+            class="edit-count">
+
+        </div>
+
+    </div>
+
+
+    <!-- 単語追加 -->
+
+    <div class="edit-panel">
+
+        <div class="panel-title">
+            ＋ 単語を追加
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                日本語
+            </label>
+
+            <input
+                id="japaneseInput"
+                class="form-input"
+                placeholder="例：由来"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                韓国語
+            </label>
+
+            <input
+                id="koreanInput"
+                class="form-input"
+                placeholder="例：유래"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                級
+            </label>
+
+            <select
+                id="levelInput"
+                class="form-input">
+
+                <option value="5">5級</option>
+                <option value="4">4級</option>
+                <option value="3">3級</option>
+                <option value="pre2">準2級</option>
+                <option value="2">2級</option>
+                <option value="1">1級</option>
+
+            </select>
+
+        </div>
+
+
+        <button
+            class="btn btn-primary"
+            onclick="addWord()">
+
+            保存する
+
+        </button>
+
+    </div>
+
+
+    <!-- 単語一覧 -->
+
+    <div class="edit-panel">
+
+        <div class="panel-title">
+            📚 登録単語
+        </div>
+
+        <div id="wordArea"></div>
+
+    </div>
+
+
+    <!-- 名前変更 -->
+
+    <div class="edit-panel">
+
+        <div class="panel-title">
+            ✏️ 単語帳名を変更
+        </div>
+
+        <input
+            id="renameInput"
+            class="form-input"
+        >
+
+        <button
+            class="btn btn-primary"
+            onclick="renameDeck()"
+            style="margin-top:12px;">
+
+            名前を保存
+
+        </button>
+
+    </div>
+
+
+    <button
+        class="btn btn-secondary"
+        onclick="location.href='deck-detail.html'">
+
+        ← 単語帳へ戻る
+
+    </button>
+
+</div>
+
+
+<script>
+
+const selectedDeckId =
+    localStorage.getItem(
+        "selectedDeckId"
+    );
+
+
+function getDecks(){
+
+    return JSON.parse(
+        localStorage.getItem(
+            "myDecks"
+        ) || "[]"
+    );
+
+}
+
+
+function getCurrentDeck(){
+
+    return getDecks().find(
+        deck =>
+            deck.id === selectedDeckId
+    );
+
+}
+
+
+function getLevelText(level){
+
+    if(level === "pre2"){
+        return "準2級";
+    }
+
+    return level + "級";
+
+}
+
+
+/* =========================================
+   表示
+========================================= */
+
+function showDeck(){
+
+    const deck =
+        getCurrentDeck();
+
+
+    if(!deck){
+
+        alert(
+            "単語帳が見つかりません。"
+        );
+
+        location.href =
+            "mydeck.html";
+
+        return;
+
+    }
+
+
+    const words =
+        Array.isArray(deck.words)
+        ? deck.words
+        : [];
+
+
+    document.getElementById(
+        "deckName"
+    ).textContent =
+        deck.name;
+
+
+    document.getElementById(
+        "deckCount"
+    ).textContent =
+        words.length + "語";
+
+
+    document.getElementById(
+        "renameInput"
+    ).value =
+        deck.name;
+
+
+    const area =
+        document.getElementById(
+            "wordArea"
+        );
+
+
+    if(words.length === 0){
+
+        area.innerHTML = `
+
+            <div class="empty">
+                まだ単語がありません。
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    let html = `
+
+        <div class="word-list">
+
+    `;
+
+
+    words.forEach((word,index) => {
+
+        html += `
+
+            <div class="word-card">
+
+                <div class="word-info">
+
+                    <div class="word-japanese">
+                        ${escapeHtml(word.japanese)}
+                    </div>
+
+                    <div class="word-korean">
+                        ${escapeHtml(word.korean)}
+                    </div>
+
+                    <div class="word-level">
+                        ${getLevelText(word.level)}
+                    </div>
+
+                </div>
+
+                <button
+                    class="delete-word"
+                    onclick="deleteWord(${index})">
+
+                    削除
+
+                </button>
+
+            </div>
+
+        `;
+
+    });
+
+
+    html += `</div>`;
+
+
+    area.innerHTML =
+        html;
+
+}
+
+
+/* =========================================
+   単語追加
+========================================= */
+
+function addWord(){
+
+    const japanese =
+        document.getElementById(
+            "japaneseInput"
+        ).value.trim();
+
+
+    const korean =
+        document.getElementById(
+            "koreanInput"
+        ).value.trim();
+
+
+    const level =
+        document.getElementById(
+            "levelInput"
+        ).value;
+
+
+    if(!japanese || !korean){
+
+        alert(
+            "日本語と韓国語を入力してください。"
+        );
+
+        return;
+
+    }
+
+
+    const decks =
+        getDecks();
+
+
+    const index =
+        decks.findIndex(
+            deck =>
+                deck.id === selectedDeckId
+        );
+
+
+    if(index === -1){
+
+        return;
+
+    }
+
+
+    if(!Array.isArray(
+        decks[index].words
+    )){
+
+        decks[index].words = [];
+
+    }
+
+
+    decks[index].words.push({
+
+        id:
+            Date.now().toString(),
+
+        japanese:
+            japanese,
+
+        korean:
+            korean,
+
+        level:
+            level
+
+    });
+
+
+    localStorage.setItem(
+        "myDecks",
+        JSON.stringify(decks)
+    );
+
+
+    document.getElementById(
+        "japaneseInput"
+    ).value = "";
+
+
+    document.getElementById(
+        "koreanInput"
+    ).value = "";
+
+
+    showDeck();
+
+}
+
+
+/* =========================================
+   削除
+========================================= */
+
+/* =========================================
+   Delete Word Modal
+========================================= */
+
+let deleteWordIndex = null;
+
+
+/*
+    確認画面を開く
+*/
+
+function deleteWord(index){
+
+    const deck =
+        getCurrentDeck();
+
+
+    if(!deck){
+
+        return;
+
+    }
+
+
+    const word =
+        deck.words[index];
+
+
+    if(!word){
+
+        return;
+
+    }
+
+
+    deleteWordIndex =
+        index;
+
+
+    document.getElementById(
+        "confirmMessage"
+    ).textContent =
+        `「${word.japanese}」を削除しますか？`;
+
+
+    document.getElementById(
+        "confirmOverlay"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+/*
+    確認画面を閉じる
+*/
+
+function closeDeleteModal(){
+
+    deleteWordIndex =
+        null;
+
+
+    document.getElementById(
+        "confirmOverlay"
+    ).classList.remove(
+        "show"
+    );
+
+}
+
+
+/*
+    本当に削除
+*/
+
+function confirmDeleteWord(){
+
+    if(
+        deleteWordIndex === null
+    ){
+
+        return;
+
+    }
+
+
+    const decks =
+        getDecks();
+
+
+    const deckIndex =
+        decks.findIndex(
+            deck =>
+                deck.id ===
+                selectedDeckId
+        );
+
+
+    if(deckIndex === -1){
+
+        closeDeleteModal();
+
+        return;
+
+    }
+
+
+    decks[
+        deckIndex
+    ].words.splice(
+        deleteWordIndex,
+        1
+    );
+
+
+    localStorage.setItem(
+        "myDecks",
+        JSON.stringify(
+            decks
+        )
+    );
+
+
+    closeDeleteModal();
+
+
+    showDeck();
+
+}
+
+
+/* =========================================
+   名前変更
+========================================= */
+
+function renameDeck(){
+
+    const name =
+        document.getElementById(
+            "renameInput"
+        ).value.trim();
+
+
+    if(!name){
+
+        alert(
+            "単語帳名を入力してください。"
+        );
+
+        return;
+
+    }
+
+
+    const decks =
+        getDecks();
+
+
+    const index =
+        decks.findIndex(
+            deck =>
+                deck.id === selectedDeckId
+        );
+
+
+    if(index === -1){
+        return;
+    }
+
+
+    decks[index].name =
+        name;
+
+
+    localStorage.setItem(
+        "myDecks",
+        JSON.stringify(decks)
+    );
+
+
+    showDeck();
+
+
+}
+
+
+/* =========================================
+   Escape
+========================================= */
+
+function escapeHtml(text){
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+
+}
+
+
+showDeck();
+
+</script>
+
+</body>
+
+</html>

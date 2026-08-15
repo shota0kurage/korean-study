@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>語彙学習</title>
+
+<style>
+body{
+    font-family:sans-serif;
+    background:#f5f7fb;
+    margin:0;
+}
+
+.container{
+    max-width:700px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+
+.question{
+    font-size:2rem;
+    text-align:center;
+    margin:30px 0;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    font-size:1.1rem;
+    border-radius:10px;
+    border:1px solid #ccc;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    margin-top:12px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.check{
+    background:#4f7cff;
+    color:white;
+}
+
+.next{
+    background:#22c55e;
+    color:white;
+    display:none;
+}
+
+.hint{
+    background:#eceff5;
+}
+
+.result{
+    margin-top:20px;
+    text-align:center;
+    font-size:1.1rem;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h2>語彙学習</h2>
+
+<div style="margin-bottom:15px;">
+
+<label>問題数：</label>
+
+<input
+id="questionCount"
+type="number"
+value="10"
+min="1">
+
+</div>
+
+<div id="question" class="question">
+読み込み中...
+</div>
+
+<input
+id="answer"
+type="text"
+placeholder="韓国語を入力">
+
+<button
+id="checkBtn"
+class="check"
+onclick="checkAnswer()">
+答え合わせ
+</button>
+
+<button
+class="hint"
+onclick="showHint()">
+ヒント
+</button>
+
+<button
+id="nextBtn"
+class="next"
+onclick="nextQuestion()">
+次の問題
+</button>
+
+<div
+id="result"
+class="result">
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let vocabData = [
+{
+    korean:"유래",
+    japanese:"由来"
+},
+{
+    korean:"근거",
+    japanese:"根拠"
+},
+{
+    korean:"경험",
+    japanese:"経験"
+}
+];
+let currentQuestion = null;
+let answered = false;
+
+let totalQuestions = 10;
+let currentCount = 0;
+let correctCount = 0;
+
+let questionPool = [];
+
+let wrongWords =
+JSON.parse(
+    localStorage.getItem("wrongWords")
+    || "[]"
+);
+
+
+function nextQuestion(){
+
+    if(currentCount >= totalQuestions){
+
+        showResult();
+        return;
+
+    }
+
+    currentCount++;
+
+    currentQuestion =
+        questionPool.pop();
+
+    document.getElementById("question")
+        .textContent =
+        currentQuestion.japanese;
+
+    document.getElementById("answer")
+        .value = "";
+
+    document.getElementById("result")
+        .textContent = "";
+
+    document.getElementById("nextBtn")
+        .style.display = "none";
+
+    answered = false;
+
+    document.getElementById("answer")
+        .focus();
+}
+
+function checkAnswer(){
+
+    const user =
+        document.getElementById("answer")
+        .value
+        .trim();
+
+    const result =
+        document.getElementById("result");
+
+    if(user === currentQuestion.korean){
+
+        result.innerHTML =
+            "⭕ 正解";
+
+            correctCount++;
+
+}else{
+
+    result.innerHTML =
+        "❌ 正解：<b>" +
+        currentQuestion.korean +
+        "</b>";
+
+    const exists =
+    wrongWords.some(
+        word =>
+        word.korean ===
+        currentQuestion.korean
+    );
+
+    if(!exists){
+
+        wrongWords.push(
+            currentQuestion
+        );
+
+        localStorage.setItem(
+            "wrongWords",
+            JSON.stringify(
+                wrongWords
+            )
+        );
+
+    }
+}
+
+    document.getElementById("nextBtn")
+        .style.display = "block";
+
+    answered = true;
+}
+
+function showResult(){
+
+    document
+    .querySelector(".card")
+    .innerHTML = `
+
+        <h2>学習終了！</h2>
+
+        <p>問題数：${totalQuestions}</p>
+
+        <p>正解数：${correctCount}</p>
+
+        <p>不正解数：${totalQuestions - correctCount}</p>
+
+        <p>
+        正答率：
+        ${Math.round(
+            correctCount /
+            totalQuestions *
+            100
+        )}%
+        </p>
+
+        <button onclick="location.reload()">
+        もう一度学習する
+        </button>
+
+    `;
+}
+
+function showHint(){
+
+    if(!currentQuestion) return;
+
+    const hint =
+        currentQuestion.korean[0] +
+        " _ _";
+
+    document.getElementById("result")
+        .innerHTML =
+        "ヒント：" + hint;
+}
+
+document.addEventListener(
+    "keydown",
+    function(e){
+
+        if(e.key !== "Enter") return;
+
+        if(answered){
+
+            nextQuestion();
+
+        }else{
+
+            checkAnswer();
+
+        }
+    }
+);
+
+totalQuestions =
+Number(
+    document.getElementById(
+        "questionCount"
+    ).value
+);
+
+questionPool =
+    [...vocabData];
+
+shuffle(questionPool);
+
+if(
+    totalQuestions >
+    questionPool.length
+){
+    totalQuestions =
+        questionPool.length;
+}
+
+function shuffle(array){
+
+    for(
+        let i = array.length - 1;
+        i > 0;
+        i--
+    ){
+
+        const j =
+        Math.floor(
+            Math.random() *
+            (i + 1)
+        );
+
+        [
+            array[i],
+            array[j]
+        ] =
+        [
+            array[j],
+            array[i]
+        ];
+
+    }
+
+}
+
+nextQuestion();
+
+</script>
+
+</body>
+</html>

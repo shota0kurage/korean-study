@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<title>学習履歴</title>
+
+<link
+    rel="stylesheet"
+    href="style.css">
+
+<script src="study-tracker.js"></script>
+
+<style>
+
+.history-page{
+    max-width:800px;
+    margin:0 auto;
+}
+
+.history-header{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.history-icon{
+    font-size:2.8rem;
+    margin-bottom:8px;
+}
+
+.history-header h1{
+    margin:0;
+    font-size:1.8rem;
+}
+
+.history-header p{
+    color:var(--sub);
+    margin-top:8px;
+}
+
+.history-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.history-item{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:18px;
+}
+
+.history-category{
+    color:var(--sub);
+    font-size:.8rem;
+}
+
+.history-question{
+    font-size:1.05rem;
+    font-weight:700;
+    margin-top:5px;
+}
+
+.history-result{
+    margin-top:10px;
+    font-weight:700;
+}
+
+.history-result.correct{
+    color:var(--success);
+}
+
+.history-result.wrong{
+    color:var(--danger);
+}
+
+.history-result.unknown{
+    color:var(--primary);
+}
+
+.history-date{
+    color:var(--sub);
+    font-size:.78rem;
+    margin-top:8px;
+}
+
+.history-empty{
+    text-align:center;
+    padding:55px 20px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+}
+
+.history-actions{
+    margin-top:20px;
+}
+
+.history-actions .btn + .btn{
+    margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container history-page">
+
+    <div class="site-header">
+
+        <div class="logo">
+            Korean <span>Study</span>
+        </div>
+
+    </div>
+
+
+    <div class="history-header">
+
+        <div class="history-icon">
+            📊
+        </div>
+
+        <h1>
+            学習履歴
+        </h1>
+
+        <p>
+            最新20件の学習履歴を表示します
+        </p>
+
+    </div>
+
+
+    <div
+        id="historyList"
+        class="history-list">
+
+    </div>
+
+
+    <div class="history-actions">
+
+        <button
+            class="btn btn-danger"
+            onclick="clearHistory()">
+
+            学習履歴をすべて削除
+
+        </button>
+
+
+        <button
+            class="btn btn-secondary"
+            onclick="location.href='index.html'">
+
+            ← ホームへ戻る
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function renderHistory(){
+
+    const list =
+        document.getElementById(
+            "historyList"
+        );
+
+
+    const history =
+        getStudyHistory();
+
+
+    list.innerHTML = "";
+
+
+    if(history.length === 0){
+
+        list.innerHTML = `
+
+            <div class="history-empty">
+
+                📚
+
+                <p>
+                    まだ学習履歴がありません。
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    [
+        ...history
+    ]
+    .reverse()
+    .forEach(
+        item => {
+
+            let resultText = "";
+
+            let resultClass = "";
+
+
+            if(
+                item.resultType ===
+                "unknown"
+            ){
+
+                resultText =
+                    "🤔 わからない";
+
+                resultClass =
+                    "unknown";
+
+            }else if(
+                item.correct
+            ){
+
+                resultText =
+                    "⭕ 正解";
+
+                resultClass =
+                    "correct";
+
+            }else{
+
+                resultText =
+                    "❌ 不正解";
+
+                resultClass =
+                    "wrong";
+
+            }
+
+
+            list.innerHTML += `
+
+                <div class="history-item">
+
+                    <div class="history-category">
+                        ${escapeHtml(
+                            item.categoryName || ""
+                        )}
+                    </div>
+
+                    <div class="history-question">
+                        ${escapeHtml(
+                            item.question || ""
+                        )}
+                    </div>
+
+                    <div
+                        class="
+                            history-result
+                            ${resultClass}
+                        ">
+
+                        ${resultText}
+
+                    </div>
+
+                    <div class="history-date">
+                        ${escapeHtml(
+                            item.date || ""
+                        )}
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+}
+
+
+function clearHistory(){
+
+    if(
+        !confirm(
+            "学習履歴をすべて削除しますか？"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "studyHistory",
+        "[]"
+    );
+
+
+    renderHistory();
+
+}
+
+
+function escapeHtml(text){
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+
+}
+
+
+renderHistory();
+
+</script>
+
+</body>
+
+</html>

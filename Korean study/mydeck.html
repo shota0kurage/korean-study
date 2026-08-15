@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>マイ単語帳</title>
+
+<link
+    rel="stylesheet"
+    href="style.css"
+>
+
+<style>
+
+/* =========================================
+   Page
+========================================= */
+
+.deck-page{
+    max-width:900px;
+    margin:0 auto;
+}
+
+
+/* =========================================
+   Header
+========================================= */
+
+.deck-header{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.deck-header-icon{
+    font-size:2.8rem;
+    margin-bottom:10px;
+}
+
+.deck-header h1{
+    margin:0;
+    font-size:1.8rem;
+}
+
+.deck-header p{
+    margin-top:8px;
+    color:var(--sub);
+}
+
+
+/* =========================================
+   Deck Area
+========================================= */
+
+.deck-area{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:22px;
+
+    padding:30px;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+/* =========================================
+   Deck List
+========================================= */
+
+.deck-list{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:18px;
+
+}
+
+
+/* =========================================
+   Deck Card
+========================================= */
+
+.deck-card{
+
+    width:280px;
+
+    background:#0f1115;
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:24px;
+
+    cursor:pointer;
+
+    text-align:center;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
+
+}
+
+.deck-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 14px 30px
+        rgba(0,0,0,.35);
+
+    border-color:
+        rgba(29,155,240,.5);
+
+}
+
+.deck-card-icon{
+
+    font-size:2.5rem;
+
+    margin-bottom:12px;
+
+}
+
+.deck-card-name{
+
+    font-size:1.15rem;
+
+    font-weight:700;
+
+    word-break:break-word;
+
+}
+
+.deck-card-count{
+
+    margin-top:8px;
+
+    color:var(--sub);
+
+    font-size:.9rem;
+
+}
+
+
+/* =========================================
+   Create Button
+========================================= */
+
+.create-section{
+
+    width:100%;
+
+    max-width:500px;
+
+    margin:25px auto 0;
+
+}
+
+
+/* =========================================
+   Empty
+========================================= */
+
+.deck-empty{
+
+    text-align:center;
+
+    padding:30px 20px;
+
+}
+
+.deck-empty-icon{
+
+    font-size:3rem;
+
+    margin-bottom:15px;
+
+}
+
+.deck-empty h2{
+
+    margin:0;
+
+    font-size:1.25rem;
+
+}
+
+.deck-empty p{
+
+    color:var(--sub);
+
+    margin:10px 0 25px;
+
+}
+
+
+/* =========================================
+   Create Form
+========================================= */
+
+.create-form{
+
+    max-width:500px;
+
+    margin:0 auto;
+
+    text-align:center;
+
+}
+
+.create-form-icon{
+
+    font-size:2.5rem;
+
+    margin-bottom:10px;
+
+}
+
+.create-form h2{
+
+    margin:0;
+
+    font-size:1.35rem;
+
+}
+
+.create-form p{
+
+    color:var(--sub);
+
+    margin:8px 0 22px;
+
+}
+
+.deck-name-input{
+
+    width:100%;
+
+    padding:14px 16px;
+
+    border:
+        2px solid var(--border);
+
+    border-radius:12px;
+
+    background:#0f1115;
+
+    color:var(--text);
+
+    outline:none;
+
+    font-size:1rem;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+
+}
+
+.deck-name-input:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(29,155,240,.12);
+
+}
+
+.create-form-buttons{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:15px;
+
+}
+
+.create-form-buttons .btn{
+
+    flex:1;
+
+}
+
+
+/* =========================================
+   Back
+========================================= */
+
+.back-button{
+
+    margin-top:15px;
+
+}
+
+
+/* =========================================
+   Mobile
+========================================= */
+
+@media(max-width:650px){
+
+    .deck-area{
+
+        padding:20px 15px;
+
+    }
+
+    .deck-card{
+
+        width:100%;
+
+        max-width:360px;
+
+    }
+
+    .create-form-buttons{
+
+        flex-direction:column;
+
+    }
+
+}
+
+.deck-delete-button{
+    width:100%;
+
+    margin-top:12px;
+
+    padding:10px 12px;
+
+    border:none;
+    border-radius:10px;
+
+    background:rgba(244,33,46,.1);
+    color:var(--danger);
+
+    font-size:.9rem;
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:
+        background .15s ease,
+        transform .15s ease;
+}
+
+.deck-delete-button:hover{
+    background:rgba(244,33,46,.2);
+}
+
+.deck-delete-button:active{
+    transform:scale(.98);
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+    <div
+    id="confirmOverlay"
+    class="confirm-overlay">
+
+    <div class="confirm-modal">
+
+        <div class="confirm-icon">
+            🗑️
+        </div>
+
+        <div class="confirm-title">
+            単語帳を削除しますか？
+        </div>
+
+        <div
+            id="confirmMessage"
+            class="confirm-message">
+        </div>
+
+        <div class="confirm-warning">
+            この単語帳と登録されている単語が
+            すべて削除されます。
+        </div>
+
+        <div class="confirm-buttons">
+
+            <button
+                class="btn btn-secondary"
+                onclick="closeDeleteModal()">
+
+                キャンセル
+
+            </button>
+
+            <button
+                class="btn confirm-delete-button"
+                onclick="confirmDeleteDeck()">
+
+                削除する
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="container deck-page">
+
+
+    <!-- Header -->
+
+    <div class="site-header">
+
+        <div class="logo">
+            Korean <span>Study</span>
+        </div>
+
+    </div>
+
+
+    <!-- Title -->
+
+    <div class="deck-header">
+
+        <div class="deck-header-icon">
+            📖
+        </div>
+
+        <h1>
+            マイ単語帳
+        </h1>
+
+        <p>
+            自分だけの単語帳を管理できます
+        </p>
+
+    </div>
+
+
+    <!-- Deck Area -->
+
+    <div id="deckArea"></div>
+
+
+    <!-- Home -->
+
+    <button
+        class="btn btn-secondary back-button"
+        onclick="location.href='index.html'">
+
+        ホームへ戻る
+
+    </button>
+
+
+</div>
+
+
+<script>
+
+/* =========================================
+   データ取得
+========================================= */
+
+function getDecks(){
+
+    return JSON.parse(
+        localStorage.getItem(
+            "myDecks"
+        ) || "[]"
+    );
+
+}
+
+
+/* =========================================
+   単語帳表示
+========================================= */
+
+function showDecks(){
+
+    const deckArea =
+        document.getElementById(
+            "deckArea"
+        );
+
+
+    const decks =
+        getDecks();
+
+
+    /*
+        単語帳がない場合
+    */
+
+    if(decks.length === 0){
+
+        deckArea.innerHTML = `
+
+            <div class="deck-area">
+
+                <div class="deck-empty">
+
+                    <div class="deck-empty-icon">
+                        📚
+                    </div>
+
+                    <h2>
+                        まだ単語帳がありません
+                    </h2>
+
+                    <p>
+                        自分だけの単語帳を作って
+                        韓国語を整理しましょう。
+                    </p>
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="showCreateForm()">
+
+                        ＋ 新しい単語帳を作成
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /*
+        単語帳がある場合
+    */
+
+    let html = `
+
+        <div class="deck-area">
+
+            <div class="deck-list">
+
+    `;
+
+
+   decks.forEach(deck => {
+
+    const wordCount =
+        Array.isArray(deck.words)
+        ? deck.words.length
+        : 0;
+
+
+    html += `
+
+        <div class="deck-card">
+
+            <div
+                onclick="openDeck('${deck.id}')">
+
+                <div class="deck-card-icon">
+                    📖
+                </div>
+
+                <div class="deck-card-name">
+                    ${escapeHtml(deck.name)}
+                </div>
+
+                <div class="deck-card-count">
+                    ${wordCount}語
+                </div>
+
+            </div>
+
+
+            <button
+                class="deck-delete-button"
+                onclick="deleteDeck('${deck.id}')">
+
+                🗑️ この単語帳を削除
+
+            </button>
+
+        </div>
+
+    `;
+
+});
+
+    html += `
+
+            </div>
+
+            <div class="create-section">
+
+                <button
+                    class="btn btn-primary"
+                    onclick="showCreateForm()">
+
+                    ＋ 新しい単語帳を作成
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    deckArea.innerHTML =
+        html;
+
+}
+
+
+/* =========================================
+   作成フォーム表示
+========================================= */
+
+function showCreateForm(){
+
+    const deckArea =
+        document.getElementById(
+            "deckArea"
+        );
+
+
+    deckArea.innerHTML = `
+
+        <div class="deck-area">
+
+            <div class="create-form">
+
+                <div class="create-form-icon">
+                    📚
+                </div>
+
+                <h2>
+                    新しい単語帳を作成
+                </h2>
+
+                <p>
+                    単語帳の名前を入力してください
+                </p>
+
+                <input
+                    id="deckNameInput"
+                    class="deck-name-input"
+                    type="text"
+                    maxlength="50"
+                    placeholder="例：TOPIK重要単語"
+                >
+
+                <div class="create-form-buttons">
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="createDeck()">
+
+                        作成する
+
+                    </button>
+
+                    <button
+                        class="btn btn-secondary"
+                        onclick="showDecks()">
+
+                        キャンセル
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    /*
+        入力欄にフォーカス
+    */
+
+    document
+        .getElementById(
+            "deckNameInput"
+        )
+        .focus();
+
+}
+
+/* =========================================
+   単語帳を削除
+========================================= */
+
+/* =========================================
+   Delete Modal
+========================================= */
+
+let deleteTargetId = null;
+
+
+/*
+    削除確認画面を開く
+*/
+
+function deleteDeck(id){
+
+    const decks =
+        getDecks();
+
+
+    const deck =
+        decks.find(
+            deck =>
+                deck.id === id
+        );
+
+
+    if(!deck){
+
+        return;
+
+    }
+
+
+    deleteTargetId =
+        id;
+
+
+    document.getElementById(
+        "confirmMessage"
+    ).textContent =
+        `「${deck.name}」を本当に削除しますか？`;
+
+
+    document.getElementById(
+        "confirmOverlay"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+/*
+    確認画面を閉じる
+*/
+
+function closeDeleteModal(){
+
+    deleteTargetId =
+        null;
+
+
+    document.getElementById(
+        "confirmOverlay"
+    ).classList.remove(
+        "show"
+    );
+
+}
+
+
+/*
+    本当に削除
+*/
+
+function confirmDeleteDeck(){
+
+    if(!deleteTargetId){
+
+        return;
+
+    }
+
+
+    const decks =
+        getDecks();
+
+
+    const newDecks =
+        decks.filter(
+            deck =>
+                deck.id !==
+                deleteTargetId
+        );
+
+
+    localStorage.setItem(
+        "myDecks",
+        JSON.stringify(
+            newDecks
+        )
+    );
+
+
+    closeDeleteModal();
+
+
+    showDecks();
+
+}
+
+/* =========================================
+   単語帳作成
+========================================= */
+
+function createDeck(){
+
+    const input =
+        document.getElementById(
+            "deckNameInput"
+        );
+
+
+    if(!input){
+
+        return;
+
+    }
+
+
+    const trimmedName =
+        input.value.trim();
+
+
+    /*
+        名前が空の場合
+    */
+
+    if(!trimmedName){
+
+        input.focus();
+
+        return;
+
+    }
+
+
+    const decks =
+        getDecks();
+
+
+    /*
+        新しい単語帳
+    */
+
+    const newDeck = {
+
+        id:
+            Date.now()
+            .toString(),
+
+        name:
+            trimmedName,
+
+        words:
+            [],
+
+        createdAt:
+            new Date()
+            .toLocaleString(
+                "ja-JP"
+            )
+
+    };
+
+
+    decks.push(
+        newDeck
+    );
+
+
+    localStorage.setItem(
+        "myDecks",
+        JSON.stringify(
+            decks
+        )
+    );
+
+
+    /*
+        作成後は一覧に戻る
+    */
+
+    showDecks();
+
+}
+
+
+/* =========================================
+   Enterキーで作成
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key !== "Enter"
+        ){
+
+            return;
+
+        }
+
+
+        const input =
+            document.getElementById(
+                "deckNameInput"
+            );
+
+
+        if(!input){
+
+            return;
+
+        }
+
+
+        createDeck();
+
+    }
+);
+
+
+/* =========================================
+   単語帳を開く
+========================================= */
+
+function openDeck(id){
+
+    localStorage.setItem(
+        "selectedDeckId",
+        id
+    );
+
+
+    location.href =
+        "deck-detail.html";
+
+}
+
+
+/* =========================================
+   HTMLエスケープ
+========================================= */
+
+function escapeHtml(text){
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        text;
+
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================
+   初期表示
+========================================= */
+
+showDecks();
+
+</script>
+
+</body>
+
+</html>

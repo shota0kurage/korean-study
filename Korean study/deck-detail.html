@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>単語帳</title>
+
+<link
+    rel="stylesheet"
+    href="style.css"
+>
+
+<style>
+
+.detail-page{
+    max-width:800px;
+    margin:0 auto;
+}
+
+.detail-header{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.detail-icon{
+    font-size:3rem;
+    margin-bottom:10px;
+}
+
+.detail-title{
+    font-size:1.8rem;
+    font-weight:800;
+}
+
+.detail-count{
+    color:var(--sub);
+    margin-top:8px;
+}
+
+.action-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+    margin-bottom:25px;
+}
+
+.action-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:28px 20px;
+    text-align:center;
+    cursor:pointer;
+
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+.action-card:hover{
+    transform:translateY(-4px);
+
+    border-color:
+        rgba(29,155,240,.5);
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.3);
+}
+
+.action-icon{
+    font-size:2.5rem;
+    margin-bottom:12px;
+}
+
+.action-title{
+    font-size:1.15rem;
+    font-weight:700;
+}
+
+.action-description{
+    margin-top:6px;
+    color:var(--sub);
+    font-size:.85rem;
+}
+
+.word-preview{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:25px;
+}
+
+.preview-title{
+    font-size:1.05rem;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.preview-empty{
+    text-align:center;
+    color:var(--sub);
+    padding:30px 10px;
+}
+
+.preview-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.preview-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:13px 15px;
+
+    background:#0f1115;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:12px;
+}
+
+.preview-japanese{
+    font-weight:700;
+}
+
+.preview-korean{
+    color:var(--primary);
+    font-weight:600;
+}
+
+.back-button{
+    margin-top:20px;
+}
+
+@media(max-width:650px){
+
+    .action-grid{
+        grid-template-columns:1fr;
+    }
+
+    .preview-item{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:4px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container detail-page">
+
+    <div class="site-header">
+
+        <div class="logo">
+            Korean <span>Study</span>
+        </div>
+
+    </div>
+
+
+    <div class="detail-header">
+
+        <div class="detail-icon">
+            📖
+        </div>
+
+        <div
+            id="deckName"
+            class="detail-title">
+
+            読み込み中...
+
+        </div>
+
+        <div
+            id="deckCount"
+            class="detail-count">
+
+        </div>
+
+    </div>
+
+
+    <!-- 操作 -->
+
+    <div class="action-grid">
+
+        <div
+            class="action-card"
+            onclick="startLearning()">
+
+            <div class="action-icon">
+                🎯
+            </div>
+
+            <div class="action-title">
+                学習する
+            </div>
+
+            <div class="action-description">
+                この単語帳から問題を解く
+            </div>
+
+        </div>
+
+
+        <div
+            class="action-card"
+            onclick="editDeck()">
+
+            <div class="action-icon">
+                ✏️
+            </div>
+
+            <div class="action-title">
+                編集する
+            </div>
+
+            <div class="action-description">
+                単語の追加・削除・名前変更
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- 単語プレビュー -->
+
+    <div class="word-preview">
+
+        <div class="preview-title">
+            📚 登録されている単語
+        </div>
+
+        <div id="previewArea"></div>
+
+    </div>
+
+
+    <button
+        class="btn btn-secondary back-button"
+        onclick="location.href='mydeck.html'">
+
+        ← 単語帳一覧へ戻る
+
+    </button>
+
+</div>
+
+
+<script>
+
+const selectedDeckId =
+    localStorage.getItem(
+        "selectedDeckId"
+    );
+
+
+function getDecks(){
+
+    return JSON.parse(
+        localStorage.getItem(
+            "myDecks"
+        ) || "[]"
+    );
+
+}
+
+
+function getCurrentDeck(){
+
+    const decks =
+        getDecks();
+
+    return decks.find(
+        deck =>
+            deck.id === selectedDeckId
+    );
+
+}
+
+
+/* =========================================
+   表示
+========================================= */
+
+function showDeck(){
+
+    const deck =
+        getCurrentDeck();
+
+
+    if(!deck){
+
+        alert(
+            "単語帳が見つかりません。"
+        );
+
+        location.href =
+            "mydeck.html";
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "deckName"
+    ).textContent =
+        deck.name;
+
+
+    const words =
+        Array.isArray(deck.words)
+        ? deck.words
+        : [];
+
+
+    document.getElementById(
+        "deckCount"
+    ).textContent =
+        words.length + "語";
+
+
+    const previewArea =
+        document.getElementById(
+            "previewArea"
+        );
+
+
+    if(words.length === 0){
+
+        previewArea.innerHTML = `
+
+            <div class="preview-empty">
+
+                まだ単語が登録されていません。<br>
+                「編集する」から単語を追加できます。
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /*
+        最大5語だけプレビュー
+    */
+
+    const previewWords =
+        words.slice(0,5);
+
+
+    let html = `
+
+        <div class="preview-list">
+
+    `;
+
+
+    previewWords.forEach(word => {
+
+        html += `
+
+            <div class="preview-item">
+
+                <div class="preview-japanese">
+                    ${escapeHtml(word.japanese)}
+                </div>
+
+                <div class="preview-korean">
+                    ${escapeHtml(word.korean)}
+                </div>
+
+            </div>
+
+        `;
+
+    });
+
+
+    html += `
+
+        </div>
+
+    `;
+
+
+    if(words.length > 5){
+
+        html += `
+
+            <div
+                style="
+                    text-align:center;
+                    color:var(--sub);
+                    margin-top:12px;
+                    font-size:.85rem;
+                "
+            >
+
+                他 ${words.length - 5}語
+
+            </div>
+
+        `;
+
+    }
+
+
+    previewArea.innerHTML =
+        html;
+
+}
+
+
+/* =========================================
+   学習
+========================================= */
+
+function startLearning(){
+
+    const deck =
+        getCurrentDeck();
+
+
+    if(!deck){
+
+        return;
+
+    }
+
+
+    const words =
+        Array.isArray(deck.words)
+        ? deck.words
+        : [];
+
+
+    if(words.length === 0){
+
+        alert(
+            "この単語帳にはまだ単語がありません。"
+        );
+
+        return;
+
+    }
+
+
+    location.href =
+        "deck-quiz.html";
+
+}
+
+
+/* =========================================
+   編集
+========================================= */
+
+function editDeck(){
+
+    location.href =
+        "deck-edit.html";
+
+}
+
+
+/* =========================================
+   HTML Escape
+========================================= */
+
+function escapeHtml(text){
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+
+}
+
+
+showDeck();
+
+</script>
+
+</body>
+
+</html>
