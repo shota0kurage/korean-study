@@ -15,219 +15,426 @@
     rel="stylesheet"
     href="style.css">
 
-<script src="study-tracker.js"></script>
 
 <style>
 
+/* =========================================
+   Page
+========================================= */
+
 .deck-quiz-page{
+
     max-width:700px;
+
     margin:0 auto;
+
 }
 
+
+/* =========================================
+   Header
+========================================= */
+
 .quiz-top{
+
     text-align:center;
+
     margin-bottom:20px;
+
 }
 
 .quiz-deck-name{
+
     font-size:1.4rem;
+
     font-weight:800;
+
 }
 
 .quiz-progress{
+
     color:var(--sub);
+
     margin-top:6px;
+
 }
 
-.setup-card,
-.quiz-card{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:20px;
-    padding:30px;
-}
+
+/* =========================================
+   Setup
+========================================= */
 
 .setup-card{
+
+    background:var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:30px;
+
     text-align:center;
+
+    box-shadow:var(--shadow);
+
 }
 
-.count-input{
-    width:100%;
-    padding:14px;
-    background:#0f1115;
-    color:var(--text);
-    border:1px solid var(--border);
-    border-radius:10px;
-    text-align:center;
-    font-size:1.1rem;
+
+/* =========================================
+   Quiz
+========================================= */
+
+.quiz-card{
+
+    background:var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:30px;
+
+    box-shadow:var(--shadow);
+
 }
 
 .question{
+
     text-align:center;
-    font-size:clamp(2rem,6vw,3rem);
+
+    font-size:
+        clamp(2rem,6vw,3rem);
+
     font-weight:800;
-    margin:45px 0 35px;
+
+    margin:
+        45px 0 35px;
+
+    word-break:break-word;
+
 }
 
 .answer-input{
+
     width:100%;
+
     padding:15px;
+
     background:#0f1115;
+
     color:var(--text);
-    border:2px solid var(--border);
+
+    border:
+        2px solid var(--border);
+
     border-radius:12px;
+
     outline:none;
+
     font-size:1.05rem;
+
 }
 
 .answer-input:focus{
-    border-color:var(--primary);
+
+    border-color:
+        var(--primary);
+
 }
 
 .answer-input:disabled{
+
     opacity:.7;
+
 }
 
+
+/* =========================================
+   Result
+========================================= */
+
 .quiz-result{
+
     margin-top:18px;
+
     padding:15px;
+
     border-radius:12px;
+
     text-align:center;
+
     line-height:1.7;
+
 }
 
 .quiz-result.correct{
-    background:rgba(0,186,124,.12);
-    color:#00ba7c;
+
+    background:
+        rgba(0,186,124,.12);
+
+    color:
+        #00ba7c;
+
 }
 
 .quiz-result.wrong{
-    background:rgba(244,33,46,.12);
-    color:#f4212e;
+
+    background:
+        rgba(244,33,46,.12);
+
+    color:
+        #f4212e;
+
 }
 
 .quiz-result.unknown{
-    background:rgba(29,155,240,.12);
-    color:#1d9bf0;
+
+    background:
+        rgba(29,155,240,.12);
+
+    color:
+        #1d9bf0;
+
 }
 
+
+/* =========================================
+   Finish
+========================================= */
+
+.finish{
+
+    text-align:center;
+
+}
+
+.finish-icon{
+
+    font-size:3rem;
+
+}
+
+.finish-title{
+
+    font-size:1.6rem;
+
+    font-weight:700;
+
+    margin-top:10px;
+
+}
+
+.finish-score{
+
+    font-size:3rem;
+
+    font-weight:800;
+
+    color:
+        var(--primary);
+
+    margin:20px 0;
+
+}
+
+.finish-stats{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:12px;
+
+    margin:20px 0;
+
+}
+
+.finish-stat{
+
+    background:#0f1115;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:14px;
+
+    padding:18px;
+
+}
+
+.finish-stat-label{
+
+    color:var(--sub);
+
+    font-size:.8rem;
+
+}
+
+.finish-stat-value{
+
+    font-size:1.4rem;
+
+    font-weight:700;
+
+    margin-top:5px;
+
+}
+
+
+/* =========================================
+   Animation
+========================================= */
+
 .quiz-correct-animation{
-    animation:correctShake .3s ease;
+
+    animation:
+        correctShake
+        .3s
+        ease;
+
 }
 
 .quiz-wrong-animation{
-    animation:wrongShake .32s ease;
+
+    animation:
+        wrongShake
+        .32s
+        ease;
+
 }
 
 .quiz-unknown-animation{
-    animation:unknownPop .28s ease;
+
+    animation:
+        unknownPop
+        .28s
+        ease;
+
 }
 
 .quiz-pop-animation{
-    animation:quizPop .25s ease;
+
+    animation:
+        quizPop
+        .25s
+        ease;
+
 }
+
 
 @keyframes correctShake{
 
-    0%{transform:translateY(0)}
-    25%{transform:translateY(-2px)}
-    50%{transform:translateY(2px)}
-    75%{transform:translateY(-1px)}
-    100%{transform:translateY(0)}
+    0%{
+        transform:translateY(0);
+    }
+
+    25%{
+        transform:translateY(-2px);
+    }
+
+    50%{
+        transform:translateY(2px);
+    }
+
+    75%{
+        transform:translateY(-1px);
+    }
+
+    100%{
+        transform:translateY(0);
+    }
 
 }
+
 
 @keyframes wrongShake{
 
-    0%{transform:translateX(0)}
-    25%{transform:translateX(-3px)}
-    50%{transform:translateX(3px)}
-    75%{transform:translateX(-2px)}
-    100%{transform:translateX(0)}
+    0%{
+        transform:translateX(0);
+    }
+
+    25%{
+        transform:translateX(-3px);
+    }
+
+    50%{
+        transform:translateX(3px);
+    }
+
+    75%{
+        transform:translateX(-2px);
+    }
+
+    100%{
+        transform:translateX(0);
+    }
 
 }
+
 
 @keyframes unknownPop{
 
     0%{
-        transform:scale(.98);
+
+        transform:
+            scale(.98);
+
         opacity:.6;
+
     }
 
     100%{
-        transform:scale(1);
+
+        transform:
+            scale(1);
+
         opacity:1;
+
     }
 
 }
+
 
 @keyframes quizPop{
 
     0%{
+
         opacity:.6;
+
         transform:
             scale(.98)
             translateY(3px);
+
     }
 
     100%{
+
         opacity:1;
+
         transform:
             scale(1)
             translateY(0);
+
     }
 
 }
 
-.finish{
-    text-align:center;
-}
 
-.finish-icon{
-    font-size:3rem;
-}
-
-.finish-title{
-    font-size:1.6rem;
-    font-weight:700;
-    margin-top:10px;
-}
-
-.finish-score{
-    font-size:3rem;
-    font-weight:800;
-    color:var(--primary);
-    margin:20px 0;
-}
-
-.finish-stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
-    margin:20px 0;
-}
-
-.finish-stat{
-    background:#0f1115;
-    padding:18px;
-    border-radius:14px;
-}
-
-.finish-stat-label{
-    color:var(--sub);
-    font-size:.8rem;
-}
-
-.finish-stat-value{
-    font-size:1.4rem;
-    font-weight:700;
-    margin-top:5px;
-}
+/* =========================================
+   Mobile
+========================================= */
 
 @media(max-width:650px){
 
     .finish-stats{
-        grid-template-columns:1fr;
+
+        grid-template-columns:
+            1fr;
+
     }
 
 }
@@ -236,9 +443,11 @@
 
 </head>
 
+
 <body>
 
 <div class="container deck-quiz-page">
+
 
     <div class="site-header">
 
@@ -285,6 +494,10 @@
 
 <script>
 
+/* =========================================
+   Data
+========================================= */
+
 const selectedDeckId =
     localStorage.getItem(
         "selectedDeckId"
@@ -303,29 +516,56 @@ let unknownCount = 0;
 
 let answered = false;
 
+let quizFinished = false;
+
 let currentQuestion = null;
 
 
+/* =========================================
+   Get Decks
+========================================= */
+
 function getDecks(){
 
-    return JSON.parse(
-        localStorage.getItem(
-            "myDecks"
-        ) || "[]"
-    );
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "myDecks"
+            ) || "[]"
+        );
+
+    }catch(error){
+
+        return [];
+
+    }
 
 }
 
+
+/* =========================================
+   Current Deck
+========================================= */
 
 function getCurrentDeck(){
 
-    return getDecks().find(
+    const decks =
+        getDecks();
+
+
+    return decks.find(
         deck =>
-            deck.id === selectedDeckId
+            deck.id ===
+            selectedDeckId
     );
 
 }
 
+
+/* =========================================
+   Shuffle
+========================================= */
 
 function shuffle(array){
 
@@ -334,15 +574,18 @@ function shuffle(array){
 
 
     for(
-        let i=result.length-1;
-        i>0;
+        let i =
+            result.length - 1;
+
+        i > 0;
+
         i--
     ){
 
         const j =
             Math.floor(
-                Math.random()*
-                (i+1)
+                Math.random() *
+                (i + 1)
             );
 
 
@@ -362,6 +605,10 @@ function shuffle(array){
 
 }
 
+
+/* =========================================
+   Animation
+========================================= */
 
 function playAnimation(className){
 
@@ -396,7 +643,15 @@ function playAnimation(className){
 }
 
 
+/* =========================================
+   Setup
+========================================= */
+
 function showSetup(){
+
+    quizFinished =
+        false;
+
 
     document.getElementById(
         "quizArea"
@@ -424,7 +679,7 @@ function showSetup(){
 
             <input
                 id="countInput"
-                class="count-input"
+                class="answer-input"
                 type="number"
                 min="1"
                 max="${deck.words.length}"
@@ -432,6 +687,9 @@ function showSetup(){
                     10,
                     deck.words.length
                 )}"
+                style="
+                    text-align:center;
+                "
             >
 
 
@@ -454,8 +712,31 @@ function showSetup(){
     ).onclick =
         startQuiz;
 
+
+    document.getElementById(
+        "countInput"
+    ).addEventListener(
+        "keydown",
+        function(event){
+
+            if(
+                event.key === "Enter" &&
+                !event.isComposing
+            ){
+
+                startQuiz();
+
+            }
+
+        }
+    );
+
 }
 
+
+/* =========================================
+   Start Quiz
+========================================= */
 
 function startQuiz(){
 
@@ -497,11 +778,17 @@ function startQuiz(){
 
     unknownCount = 0;
 
+    quizFinished = false;
+
 
     showQuestion();
 
 }
 
+
+/* =========================================
+   Show Question
+========================================= */
 
 function showQuestion(){
 
@@ -512,11 +799,14 @@ function showQuestion(){
     answered =
         false;
 
+    quizFinished =
+        false;
+
 
     document.getElementById(
         "progress"
     ).textContent =
-        `${currentIndex+1} / ${questions.length}`;
+        `${currentIndex + 1} / ${questions.length}`;
 
 
     document.getElementById(
@@ -524,9 +814,7 @@ function showQuestion(){
     ).innerHTML = `
 
         <div
-            id="deckQuizCard"
-            class="quiz-card"
-        >
+            class="quiz-card">
 
             <div class="question">
 
@@ -604,31 +892,36 @@ function showQuestion(){
         nextQuestion;
 
 
-    document.getElementById(
-        "answerInput"
-    ).focus();
+    const answerInput =
+        document.getElementById(
+            "answerInput"
+        );
 
 
-    document.getElementById(
-        "answerInput"
-    ).addEventListener(
+    answerInput.focus();
+
+
+    answerInput.addEventListener(
         "keydown",
         function(event){
 
             if(
-                event.key === "Enter" &&
-                !event.isComposing
+                event.key !== "Enter" ||
+                event.isComposing
             ){
 
-                if(answered){
+                return;
 
-                    nextQuestion();
+            }
 
-                }else{
 
-                    checkAnswer();
+            if(answered){
 
-                }
+                nextQuestion();
+
+            }else{
+
+                checkAnswer();
 
             }
 
@@ -642,6 +935,10 @@ function showQuestion(){
 
 }
 
+
+/* =========================================
+   Finish Question
+========================================= */
 
 function finishQuestion(){
 
@@ -688,6 +985,10 @@ function finishQuestion(){
 }
 
 
+/* =========================================
+   Check Answer
+========================================= */
+
 function checkAnswer(){
 
     if(answered){
@@ -697,14 +998,14 @@ function checkAnswer(){
     }
 
 
-    const answer =
+    const answerInput =
         document.getElementById(
             "answerInput"
         );
 
 
     const userAnswer =
-        answer.value.trim();
+        answerInput.value.trim();
 
 
     if(!userAnswer){
@@ -713,7 +1014,7 @@ function checkAnswer(){
             "答えを入力してください。"
         );
 
-        answer.focus();
+        answerInput.focus();
 
         return;
 
@@ -748,35 +1049,6 @@ function checkAnswer(){
             "quiz-correct-animation"
         );
 
-
-        saveStudyResult({
-
-            category:
-                "mydeck",
-
-            categoryName:
-                deck.name,
-
-            id:
-                currentQuestion.id,
-
-            level:
-                currentQuestion.level,
-
-            question:
-                currentQuestion.japanese,
-
-            answer:
-                currentQuestion.korean,
-
-            correct:
-                true,
-
-            resultType:
-                "correct"
-
-        });
-
     }else{
 
         result.className =
@@ -796,35 +1068,6 @@ function checkAnswer(){
             "quiz-wrong-animation"
         );
 
-
-        saveStudyResult({
-
-            category:
-                "mydeck",
-
-            categoryName:
-                deck.name,
-
-            id:
-                currentQuestion.id,
-
-            level:
-                currentQuestion.level,
-
-            question:
-                currentQuestion.japanese,
-
-            answer:
-                currentQuestion.korean,
-
-            correct:
-                false,
-
-            resultType:
-                "wrong"
-
-        });
-
     }
 
 
@@ -832,6 +1075,10 @@ function checkAnswer(){
 
 }
 
+
+/* =========================================
+   Unknown
+========================================= */
 
 function markUnknown(){
 
@@ -861,8 +1108,7 @@ function markUnknown(){
         escapeHtml(
             currentQuestion.korean
         ) +
-        "</b><br>" +
-        "この問題を苦手問題に記録しました。";
+        "</b>";
 
 
     playAnimation(
@@ -870,123 +1116,20 @@ function markUnknown(){
     );
 
 
-    /*
-        マイ単語帳のわからない問題も
-        全体の苦手問題へ登録
-    */
-
-    let wrongWords =
-        JSON.parse(
-            localStorage.getItem(
-                "wrongWords"
-            ) || "[]"
-        );
-
-
-    const exists =
-        wrongWords.some(
-            word =>
-                word.category ===
-                "mydeck" &&
-                word.id ===
-                currentQuestion.id
-        );
-
-
-    if(!exists){
-
-        wrongWords.push({
-
-            category:
-                "mydeck",
-
-            categoryName:
-                deck.name,
-
-            id:
-                currentQuestion.id,
-
-            level:
-                currentQuestion.level,
-
-            question:
-                currentQuestion.japanese,
-
-            answer:
-                currentQuestion.korean,
-
-            hint:
-                "",
-
-            correctStreak:
-                0
-
-        });
-
-    }else{
-
-        const index =
-            wrongWords.findIndex(
-                word =>
-                    word.category ===
-                    "mydeck" &&
-                    word.id ===
-                    currentQuestion.id
-            );
-
-
-        wrongWords[index]
-            .correctStreak =
-                0;
-
-    }
-
-
-    localStorage.setItem(
-        "wrongWords",
-        JSON.stringify(
-            wrongWords
-        )
-    );
-
-
-    saveStudyResult({
-
-        category:
-            "mydeck",
-
-        categoryName:
-            deck.name,
-
-        id:
-            currentQuestion.id,
-
-        level:
-            currentQuestion.level,
-
-        question:
-            currentQuestion.japanese,
-
-        answer:
-            currentQuestion.korean,
-
-        correct:
-            false,
-
-        resultType:
-            "unknown"
-
-    });
-
-
     finishQuestion();
 
 }
 
 
+/* =========================================
+   Next
+========================================= */
+
 function nextQuestion(){
 
-    if(!answered){
+    if(
+        !answered
+    ){
 
         return;
 
@@ -1013,7 +1156,21 @@ function nextQuestion(){
 }
 
 
+/* =========================================
+   Finish
+========================================= */
+
 function showFinished(){
+
+    quizFinished =
+        true;
+
+
+    document.getElementById(
+        "progress"
+    ).textContent =
+        "学習終了";
+
 
     const rate =
         Math.round(
@@ -1031,81 +1188,103 @@ function showFinished(){
             class="quiz-card"
             style="text-align:center;">
 
-            <div class="finish-icon">
-                🎉
-            </div>
+            <div class="finish">
 
-            <div class="finish-title">
-                学習終了！
-            </div>
+                <div class="finish-icon">
+                    🎉
+                </div>
 
-            <div class="finish-score">
-                ${rate}%
-            </div>
+                <div class="finish-title">
+                    学習終了！
+                </div>
 
-            <div class="finish-stats">
+                <div class="finish-score">
+                    ${rate}%
+                </div>
 
-                <div class="finish-stat">
 
-                    <div class="finish-stat-label">
-                        問題数
+                <div class="finish-stats">
+
+                    <div class="finish-stat">
+
+                        <div class="finish-stat-label">
+                            問題数
+                        </div>
+
+                        <div class="finish-stat-value">
+                            ${questions.length}問
+                        </div>
+
                     </div>
 
-                    <div class="finish-stat-value">
-                        ${questions.length}問
+
+                    <div class="finish-stat">
+
+                        <div class="finish-stat-label">
+                            正解数
+                        </div>
+
+                        <div class="finish-stat-value">
+                            ${correctCount}問
+                        </div>
+
+                    </div>
+
+
+                    <div class="finish-stat">
+
+                        <div class="finish-stat-label">
+                            わからない
+                        </div>
+
+                        <div class="finish-stat-value">
+                            ${unknownCount}問
+                        </div>
+
                     </div>
 
                 </div>
 
 
-                <div class="finish-stat">
+                <button
+                    id="retryButton"
+                    class="btn btn-primary">
 
-                    <div class="finish-stat-label">
-                        正解数
-                    </div>
+                    もう一度解く
 
-                    <div class="finish-stat-value">
-                        ${correctCount}問
-                    </div>
-
-                </div>
+                </button>
 
 
-                <div class="finish-stat">
+                <button
+                    id="backDeckButton"
+                    class="btn btn-secondary">
 
-                    <div class="finish-stat-label">
-                        わからない
-                    </div>
+                    単語帳へ戻る
 
-                    <div class="finish-stat-value">
-                        ${unknownCount}問
-                    </div>
-
-                </div>
+                </button>
 
             </div>
-
-
-            <button
-                class="btn btn-primary"
-                onclick="retryQuiz()">
-
-                もう一度解く
-
-            </button>
-
-
-            <button
-                class="btn btn-secondary"
-                onclick="location.href='deck-detail.html'">
-
-                単語帳へ戻る
-
-            </button>
 
         </div>
 
     `;
+
+
+    document.getElementById(
+        "retryButton"
+    ).onclick =
+        retryQuiz;
+
+
+    document.getElementById(
+        "backDeckButton"
+    ).onclick =
+        function(){
+
+            location.href =
+                "deck-detail.html";
+
+        };
 
 
     playAnimation(
@@ -1115,12 +1294,85 @@ function showFinished(){
 }
 
 
+/* =========================================
+   Retry
+========================================= */
+
 function retryQuiz(){
 
     showSetup();
 
 }
 
+
+/* =========================================
+   Enter Key
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key !== "Enter" ||
+            event.isComposing
+        ){
+
+            return;
+
+        }
+
+
+        /*
+            結果画面なら
+            「もう一度解く」
+        */
+
+        if(quizFinished){
+
+            retryQuiz();
+
+            return;
+
+        }
+
+
+        /*
+            学習中
+        */
+
+        if(answered){
+
+            nextQuestion();
+
+        }else{
+
+            checkAnswer();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   Back
+========================================= */
+
+document.getElementById(
+    "backButton"
+).onclick =
+    function(){
+
+        location.href =
+            "deck-detail.html";
+
+    };
+
+
+/* =========================================
+   Escape
+========================================= */
 
 function escapeHtml(text){
 
@@ -1137,13 +1389,9 @@ function escapeHtml(text){
 }
 
 
-document.getElementById(
-    "backButton"
-).onclick =
-    () =>
-        location.href =
-            "deck-detail.html";
-
+/* =========================================
+   Initialize
+========================================= */
 
 function init(){
 

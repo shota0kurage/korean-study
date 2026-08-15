@@ -7,153 +7,529 @@
 
 <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+    content="width=device-width, initial-scale=1.0">
 
 <title>単語帳</title>
 
 <link
     rel="stylesheet"
-    href="style.css"
->
+    href="style.css">
+
 
 <style>
 
+/* =========================================
+   Page
+========================================= */
+
 .detail-page{
+
     max-width:800px;
+
     margin:0 auto;
+
 }
 
+
+/* =========================================
+   Header
+========================================= */
+
 .detail-header{
+
     text-align:center;
-    margin-bottom:30px;
+
+    margin-bottom:25px;
+
 }
 
 .detail-icon{
-    font-size:3rem;
-    margin-bottom:10px;
+
+    font-size:2.8rem;
+
+    margin-bottom:8px;
+
 }
 
 .detail-title{
+
     font-size:1.8rem;
+
     font-weight:800;
+
 }
 
 .detail-count{
+
     color:var(--sub);
-    margin-top:8px;
+
+    margin-top:6px;
+
 }
 
-.action-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:16px;
+
+/* =========================================
+   Action
+========================================= */
+
+.action-area{
+
+    display:flex;
+
+    gap:10px;
+
     margin-bottom:25px;
+
 }
 
-.action-card{
+.action-area .btn{
+
+    flex:1;
+
+}
+
+
+/* =========================================
+   Word List
+========================================= */
+
+.word-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+
+/* =========================================
+   Word Card
+========================================= */
+
+.word-card{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
     background:var(--card);
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:28px 20px;
-    text-align:center;
-    cursor:pointer;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:16px;
+
+    padding:18px;
 
     transition:
         transform .2s ease,
         border-color .2s ease,
         box-shadow .2s ease;
+
 }
 
-.action-card:hover{
-    transform:translateY(-4px);
+.word-card:hover{
+
+    transform:translateY(-2px);
 
     border-color:
-        rgba(29,155,240,.5);
+        rgba(29,155,240,.35);
 
     box-shadow:
-        0 12px 30px rgba(0,0,0,.3);
+        0 8px 20px
+        rgba(0,0,0,.2);
+
 }
 
-.action-icon{
-    font-size:2.5rem;
-    margin-bottom:12px;
+.word-info{
+
+    flex:1;
+
+    min-width:0;
+
 }
 
-.action-title{
-    font-size:1.15rem;
-    font-weight:700;
-}
+.word-japanese{
 
-.action-description{
-    margin-top:6px;
-    color:var(--sub);
-    font-size:.85rem;
-}
-
-.word-preview{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:20px;
-    padding:25px;
-}
-
-.preview-title{
     font-size:1.05rem;
+
     font-weight:700;
-    margin-bottom:15px;
+
+    word-break:break-word;
+
 }
 
-.preview-empty{
-    text-align:center;
+.word-korean{
+
+    margin-top:5px;
+
+    color:var(--primary);
+
+    font-size:1.1rem;
+
+    font-weight:600;
+
+    word-break:break-word;
+
+}
+
+.word-level{
+
+    margin-top:5px;
+
     color:var(--sub);
-    padding:30px 10px;
+
+    font-size:.8rem;
+
 }
 
-.preview-list{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
+
+/* =========================================
+   Delete
+========================================= */
+
+.delete-word{
+
+    flex-shrink:0;
+
+    width:auto;
+
+    padding:
+        9px 12px;
+
+    border:none;
+
+    border-radius:9px;
+
+    background:
+        rgba(244,33,46,.1);
+
+    color:
+        var(--danger);
+
+    cursor:pointer;
+
+    transition:
+        background .15s ease,
+        transform .15s ease;
+
 }
 
-.preview-item{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+.delete-word:hover{
 
-    padding:13px 15px;
+    background:
+        rgba(244,33,46,.2);
 
-    background:#0f1115;
+}
+
+.delete-word:active{
+
+    transform:scale(.97);
+
+}
+
+
+/* =========================================
+   Empty
+========================================= */
+
+.word-empty{
+
+    text-align:center;
+
+    background:var(--card);
 
     border:
         1px solid var(--border);
 
-    border-radius:12px;
+    border-radius:18px;
+
+    padding:45px 20px;
+
+    box-shadow:var(--shadow);
+
 }
 
-.preview-japanese{
+.word-empty-icon{
+
+    font-size:2.8rem;
+
+    margin-bottom:12px;
+
+}
+
+.word-empty h2{
+
+    margin:0;
+
+    font-size:1.25rem;
+
+}
+
+.word-empty p{
+
+    color:var(--sub);
+
+    margin-top:10px;
+
+}
+
+
+/* =========================================
+   Add Form
+========================================= */
+
+.add-form{
+
+    display:none;
+
+    background:var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:22px;
+
+    margin-bottom:20px;
+
+}
+
+.add-form.show{
+
+    display:block;
+
+}
+
+.form-title{
+
+    font-size:1.1rem;
+
     font-weight:700;
+
+    margin-bottom:15px;
+
 }
 
-.preview-korean{
-    color:var(--primary);
-    font-weight:600;
+.form-group{
+
+    margin-bottom:12px;
+
 }
 
-.back-button{
-    margin-top:20px;
+.form-label{
+
+    display:block;
+
+    margin-bottom:6px;
+
+    font-size:.85rem;
+
+    color:var(--sub);
+
 }
+
+.form-input{
+
+    width:100%;
+
+    padding:13px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:10px;
+
+    background:#0f1115;
+
+    color:var(--text);
+
+    outline:none;
+
+}
+
+.form-input:focus{
+
+    border-color:
+        var(--primary);
+
+}
+
+
+/* =========================================
+   Confirm Modal
+========================================= */
+
+.confirm-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+
+    background:
+        rgba(0,0,0,.72);
+
+    z-index:9999;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:
+        opacity .2s ease,
+        visibility .2s ease;
+
+}
+
+.confirm-overlay.show{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+.confirm-modal{
+
+    width:100%;
+
+    max-width:430px;
+
+    background:#16181c;
+
+    border:
+        1px solid #2f3336;
+
+    border-radius:20px;
+
+    padding:28px;
+
+    text-align:center;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.55);
+
+    transform:
+        translateY(10px)
+        scale(.97);
+
+    transition:
+        transform .2s ease;
+
+}
+
+.confirm-overlay.show
+.confirm-modal{
+
+    transform:
+        translateY(0)
+        scale(1);
+
+}
+
+.confirm-icon{
+
+    font-size:2.8rem;
+
+    margin-bottom:12px;
+
+}
+
+.confirm-title{
+
+    font-size:1.25rem;
+
+    font-weight:800;
+
+}
+
+.confirm-message{
+
+    margin-top:12px;
+
+    line-height:1.7;
+
+    word-break:break-word;
+
+}
+
+.confirm-warning{
+
+    margin-top:8px;
+
+    color:var(--sub);
+
+    font-size:.82rem;
+
+}
+
+.confirm-buttons{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:25px;
+
+}
+
+.confirm-buttons .btn{
+
+    flex:1;
+
+}
+
+.confirm-delete-button{
+
+    background:var(--danger);
+
+    color:white;
+
+}
+
+.confirm-delete-button:hover{
+
+    background:#d91f2b;
+
+}
+
+
+/* =========================================
+   Mobile
+========================================= */
 
 @media(max-width:650px){
 
-    .action-grid{
-        grid-template-columns:1fr;
+    .action-area{
+
+        flex-direction:column;
+
     }
 
-    .preview-item{
-        flex-direction:column;
+    .word-card{
+
         align-items:flex-start;
-        gap:4px;
+
+    }
+
+    .confirm-buttons{
+
+        flex-direction:column;
+
     }
 
 }
@@ -165,7 +541,63 @@
 
 <body>
 
+
+<!-- =========================================
+     Delete Modal
+========================================= -->
+
+<div
+    id="confirmOverlay"
+    class="confirm-overlay">
+
+    <div class="confirm-modal">
+
+        <div class="confirm-icon">
+            🗑️
+        </div>
+
+        <div class="confirm-title">
+            単語を削除しますか？
+        </div>
+
+        <div
+            id="confirmMessage"
+            class="confirm-message">
+        </div>
+
+        <div class="confirm-warning">
+            この操作は元に戻せません。
+        </div>
+
+        <div class="confirm-buttons">
+
+            <button
+                id="cancelDeleteButton"
+                class="btn btn-secondary">
+
+                キャンセル
+
+            </button>
+
+            <button
+                id="confirmDeleteButton"
+                class="btn confirm-delete-button">
+
+                削除する
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
 <div class="container detail-page">
+
+
+    <!-- Header -->
 
     <div class="site-header">
 
@@ -176,10 +608,12 @@
     </div>
 
 
+    <!-- Title -->
+
     <div class="detail-header">
 
         <div class="detail-icon">
-            📖
+            📘
         </div>
 
         <div
@@ -199,75 +633,157 @@
     </div>
 
 
-    <!-- 操作 -->
+    <!-- Action -->
 
-    <div class="action-grid">
+    <div class="action-area">
 
-        <div
-            class="action-card"
-            onclick="startLearning()">
+        <button
+            class="btn btn-primary"
+            id="studyButton">
 
-            <div class="action-icon">
-                🎯
-            </div>
+            🎯 学習する
 
-            <div class="action-title">
-                学習する
-            </div>
-
-            <div class="action-description">
-                この単語帳から問題を解く
-            </div>
-
-        </div>
+        </button>
 
 
-        <div
-            class="action-card"
-            onclick="editDeck()">
+        <button
+            class="btn btn-secondary"
+            id="addButton">
 
-            <div class="action-icon">
-                ✏️
-            </div>
+            ＋ 単語を追加
 
-            <div class="action-title">
-                編集する
-            </div>
-
-            <div class="action-description">
-                単語の追加・削除・名前変更
-            </div>
-
-        </div>
+        </button>
 
     </div>
 
 
-    <!-- 単語プレビュー -->
+    <!-- Add Form -->
 
-    <div class="word-preview">
+    <div
+        id="addForm"
+        class="add-form">
 
-        <div class="preview-title">
-            📚 登録されている単語
+        <div class="form-title">
+            新しい単語を追加
         </div>
 
-        <div id="previewArea"></div>
+
+        <div class="form-group">
+
+            <label class="form-label">
+                日本語
+            </label>
+
+            <input
+                id="japaneseInput"
+                class="form-input"
+                type="text"
+                placeholder="例：由来">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                韓国語
+            </label>
+
+            <input
+                id="koreanInput"
+                class="form-input"
+                type="text"
+                placeholder="例：유래">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                級
+            </label>
+
+            <select
+                id="levelInput"
+                class="form-input">
+
+                <option value="5">
+                    5級
+                </option>
+
+                <option value="4">
+                    4級
+                </option>
+
+                <option value="3">
+                    3級
+                </option>
+
+                <option value="pre2">
+                    準2級
+                </option>
+
+                <option value="2">
+                    2級
+                </option>
+
+                <option value="1">
+                    1級
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <button
+            class="btn btn-primary"
+            id="saveWordButton">
+
+            保存する
+
+        </button>
+
+
+        <button
+            class="btn btn-secondary"
+            id="cancelAddButton">
+
+            キャンセル
+
+        </button>
 
     </div>
 
+
+    <!-- Word List -->
+
+    <div
+        id="wordArea">
+    </div>
+
+
+    <!-- Back -->
 
     <button
-        class="btn btn-secondary back-button"
-        onclick="location.href='mydeck.html'">
+        class="btn btn-secondary"
+        style="margin-top:20px;"
+        id="backButton">
 
         ← 単語帳一覧へ戻る
 
     </button>
 
+
 </div>
 
 
 <script>
+
+/* =========================================
+   Selected Deck
+========================================= */
 
 const selectedDeckId =
     localStorage.getItem(
@@ -275,32 +791,119 @@ const selectedDeckId =
     );
 
 
+/* =========================================
+   Elements
+========================================= */
+
+const deckNameElement =
+    document.getElementById(
+        "deckName"
+    );
+
+const deckCountElement =
+    document.getElementById(
+        "deckCount"
+    );
+
+const wordArea =
+    document.getElementById(
+        "wordArea"
+    );
+
+const addForm =
+    document.getElementById(
+        "addForm"
+    );
+
+const confirmOverlay =
+    document.getElementById(
+        "confirmOverlay"
+    );
+
+const confirmMessage =
+    document.getElementById(
+        "confirmMessage"
+    );
+
+
+/* =========================================
+   Get Decks
+========================================= */
+
 function getDecks(){
 
-    return JSON.parse(
-        localStorage.getItem(
-            "myDecks"
-        ) || "[]"
-    );
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "myDecks"
+            ) || "[]"
+        );
+
+    }catch(error){
+
+        return [];
+
+    }
 
 }
 
 
-function getCurrentDeck(){
+/* =========================================
+   Save Decks
+========================================= */
 
-    const decks =
-        getDecks();
+function saveDecks(decks){
 
-    return decks.find(
-        deck =>
-            deck.id === selectedDeckId
+    localStorage.setItem(
+        "myDecks",
+        JSON.stringify(
+            decks
+        )
     );
 
 }
 
 
 /* =========================================
-   表示
+   Current Deck
+========================================= */
+
+function getCurrentDeck(){
+
+    const decks =
+        getDecks();
+
+
+    return decks.find(
+        deck =>
+            deck.id ===
+            selectedDeckId
+    );
+
+}
+
+
+/* =========================================
+   Level Text
+========================================= */
+
+function getLevelText(level){
+
+    if(level === "pre2"){
+
+        return "準2級";
+
+    }
+
+
+    return level + "級";
+
+}
+
+
+/* =========================================
+   Render
 ========================================= */
 
 function showDeck(){
@@ -323,9 +926,7 @@ function showDeck(){
     }
 
 
-    document.getElementById(
-        "deckName"
-    ).textContent =
+    deckNameElement.textContent =
         deck.name;
 
 
@@ -335,26 +936,32 @@ function showDeck(){
         : [];
 
 
-    document.getElementById(
-        "deckCount"
-    ).textContent =
-        words.length + "語";
+    deckCountElement.textContent =
+        `${words.length}語`;
 
 
-    const previewArea =
-        document.getElementById(
-            "previewArea"
-        );
-
+    /*
+        単語なし
+    */
 
     if(words.length === 0){
 
-        previewArea.innerHTML = `
+        wordArea.innerHTML = `
 
-            <div class="preview-empty">
+            <div class="word-empty">
 
-                まだ単語が登録されていません。<br>
-                「編集する」から単語を追加できます。
+                <div class="word-empty-icon">
+                    📝
+                </div>
+
+                <h2>
+                    まだ単語がありません
+                </h2>
+
+                <p>
+                    「単語を追加」から
+                    登録してみましょう。
+                </p>
 
             </div>
 
@@ -366,81 +973,260 @@ function showDeck(){
 
 
     /*
-        最大5語だけプレビュー
+        単語一覧
     */
-
-    const previewWords =
-        words.slice(0,5);
-
 
     let html = `
 
-        <div class="preview-list">
+        <div class="word-list">
 
     `;
 
 
-    previewWords.forEach(word => {
+    words.forEach(
+        (word,index) => {
 
-        html += `
+            html += `
 
-            <div class="preview-item">
+                <div class="word-card">
 
-                <div class="preview-japanese">
-                    ${escapeHtml(word.japanese)}
+                    <div class="word-info">
+
+                        <div class="word-japanese">
+                            ${escapeHtml(
+                                word.japanese || ""
+                            )}
+                        </div>
+
+                        <div class="word-korean">
+                            ${escapeHtml(
+                                word.korean || ""
+                            )}
+                        </div>
+
+                        <div class="word-level">
+                            ${getLevelText(
+                                word.level || "5"
+                            )}
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="delete-word"
+                        data-index="${index}">
+
+                        🗑️ 削除
+
+                    </button>
+
                 </div>
 
-                <div class="preview-korean">
-                    ${escapeHtml(word.korean)}
-                </div>
+            `;
 
-            </div>
-
-        `;
-
-    });
+        }
+    );
 
 
     html += `
-
         </div>
-
     `;
 
 
-    if(words.length > 5){
-
-        html += `
-
-            <div
-                style="
-                    text-align:center;
-                    color:var(--sub);
-                    margin-top:12px;
-                    font-size:.85rem;
-                "
-            >
-
-                他 ${words.length - 5}語
-
-            </div>
-
-        `;
-
-    }
-
-
-    previewArea.innerHTML =
+    wordArea.innerHTML =
         html;
+
+
+    /*
+        削除ボタンにイベントを設定
+    */
+
+    const deleteButtons =
+        document.querySelectorAll(
+            ".delete-word"
+        );
+
+
+    deleteButtons.forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                function(){
+
+                    const index =
+                        Number(
+                            this.dataset.index
+                        );
+
+
+                    openDeleteModal(
+                        index
+                    );
+
+                }
+            );
+
+        }
+    );
 
 }
 
 
 /* =========================================
-   学習
+   Add Form
 ========================================= */
 
-function startLearning(){
+function openAddForm(){
+
+    addForm.classList.add(
+        "show"
+    );
+
+
+    document.getElementById(
+        "japaneseInput"
+    ).focus();
+
+}
+
+
+function closeAddForm(){
+
+    addForm.classList.remove(
+        "show"
+    );
+
+}
+
+
+/* =========================================
+   Add Word
+========================================= */
+
+function addWord(){
+
+    const japanese =
+        document.getElementById(
+            "japaneseInput"
+        ).value.trim();
+
+
+    const korean =
+        document.getElementById(
+            "koreanInput"
+        ).value.trim();
+
+
+    const level =
+        document.getElementById(
+            "levelInput"
+        ).value;
+
+
+    if(
+        !japanese ||
+        !korean
+    ){
+
+        alert(
+            "日本語と韓国語を入力してください。"
+        );
+
+        return;
+
+    }
+
+
+    const decks =
+        getDecks();
+
+
+    const deckIndex =
+        decks.findIndex(
+            deck =>
+                deck.id ===
+                selectedDeckId
+        );
+
+
+    if(deckIndex === -1){
+
+        alert(
+            "単語帳が見つかりません。"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !Array.isArray(
+            decks[deckIndex].words
+        )
+    ){
+
+        decks[deckIndex].words =
+            [];
+
+    }
+
+
+    decks[deckIndex].words.push({
+
+        id:
+            Date.now().toString(),
+
+        japanese:
+            japanese,
+
+        korean:
+            korean,
+
+        level:
+            level
+
+    });
+
+
+    saveDecks(
+        decks
+    );
+
+
+    document.getElementById(
+        "japaneseInput"
+    ).value =
+        "";
+
+    document.getElementById(
+        "koreanInput"
+    ).value =
+        "";
+
+
+    closeAddForm();
+
+
+    showDeck();
+
+}
+
+
+/* =========================================
+   Delete Modal
+========================================= */
+
+let deleteWordIndex = null;
+
+
+/*
+    モーダルを開く
+*/
+
+function openDeleteModal(index){
 
     const deck =
         getCurrentDeck();
@@ -459,10 +1245,182 @@ function startLearning(){
         : [];
 
 
-    if(words.length === 0){
+    const word =
+        words[index];
+
+
+    if(!word){
+
+        return;
+
+    }
+
+
+    deleteWordIndex =
+        index;
+
+
+    confirmMessage.textContent =
+        `「${word.japanese}」を本当に削除しますか？`;
+
+
+    confirmOverlay.classList.add(
+        "show"
+    );
+
+}
+
+
+/*
+    モーダルを閉じる
+*/
+
+function closeDeleteModal(){
+
+    deleteWordIndex =
+        null;
+
+
+    confirmOverlay.classList.remove(
+        "show"
+    );
+
+}
+
+
+/*
+    削除を確定
+*/
+
+function confirmDeleteWord(){
+
+    if(
+        deleteWordIndex === null
+    ){
+
+        return;
+
+    }
+
+
+    const decks =
+        getDecks();
+
+
+    const deckIndex =
+        decks.findIndex(
+            deck =>
+                deck.id ===
+                selectedDeckId
+        );
+
+
+    if(deckIndex === -1){
+
+        closeDeleteModal();
+
+        return;
+
+    }
+
+
+    if(
+        !Array.isArray(
+            decks[deckIndex].words
+        )
+    ){
+
+        closeDeleteModal();
+
+        return;
+
+    }
+
+
+    /*
+        実際に削除
+    */
+
+    decks[deckIndex].words.splice(
+        deleteWordIndex,
+        1
+    );
+
+
+    /*
+        保存
+    */
+
+    saveDecks(
+        decks
+    );
+
+
+    /*
+        状態をリセット
+    */
+
+    closeDeleteModal();
+
+
+    /*
+        再表示
+    */
+
+    showDeck();
+
+}
+
+
+/* =========================================
+   Escape
+========================================= */
+
+function escapeHtml(text){
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        text;
+
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================
+   Buttons
+========================================= */
+
+document.getElementById(
+    "studyButton"
+).onclick = function(){
+
+    const deck =
+        getCurrentDeck();
+
+
+    if(!deck){
+
+        return;
+
+    }
+
+
+    if(
+        !Array.isArray(
+            deck.words
+        ) ||
+        deck.words.length === 0
+    ){
 
         alert(
-            "この単語帳にはまだ単語がありません。"
+            "この単語帳には単語がありません。"
         );
 
         return;
@@ -473,37 +1431,74 @@ function startLearning(){
     location.href =
         "deck-quiz.html";
 
-}
+};
+
+
+document.getElementById(
+    "addButton"
+).onclick =
+    openAddForm;
+
+
+document.getElementById(
+    "cancelAddButton"
+).onclick =
+    closeAddForm;
+
+
+document.getElementById(
+    "saveWordButton"
+).onclick =
+    addWord;
+
+
+document.getElementById(
+    "cancelDeleteButton"
+).onclick =
+    closeDeleteModal;
+
+
+document.getElementById(
+    "confirmDeleteButton"
+).onclick =
+    confirmDeleteWord;
+
+
+document.getElementById(
+    "backButton"
+).onclick =
+    function(){
+
+        location.href =
+            "mydeck.html";
+
+    };
+
+
+/*
+    モーダルの外側をクリックしたら閉じる
+*/
+
+confirmOverlay.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target ===
+            confirmOverlay
+        ){
+
+            closeDeleteModal();
+
+        }
+
+    }
+);
 
 
 /* =========================================
-   編集
+   Initial
 ========================================= */
-
-function editDeck(){
-
-    location.href =
-        "deck-edit.html";
-
-}
-
-
-/* =========================================
-   HTML Escape
-========================================= */
-
-function escapeHtml(text){
-
-    const div =
-        document.createElement("div");
-
-    div.textContent =
-        text;
-
-    return div.innerHTML;
-
-}
-
 
 showDeck();
 

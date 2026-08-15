@@ -420,6 +420,7 @@ let unknownCount = 0;
 
 let answered = false;
 
+let quizFinished = false;
 
 const quizCard =
     document.getElementById(
@@ -620,6 +621,8 @@ async function loadQuestions(){
 
 
 function showQuestion(){
+
+    quizFinished = false;
 
     currentQuestion =
         questions[currentIndex];
@@ -1046,6 +1049,8 @@ function nextQuestion(){
 
 function showFinished(){
 
+    quizFinished = true;
+
     const rate =
         Math.round(
             correctCount /
@@ -1112,12 +1117,13 @@ function showFinished(){
 
 
             <button
-                id="retryButton"
-                class="btn btn-primary">
+    id="retryButton"
+    class="btn btn-primary"
+    autofocus>
 
-                もう一度解く
+    もう一度解く
 
-            </button>
+</button>
 
 
             <button
@@ -1133,10 +1139,51 @@ function showFinished(){
     `;
 
 
+  const retryButton =
     document.getElementById(
         "retryButton"
-    ).onclick =
-        () => location.reload();
+    );
+
+
+retryButton.addEventListener(
+    "click",
+    function(){
+
+        location.reload();
+
+    }
+);
+
+
+/*
+    結果画面が表示されたら
+    ボタンにフォーカス
+*/
+
+setTimeout(
+    function(){
+
+        retryButton.focus();
+
+    },
+    50
+);
+
+
+retryButton.onclick =
+    function(){
+
+        location.reload();
+
+    };
+
+
+/*
+    結果画面を表示したら
+    「もう一度解く」にフォーカス
+*/
+
+retryButton.focus();
 
 
     document.getElementById(
@@ -1186,6 +1233,10 @@ document.addEventListener(
     "keydown",
     function(event){
 
+        /*
+            Enter以外は無視
+        */
+
         if(
             event.key !== "Enter"
         ){
@@ -1195,6 +1246,34 @@ document.addEventListener(
         }
 
 
+        /*
+            結果画面か確認
+        */
+
+        const retryButton =
+            document.getElementById(
+                "retryButton"
+            );
+
+
+        if(retryButton){
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+
+            retryButton.click();
+
+            return;
+
+        }
+
+
+        /*
+            IME変換中なら無視
+        */
+
         if(
             event.isComposing
         ){
@@ -1202,6 +1281,13 @@ document.addEventListener(
             return;
 
         }
+
+
+        /*
+            通常学習
+        */
+
+        event.preventDefault();
 
 
         if(answered){
@@ -1214,7 +1300,8 @@ document.addEventListener(
 
         }
 
-    }
+    },
+    true
 );
 
 

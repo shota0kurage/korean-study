@@ -45,6 +45,7 @@
 }
 
 
+
 /* =========================================
    級選択
 ========================================= */
@@ -91,15 +92,54 @@
 }
 
 .level-button.selected{
-    background:var(--primary);
+
+    background:
+        var(--primary);
 
     color:white;
 
-    border-color:var(--primary);
+    border-color:
+        var(--primary);
 
     box-shadow:
         0 5px 15px
         rgba(29,155,240,.25);
+
+}
+
+
+.level-button.disabled{
+
+    background:
+        rgba(255,255,255,.04);
+
+    color:
+        rgba(231,233,234,.35);
+
+    border-color:
+        rgba(47,51,54,.6);
+
+    opacity:.45;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+}
+
+
+.level-button.disabled:hover{
+
+    transform:none;
+
+    background:
+        rgba(255,255,255,.04);
+
+    border-color:
+        rgba(47,51,54,.6);
+
+    box-shadow:none;
+
 }
 
 
@@ -188,6 +228,65 @@
 
 }
 
+/* =========================================
+   Exam Note
+========================================= */
+
+.exam-note{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:12px;
+
+    margin-bottom:20px;
+
+    padding:16px 18px;
+
+    background:#16181c;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:14px;
+
+    color:var(--text);
+
+}
+
+.exam-note-icon{
+
+    flex-shrink:0;
+
+    font-size:1.15rem;
+
+}
+
+.exam-note-text{
+
+    min-width:0;
+
+}
+
+.exam-note-text strong{
+
+    font-weight:700;
+
+}
+
+.exam-note-text p{
+
+    margin:5px 0 0;
+
+    color:var(--sub);
+
+    font-size:.85rem;
+
+    line-height:1.6;
+
+}
+
 </style>
 
 </head>
@@ -235,6 +334,27 @@
 
         </div>
 
+        <div class="exam-note">
+
+    <div class="exam-note-icon">
+        ℹ️
+    </div>
+
+    <div class="exam-note-text">
+
+        <strong>
+            級について
+        </strong>
+
+        <p>
+            このサイトでは
+            <strong>ハングル検定</strong>
+            の級を基準に問題を設定しています。
+        </p>
+
+    </div>
+
+</div>
 
         <!-- =====================================
              級選択
@@ -407,6 +527,25 @@ const categoryNames = {
 
 };
 
+const dataFiles = {
+
+    vocab:
+        "data/vocab.json",
+
+    idiom:
+        "data/idiom.json",
+
+    expression:
+        "data/expression.json",
+
+    proverb:
+        "data/proverb.json",
+
+    saja:
+        "data/saja.json"
+
+};
+
 
 const categoryIcons = {
 
@@ -481,10 +620,109 @@ const selectedLevels = [];
 
 
 /* =========================================
+   問題が存在する級を確認
+========================================= */
+
+async function checkAvailableLevels(){
+
+    try{
+
+        const response =
+            await fetch(
+                dataFiles[category]
+            );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "問題データを読み込めませんでした。"
+            );
+
+        }
+
+
+        const questions =
+            await response.json();
+
+
+        const levels = [
+            "5",
+            "4",
+            "3",
+            "pre2",
+            "2",
+            "1"
+        ];
+
+
+        levels.forEach(
+            level => {
+
+                const count =
+                    questions.filter(
+                        question =>
+                            question.level ===
+                            level
+                    ).length;
+
+
+                const button =
+                    document.querySelector(
+                        `.level-button[data-level="${level}"]`
+                    );
+
+
+                if(!button){
+
+                    return;
+
+                }
+
+
+                if(count === 0){
+
+                    button.classList.add(
+                        "disabled"
+                    );
+
+                    button.disabled =
+                        true;
+
+                    button.title =
+                        "この級には現在問題がありません。";
+
+                }
+
+            }
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+        alert(
+            "問題データを読み込めませんでした。"
+        );
+
+    }
+
+}
+
+
+/* =========================================
    級選択
 ========================================= */
 
 function toggleLevel(button){
+
+    if(button.disabled){
+
+        return;
+
+    }
+
 
     const level =
         button.dataset.level;
@@ -523,7 +761,6 @@ function toggleLevel(button){
     updateSelectedInfo();
 
 }
-
 
 /* =========================================
    選択状況表示
@@ -664,6 +901,8 @@ function startQuiz(){
         "category-quiz.html";
 
 }
+
+checkAvailableLevels();
 
 </script>
 

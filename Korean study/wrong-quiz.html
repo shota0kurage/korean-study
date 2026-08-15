@@ -391,6 +391,8 @@ let currentQuestion =
 
 let answered = false;
 
+let quizFinished = false;
+
 let correctCount = 0;
 
 let unknownCount = 0;
@@ -589,6 +591,8 @@ function resetCorrectStreak(){
 */
 
 function showQuestion(){
+
+    quizFinished = false;
 
     currentQuestion =
         studyWords[currentIndex];
@@ -975,6 +979,8 @@ function nextQuestion(){
 
 function showResult(){
 
+    quizFinished = true;
+
     const rate =
         Math.round(
             correctCount /
@@ -1101,6 +1107,16 @@ function showResult(){
 
 }
 
+/*
+    もう一度問題を解く
+*/
+
+function retryQuiz(){
+
+    location.href =
+        "wrong.html";
+
+}
 
 function escapeHtml(text){
 
@@ -1135,16 +1151,7 @@ document.addEventListener(
     function(event){
 
         if(
-            event.key !==
-            "Enter"
-        ){
-
-            return;
-
-        }
-
-
-        if(
+            event.key !== "Enter" ||
             event.isComposing
         ){
 
@@ -1152,6 +1159,24 @@ document.addEventListener(
 
         }
 
+
+        /*
+            結果画面
+            → もう一度解く
+        */
+
+        if(quizFinished){
+
+            retryQuiz();
+
+            return;
+
+        }
+
+
+        /*
+            学習中
+        */
 
         if(answered){
 
