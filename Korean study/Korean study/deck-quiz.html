@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<title>単語帳 学習</title>
+
+<link
+    rel="stylesheet"
+    href="style.css">
+
+
+<style>
+
+/* =========================================
+   Page
+========================================= */
+
+.deck-quiz-page{
+
+    max-width:700px;
+
+    margin:0 auto;
+
+}
+
+
+/* =========================================
+   Header
+========================================= */
+
+.quiz-top{
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+}
+
+.quiz-deck-name{
+
+    font-size:1.4rem;
+
+    font-weight:800;
+
+}
+
+.quiz-progress{
+
+    color:var(--sub);
+
+    margin-top:6px;
+
+}
+
+
+/* =========================================
+   Setup
+========================================= */
+
+.setup-card{
+
+    background:var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:30px;
+
+    text-align:center;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+/* =========================================
+   Quiz
+========================================= */
+
+.quiz-card{
+
+    background:var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:30px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.question{
+
+    text-align:center;
+
+    font-size:
+        clamp(2rem,6vw,3rem);
+
+    font-weight:800;
+
+    margin:
+        45px 0 35px;
+
+    word-break:break-word;
+
+}
+
+.answer-input{
+
+    width:100%;
+
+    padding:15px;
+
+    background:#0f1115;
+
+    color:var(--text);
+
+    border:
+        2px solid var(--border);
+
+    border-radius:12px;
+
+    outline:none;
+
+    font-size:1.05rem;
+
+}
+
+.answer-input:focus{
+
+    border-color:
+        var(--primary);
+
+}
+
+.answer-input:disabled{
+
+    opacity:.7;
+
+}
+
+
+/* =========================================
+   Result
+========================================= */
+
+.quiz-result{
+
+    margin-top:18px;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    line-height:1.7;
+
+}
+
+.quiz-result.correct{
+
+    background:
+        rgba(0,186,124,.12);
+
+    color:
+        #00ba7c;
+
+}
+
+.quiz-result.wrong{
+
+    background:
+        rgba(244,33,46,.12);
+
+    color:
+        #f4212e;
+
+}
+
+.quiz-result.unknown{
+
+    background:
+        rgba(29,155,240,.12);
+
+    color:
+        #1d9bf0;
+
+}
+
+
+/* =========================================
+   Finish
+========================================= */
+
+.finish{
+
+    text-align:center;
+
+}
+
+.finish-icon{
+
+    font-size:3rem;
+
+}
+
+.finish-title{
+
+    font-size:1.6rem;
+
+    font-weight:700;
+
+    margin-top:10px;
+
+}
+
+.finish-score{
+
+    font-size:3rem;
+
+    font-weight:800;
+
+    color:
+        var(--primary);
+
+    margin:20px 0;
+
+}
+
+.finish-stats{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:12px;
+
+    margin:20px 0;
+
+}
+
+.finish-stat{
+
+    background:#0f1115;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:14px;
+
+    padding:18px;
+
+}
+
+.finish-stat-label{
+
+    color:var(--sub);
+
+    font-size:.8rem;
+
+}
+
+.finish-stat-value{
+
+    font-size:1.4rem;
+
+    font-weight:700;
+
+    margin-top:5px;
+
+}
+
+
+/* =========================================
+   Animation
+========================================= */
+
+.quiz-correct-animation{
+
+    animation:
+        correctShake
+        .3s
+        ease;
+
+}
+
+.quiz-wrong-animation{
+
+    animation:
+        wrongShake
+        .32s
+        ease;
+
+}
+
+.quiz-unknown-animation{
+
+    animation:
+        unknownPop
+        .28s
+        ease;
+
+}
+
+.quiz-pop-animation{
+
+    animation:
+        quizPop
+        .25s
+        ease;
+
+}
+
+
+@keyframes correctShake{
+
+    0%{
+        transform:translateY(0);
+    }
+
+    25%{
+        transform:translateY(-2px);
+    }
+
+    50%{
+        transform:translateY(2px);
+    }
+
+    75%{
+        transform:translateY(-1px);
+    }
+
+    100%{
+        transform:translateY(0);
+    }
+
+}
+
+
+@keyframes wrongShake{
+
+    0%{
+        transform:translateX(0);
+    }
+
+    25%{
+        transform:translateX(-3px);
+    }
+
+    50%{
+        transform:translateX(3px);
+    }
+
+    75%{
+        transform:translateX(-2px);
+    }
+
+    100%{
+        transform:translateX(0);
+    }
+
+}
+
+
+@keyframes unknownPop{
+
+    0%{
+
+        transform:
+            scale(.98);
+
+        opacity:.6;
+
+    }
+
+    100%{
+
+        transform:
+            scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+
+@keyframes quizPop{
+
+    0%{
+
+        opacity:.6;
+
+        transform:
+            scale(.98)
+            translateY(3px);
+
+    }
+
+    100%{
+
+        opacity:1;
+
+        transform:
+            scale(1)
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================
+   Mobile
+========================================= */
+
+@media(max-width:650px){
+
+    .finish-stats{
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container deck-quiz-page">
+
+
+    <div class="site-header">
+
+        <div class="logo">
+            Korean <span>Study</span>
+        </div>
+
+    </div>
+
+
+    <div class="quiz-top">
+
+        <div
+            id="deckName"
+            class="quiz-deck-name">
+
+            読み込み中...
+
+        </div>
+
+        <div
+            id="progress"
+            class="quiz-progress">
+
+        </div>
+
+    </div>
+
+
+    <div id="quizArea"></div>
+
+
+    <button
+        id="backButton"
+        class="btn btn-secondary"
+        style="margin-top:15px;">
+
+        ← 単語帳へ戻る
+
+    </button>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   Data
+========================================= */
+
+const selectedDeckId =
+    localStorage.getItem(
+        "selectedDeckId"
+    );
+
+
+let deck = null;
+
+let questions = [];
+
+let currentIndex = 0;
+
+let correctCount = 0;
+
+let unknownCount = 0;
+
+let answered = false;
+
+let quizFinished = false;
+
+let currentQuestion = null;
+
+
+/* =========================================
+   Get Decks
+========================================= */
+
+function getDecks(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "myDecks"
+            ) || "[]"
+        );
+
+    }catch(error){
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================================
+   Current Deck
+========================================= */
+
+function getCurrentDeck(){
+
+    const decks =
+        getDecks();
+
+
+    return decks.find(
+        deck =>
+            deck.id ===
+            selectedDeckId
+    );
+
+}
+
+
+/* =========================================
+   Shuffle
+========================================= */
+
+function shuffle(array){
+
+    const result =
+        [...array];
+
+
+    for(
+        let i =
+            result.length - 1;
+
+        i > 0;
+
+        i--
+    ){
+
+        const j =
+            Math.floor(
+                Math.random() *
+                (i + 1)
+            );
+
+
+        [
+            result[i],
+            result[j]
+        ] =
+        [
+            result[j],
+            result[i]
+        ];
+
+    }
+
+
+    return result;
+
+}
+
+
+/* =========================================
+   Animation
+========================================= */
+
+function playAnimation(className){
+
+    const card =
+        document.querySelector(
+            ".quiz-card"
+        );
+
+
+    if(!card){
+
+        return;
+
+    }
+
+
+    card.classList.remove(
+        "quiz-correct-animation",
+        "quiz-wrong-animation",
+        "quiz-unknown-animation",
+        "quiz-pop-animation"
+    );
+
+
+    void card.offsetWidth;
+
+
+    card.classList.add(
+        className
+    );
+
+}
+
+
+/* =========================================
+   Setup
+========================================= */
+
+function showSetup(){
+
+    quizFinished =
+        false;
+
+
+    document.getElementById(
+        "quizArea"
+    ).innerHTML = `
+
+        <div class="setup-card">
+
+            <h2>
+                🎯 学習を始める
+            </h2>
+
+            <p
+                style="
+                    color:var(--sub);
+                    margin-bottom:20px;
+                "
+            >
+
+                この単語帳には
+                ${deck.words.length}
+                語登録されています。
+
+            </p>
+
+
+            <input
+                id="countInput"
+                class="answer-input"
+                type="number"
+                min="1"
+                max="${deck.words.length}"
+                value="${Math.min(
+                    10,
+                    deck.words.length
+                )}"
+                style="
+                    text-align:center;
+                "
+            >
+
+
+            <button
+                id="startButton"
+                class="btn btn-primary"
+                style="margin-top:20px;">
+
+                学習開始
+
+            </button>
+
+        </div>
+
+    `;
+
+
+    document.getElementById(
+        "startButton"
+    ).onclick =
+        startQuiz;
+
+
+    document.getElementById(
+        "countInput"
+    ).addEventListener(
+        "keydown",
+        function(event){
+
+            if(
+                event.key === "Enter" &&
+                !event.isComposing
+            ){
+
+                startQuiz();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   Start Quiz
+========================================= */
+
+function startQuiz(){
+
+    const count =
+        Number(
+            document.getElementById(
+                "countInput"
+            ).value
+        );
+
+
+    if(
+        !Number.isInteger(count) ||
+        count < 1 ||
+        count > deck.words.length
+    ){
+
+        alert(
+            `1～${deck.words.length}問の範囲で入力してください。`
+        );
+
+        return;
+
+    }
+
+
+    questions =
+        shuffle(
+            deck.words
+        ).slice(
+            0,
+            count
+        );
+
+
+    currentIndex = 0;
+
+    correctCount = 0;
+
+    unknownCount = 0;
+
+    quizFinished = false;
+
+
+    showQuestion();
+
+}
+
+
+/* =========================================
+   Show Question
+========================================= */
+
+function showQuestion(){
+
+    currentQuestion =
+        questions[currentIndex];
+
+
+    answered =
+        false;
+
+    quizFinished =
+        false;
+
+
+    document.getElementById(
+        "progress"
+    ).textContent =
+        `${currentIndex + 1} / ${questions.length}`;
+
+
+    document.getElementById(
+        "quizArea"
+    ).innerHTML = `
+
+        <div
+            class="quiz-card">
+
+            <div class="question">
+
+                ${escapeHtml(
+                    currentQuestion.japanese
+                )}
+
+            </div>
+
+
+            <input
+                id="answerInput"
+                class="answer-input"
+                type="text"
+                placeholder="韓国語を入力"
+                autocomplete="off"
+            >
+
+
+            <button
+                id="checkButton"
+                class="btn btn-primary"
+                style="margin-top:15px;">
+
+                答え合わせ
+
+            </button>
+
+
+            <button
+                id="unknownButton"
+                class="btn btn-secondary">
+
+                わからない
+
+            </button>
+
+
+            <button
+                id="nextButton"
+                class="btn btn-success"
+                style="display:none;">
+
+                次の問題
+
+            </button>
+
+
+            <div
+                id="result"
+                class="quiz-result">
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    document.getElementById(
+        "checkButton"
+    ).onclick =
+        checkAnswer;
+
+
+    document.getElementById(
+        "unknownButton"
+    ).onclick =
+        markUnknown;
+
+
+    document.getElementById(
+        "nextButton"
+    ).onclick =
+        nextQuestion;
+
+
+    const answerInput =
+        document.getElementById(
+            "answerInput"
+        );
+
+
+    answerInput.focus();
+
+
+    answerInput.addEventListener(
+        "keydown",
+        function(event){
+
+            if(
+                event.key !== "Enter" ||
+                event.isComposing
+            ){
+
+                return;
+
+            }
+
+
+            if(answered){
+
+                nextQuestion();
+
+            }else{
+
+                checkAnswer();
+
+            }
+
+        }
+    );
+
+
+    playAnimation(
+        "quiz-pop-animation"
+    );
+
+}
+
+
+/* =========================================
+   Finish Question
+========================================= */
+
+function finishQuestion(){
+
+    answered =
+        true;
+
+
+    document.getElementById(
+        "answerInput"
+    ).disabled =
+        true;
+
+
+    document.getElementById(
+        "checkButton"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "unknownButton"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "nextButton"
+    ).style.display =
+        "flex";
+
+
+    if(
+        currentIndex + 1 >=
+        questions.length
+    ){
+
+        document.getElementById(
+            "nextButton"
+        ).textContent =
+            "結果を見る";
+
+    }
+
+}
+
+
+/* =========================================
+   Check Answer
+========================================= */
+
+function checkAnswer(){
+
+    if(answered){
+
+        return;
+
+    }
+
+
+    const answerInput =
+        document.getElementById(
+            "answerInput"
+        );
+
+
+    const userAnswer =
+        answerInput.value.trim();
+
+
+    if(!userAnswer){
+
+        alert(
+            "答えを入力してください。"
+        );
+
+        answerInput.focus();
+
+        return;
+
+    }
+
+
+    const result =
+        document.getElementById(
+            "result"
+        );
+
+
+    const isCorrect =
+        userAnswer ===
+        currentQuestion.korean;
+
+
+    if(isCorrect){
+
+        correctCount++;
+
+
+        result.className =
+            "quiz-result correct";
+
+
+        result.innerHTML =
+            "⭕ 正解！";
+
+
+        playAnimation(
+            "quiz-correct-animation"
+        );
+
+    }else{
+
+        result.className =
+            "quiz-result wrong";
+
+
+        result.innerHTML =
+            "❌ 不正解<br>" +
+            "正解：<b>" +
+            escapeHtml(
+                currentQuestion.korean
+            ) +
+            "</b>";
+
+
+        playAnimation(
+            "quiz-wrong-animation"
+        );
+
+    }
+
+
+    finishQuestion();
+
+}
+
+
+/* =========================================
+   Unknown
+========================================= */
+
+function markUnknown(){
+
+    if(answered){
+
+        return;
+
+    }
+
+
+    unknownCount++;
+
+
+    const result =
+        document.getElementById(
+            "result"
+        );
+
+
+    result.className =
+        "quiz-result unknown";
+
+
+    result.innerHTML =
+        "🤔 わからない<br>" +
+        "正解：<b>" +
+        escapeHtml(
+            currentQuestion.korean
+        ) +
+        "</b>";
+
+
+    playAnimation(
+        "quiz-unknown-animation"
+    );
+
+
+    finishQuestion();
+
+}
+
+
+/* =========================================
+   Next
+========================================= */
+
+function nextQuestion(){
+
+    if(
+        !answered
+    ){
+
+        return;
+
+    }
+
+
+    currentIndex++;
+
+
+    if(
+        currentIndex >=
+        questions.length
+    ){
+
+        showFinished();
+
+        return;
+
+    }
+
+
+    showQuestion();
+
+}
+
+
+/* =========================================
+   Finish
+========================================= */
+
+function showFinished(){
+
+    quizFinished =
+        true;
+
+
+    document.getElementById(
+        "progress"
+    ).textContent =
+        "学習終了";
+
+
+    const rate =
+        Math.round(
+            correctCount /
+            questions.length *
+            100
+        );
+
+
+    document.getElementById(
+        "quizArea"
+    ).innerHTML = `
+
+        <div
+            class="quiz-card"
+            style="text-align:center;">
+
+            <div class="finish">
+
+                <div class="finish-icon">
+                    🎉
+                </div>
+
+                <div class="finish-title">
+                    学習終了！
+                </div>
+
+                <div class="finish-score">
+                    ${rate}%
+                </div>
+
+
+                <div class="finish-stats">
+
+                    <div class="finish-stat">
+
+                        <div class="finish-stat-label">
+                            問題数
+                        </div>
+
+                        <div class="finish-stat-value">
+                            ${questions.length}問
+                        </div>
+
+                    </div>
+
+
+                    <div class="finish-stat">
+
+                        <div class="finish-stat-label">
+                            正解数
+                        </div>
+
+                        <div class="finish-stat-value">
+                            ${correctCount}問
+                        </div>
+
+                    </div>
+
+
+                    <div class="finish-stat">
+
+                        <div class="finish-stat-label">
+                            わからない
+                        </div>
+
+                        <div class="finish-stat-value">
+                            ${unknownCount}問
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    id="retryButton"
+                    class="btn btn-primary">
+
+                    もう一度解く
+
+                </button>
+
+
+                <button
+                    id="backDeckButton"
+                    class="btn btn-secondary">
+
+                    単語帳へ戻る
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    document.getElementById(
+        "retryButton"
+    ).onclick =
+        retryQuiz;
+
+
+    document.getElementById(
+        "backDeckButton"
+    ).onclick =
+        function(){
+
+            location.href =
+                "deck-detail.html";
+
+        };
+
+
+    playAnimation(
+        "quiz-pop-animation"
+    );
+
+}
+
+
+/* =========================================
+   Retry
+========================================= */
+
+function retryQuiz(){
+
+    showSetup();
+
+}
+
+
+/* =========================================
+   Enter Key
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key !== "Enter" ||
+            event.isComposing
+        ){
+
+            return;
+
+        }
+
+
+        /*
+            結果画面なら
+            「もう一度解く」
+        */
+
+        if(quizFinished){
+
+            retryQuiz();
+
+            return;
+
+        }
+
+
+        /*
+            学習中
+        */
+
+        if(answered){
+
+            nextQuestion();
+
+        }else{
+
+            checkAnswer();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   Back
+========================================= */
+
+document.getElementById(
+    "backButton"
+).onclick =
+    function(){
+
+        location.href =
+            "deck-detail.html";
+
+    };
+
+
+/* =========================================
+   Escape
+========================================= */
+
+function escapeHtml(text){
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================
+   Initialize
+========================================= */
+
+function init(){
+
+    deck =
+        getCurrentDeck();
+
+
+    if(!deck){
+
+        alert(
+            "単語帳が見つかりません。"
+        );
+
+        location.href =
+            "mydeck.html";
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "deckName"
+    ).textContent =
+        deck.name;
+
+
+    if(
+        !Array.isArray(
+            deck.words
+        ) ||
+        deck.words.length === 0
+    ){
+
+        alert(
+            "この単語帳には単語がありません。"
+        );
+
+        location.href =
+            "deck-detail.html";
+
+        return;
+
+    }
+
+
+    showSetup();
+
+}
+
+
+init();
+
+</script>
+
+</body>
+
+</html>

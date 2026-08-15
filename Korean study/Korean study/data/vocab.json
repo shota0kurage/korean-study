@@ -1,0 +1,1010 @@
+[
+  {
+    "id": 1,
+    "level": "pre2",
+    "korean": "유래",
+    "japanese": "由来"
+  },
+  {
+    "id": 2,
+    "level": "pre2",
+    "korean": "근거",
+    "japanese": "根拠"
+  },
+  {
+    "id": 3,
+    "level": "3",
+    "korean": "경험",
+    "japanese": "経験"
+  },
+  {
+    "id": 4,
+    "level": "pre2",
+    "korean": "가꾸다",
+    "japanese": "栽培する 手入れをする 装う 飾る"
+  },
+  {
+    "id": 5,
+    "level": "pre2",
+    "korean": "가난하다",
+    "japanese": "貧しい"
+  },
+  {
+    "id": 6,
+    "level": "pre2",
+    "korean": "가늘다",
+    "japanese": "細い"
+  },
+  {
+    "id": 7,
+    "level": "pre2",
+    "korean": "가량",
+    "japanese": "~くらい 仮量"
+  },
+   {
+    "id":8,
+    "level": "pre2",
+    "korean": "가렵다",
+    "japanese": "かゆい"
+  },
+   {
+    "id":9,
+    "level": "pre2",
+    "korean": "가로",
+    "japanese": "横"
+  },
+   {
+    "id": 10,
+    "level": "pre2",
+    "korean": "가로지르다",
+    "japanese": "横切る"
+  },
+   {
+    "id": 11,
+    "level": "pre2",
+    "korean": "가르다",
+    "japanese": "裂く 分ける"
+  },
+   {
+    "id": 12,
+    "level": "pre2",
+    "korean": "가리다",
+    "japanese": "さえぎる 覆う"
+  },
+   {
+    "id": 13,
+    "level": "pre2",
+    "korean": "가쁘다",
+    "japanese": "（息が）くるしい"
+  },
+   {
+    "id": 14,
+    "level": "pre2",
+    "korean": "가슴앓이",
+    "japanese": "なやみ 心の苦しみ"
+  },
+   {
+    "id": 15,
+    "level": "pre2",
+    "korean": "간절하다",
+    "japanese": "切実だ"
+  },
+   {
+    "id": 16,
+    "level": "pre2",
+    "korean": "간직하다",
+    "japanese": "大切にしまっておく"
+  },
+   {
+    "id": 17,
+    "level": "pre2",
+    "korean": "갈다",
+    "japanese": "替える"
+  },
+   {
+    "id": 18,
+    "level": "pre2",
+    "korean": "갈색",
+    "japanese": "茶色"
+  },
+   {
+    "id": 19,
+    "level": "pre2",
+    "korean": "감다",
+    "japanese": "巻く"
+  },
+   {
+    "id": 20,
+    "level": "pre2",
+    "korean": "감소하다",
+    "japanese": "減少する"
+  },
+   {
+    "id": 21,
+    "level": "pre2",
+    "korean": "강제",
+    "japanese": "強制"
+  },
+   {
+    "id": 22,
+    "level": "pre2",
+    "korean": "갖추다",
+    "japanese": "整える そなえる"
+  },
+   {
+    "id": 23,
+    "level": "pre2",
+    "korean": "갚다",
+    "japanese": "返す 報いる"
+  },
+   {
+    "id": 24,
+    "level": "pre2",
+    "korean": "개념",
+    "japanese": "概念"
+  },
+   {
+    "id": 25,
+    "level": "pre2",
+    "korean": "거꾸로",
+    "japanese": "逆さまに 逆に"
+  },
+   {
+    "id": 26,
+    "level": "pre2",
+    "korean": "거두다",
+    "japanese": "収穫する 取り入れる 世話をする 手入れする 収める"
+  },
+   {
+    "id": 27,
+    "level": "pre2",
+    "korean": "거듭하다",
+    "japanese": "繰り返す"
+  },
+   {
+    "id": 28,
+    "level": "pre2",
+    "korean": "거래하다",
+    "japanese": "取引する"
+  },
+   {
+    "id": 29,
+    "level": "pre2",
+    "korean": "거부하다",
+    "japanese": "拒否する"
+  },
+   {
+    "id": 30,
+    "level": "pre2",
+    "korean": "거저",
+    "japanese": "ただで 無料で"
+  },
+   {
+    "id": 31,
+    "level": "pre2",
+    "korean": "거치다",
+    "japanese": "こすれる 触れる 立ち寄る 経由する 経る"
+  },
+   {
+    "id": 32,
+    "level": "pre2",
+    "korean": "거품",
+    "japanese": "泡"
+  },
+   {
+    "id": 33,
+    "level": "pre2",
+    "korean": "건널목",
+    "japanese": "踏切"
+  },
+   {
+    "id": 34,
+    "level": "pre2",
+    "korean": "건방지다",
+    "japanese": "生意気だ"
+  },
+   {
+    "id": 35,
+    "level": "pre2",
+    "korean": "걸레",
+    "japanese": "雑巾"
+  },
+   {
+    "id": 36,
+    "level": "pre2",
+    "korean": "검토하다",
+    "japanese": "検討する"
+  },
+   {
+    "id": 37,
+    "level": "pre2",
+    "korean": "겁",
+    "japanese": "恐れ 怖さ"
+  },
+   {
+    "id": 38,
+    "level": "pre2",
+    "korean": "게으르다",
+    "japanese": "怠惰だ"
+  },
+   {
+    "id": 39,
+    "level": "pre2",
+    "korean": "겪다",
+    "japanese": "経験する 経る"
+  },
+   {
+    "id": 40,
+    "level": "pre2",
+    "korean": "견해",
+    "japanese": "見解"
+  },
+  {
+    "id": 41,
+    "level": "pre2",
+    "korean": "경계",
+    "japanese": "境界"
+  },
+  {
+    "id": 42,
+    "level": "pre2",
+    "korean": "경력",
+    "japanese": "経歴"
+  },
+  {
+    "id": 43,
+    "level": "pre2",
+    "korean": "경계",
+    "japanese": "境界"
+  },
+  {
+    "id": 44,
+    "level": "pre2",
+    "korean": "경솔하다",
+    "japanese": "軽率だ"
+  },
+  {
+    "id": 45,
+    "level": "pre2",
+    "korean": "경쾌하다",
+    "japanese": "軽快だ"
+  },
+  {
+    "id": 46,
+    "level": "pre2",
+    "korean": "고래",
+    "japanese": "クジラ"
+  },
+  {
+    "id": 47,
+    "level": "pre2",
+    "korean": "고이다",
+    "japanese": "（液体が）たまる よどむ (涙が)にじむ"
+  },
+  {
+    "id": 48,
+    "level": "pre2",
+    "korean": "고장",
+    "japanese": "ふるさと 地域"
+  },
+  {
+    "id": 49,
+    "level": "pre2",
+    "korean": "고추냉이",
+    "japanese": "わさび"
+  },
+  {
+    "id": 50,
+    "level": "pre2",
+    "korean": "곧바로",
+    "japanese": "真っすぐに"
+  },
+  {
+    "id": 51,
+    "level": "pre2",
+    "korean": "곧장",
+    "japanese": "（寄り道せずに）まっすぐ"
+  },
+  {
+    "id": 52,
+    "level": "pre2",
+    "korean": "골고루",
+    "japanese": "均等に"
+  },
+  {
+    "id": 53,
+    "level": "pre2",
+    "korean": "곰곰이",
+    "japanese": "じっくり つくづく よくよく"
+  },
+  {
+    "id": 54,
+    "level": "pre2",
+    "korean": "곱하",
+    "japanese": "掛ける（数字）"
+  },
+  {
+    "id": 55,
+    "level": "pre2",
+    "korean": "공백",
+    "japanese": "空白"
+  },
+  {
+    "id": 56,
+    "level": "pre2",
+    "korean": "공문서",
+    "japanese": "公文書"
+  },
+  {
+    "id": 57,
+    "level": "pre2",
+    "korean": "관념",
+    "japanese": "観念"
+  },
+  {
+    "id": 58,
+    "level": "pre2",
+    "korean": "관람하다",
+    "japanese": "観覧する"
+  },
+  {
+    "id": 59,
+    "level": "pre2",
+    "korean": "관습",
+    "japanese": "慣習"
+  },
+  {
+    "id": 60,
+    "level": "pre2",
+    "korean": "관전",
+    "japanese": "観戦"
+  },
+  {
+    "id": 61,
+    "level": "pre2",
+    "korean": "관찰",
+    "japanese": "観察"
+  },
+  {
+    "id": 62,
+    "level": "pre2",
+    "korean": "관중",
+    "japanese": "観衆"
+  },
+  {
+    "id": 63,
+    "level": "pre2",
+    "korean": "괄호",
+    "japanese": "括弧"
+  },
+  {
+    "id": 64,
+    "level": "pre2",
+    "korean": "교생",
+    "japanese": "教育実習生"
+  },
+  {
+    "id": 65,
+    "level": "pre2",
+    "korean": "교양",
+    "japanese": "教養"
+  },
+  {
+    "id": 66,
+    "level": "pre2",
+    "korean": "교외",
+    "japanese": "郊外"
+  },
+  {
+    "id": 67,
+    "level": "pre2",
+    "korean": "교제하다",
+    "japanese": "交際する"
+  },
+  {
+    "id": 68,
+    "level": "pre2",
+    "korean": "교차하다",
+    "japanese": "交差する"
+  },
+  {
+    "id": 69,
+    "level": "pre2",
+    "korean": "구르다",
+    "japanese": "転がる"
+  },
+  {
+    "id": 70,
+    "level": "pre2",
+    "korean": "구두쇠",
+    "japanese": "けち けちんぼう"
+  },
+  {
+    "id": 71,
+    "level": "pre2",
+    "korean": "구불구불하다",
+    "japanese": "くねくねと"
+  },
+  {
+    "id": 72,
+    "level": "pre2",
+    "korean": "구석",
+    "japanese": "隅"
+  },
+  {
+    "id": 73,
+    "level": "pre2",
+    "korean": "구실",
+    "japanese": "口実"
+  },
+  {
+    "id": 74,
+    "level": "pre2",
+    "korean": "구조",
+    "japanese": "構造"
+  },
+  {
+    "id": 75,
+    "level": "pre2",
+    "korean": "국경",
+    "japanese": "国境"
+  },
+  {
+    "id": 76,
+    "level": "pre2",
+    "korean": "국립",
+    "japanese": "国立"
+  },
+  {
+    "id": 77,
+    "level": "pre2",
+    "korean": "국산",
+    "japanese": "国産"
+  },
+  {
+    "id": 78,
+    "level": "pre2",
+    "korean": "국적",
+    "japanese": "国籍"
+  },
+  {
+    "id": 79,
+    "level": "pre2",
+    "korean": "국회",
+    "japanese": "国会"
+  },
+  {
+    "id": 80,
+    "level": "pre2",
+    "korean": "굳다",
+    "japanese": "固くなる"
+  },
+  {
+    "id": 81,
+    "level": "pre2",
+    "korean": "굳이",
+    "japanese": "無理に あえて 頑固に"
+  },
+  {
+    "id": 82,
+    "level": "pre2",
+    "korean": "굵다",
+    "japanese": "太い"
+  },
+  {
+    "id": 83,
+    "level": "pre2",
+    "korean": "굴뚝",
+    "japanese": "煙突"
+  },
+  {
+    "id": 84,
+    "level": "pre2",
+    "korean": "굶다",
+    "japanese": "飢える 食事を抜く"
+  },
+  {
+    "id": 85,
+    "level": "pre2",
+    "korean": "굽다",
+    "japanese": "曲がる"
+  },
+  {
+    "id": 86,
+    "level": "pre2",
+    "korean": "귀중하다",
+    "japanese": "貴重だ"
+  },
+  {
+    "id": 87,
+    "level": "pre2",
+    "korean": "귀하다",
+    "japanese": "尊い"
+  },
+  {
+    "id": 88,
+    "level": "pre2",
+    "korean": "귀화",
+    "japanese": "帰化"
+  },
+  {
+    "id": 89,
+    "level": "pre2",
+    "korean": "규격",
+    "japanese": "規格"
+  },
+  {
+    "id": 90,
+    "level": "pre2",
+    "korean": "규범",
+    "japanese": "規範"
+  },
+  {
+    "id": 91,
+    "level": "pre2",
+    "korean": "그끄저께",
+    "japanese": "一昨昨日"
+  },
+  {
+    "id": 92,
+    "level": "pre2",
+    "korean": "그나마",
+    "japanese": "それさえも それでも その上にまた"
+  },
+  {
+    "id": 93,
+    "level": "pre2",
+    "korean": "그나저나",
+    "japanese": "いずれにしても、ともかく"
+  },
+  {
+    "id": 94,
+    "level": "pre2",
+    "korean": "그네",
+    "japanese": "ぶらんこ"
+  },
+  {
+    "id": 95,
+    "level": "pre2",
+    "korean": "그래야",
+    "japanese": "それでこそ そうしてみたところで"
+  },
+  {
+    "id": 96,
+    "level": "pre2",
+    "korean": "그런대로",
+    "japanese": "それなりに"
+  },
+  {
+    "id": 97,
+    "level": "pre2",
+    "korean": "그럭저럭",
+    "japanese": "どうにか どうにかこうにか どうやら"
+  },
+  {
+    "id": 98,
+    "level": "pre2",
+    "korean": "그르다",
+    "japanese": "正しくない (成り行きなどが)思わしくなくなる"
+  },
+  {
+    "id": 99,
+    "level": "pre2",
+    "korean": "그물",
+    "japanese": "あみ"
+  },
+  {
+    "id": 100,
+    "level": "pre2",
+    "korean": "그지없다",
+    "japanese": "限りない 計り知れない 言い尽くせない"
+  },
+  {
+    "id": 101,
+    "level": "pre2",
+    "korean": "극",
+    "japanese": "極み"
+  },
+  {
+    "id": 102,
+    "level": "pre2",
+    "korean": "극단",
+    "japanese": "極端"
+  },
+  {
+    "id": 103,
+    "level": "pre2",
+    "korean": "극복하다",
+    "japanese": "克服する"
+  },
+  {
+    "id": 104,
+    "level": "pre2",
+    "korean": "근무하다",
+    "japanese": "勤務する"
+  },
+  {
+    "id": 105,
+    "level": "pre2",
+    "korean": "근사하다",
+    "japanese": "近似 似通っている"
+  },
+  {
+    "id": 106,
+    "level": "pre2",
+    "korean": "근시",
+    "japanese": "近視"
+  },
+  {
+    "id": 107,
+    "level": "pre2",
+    "korean": "근원",
+    "japanese": "根源"
+  },
+  {
+    "id": 108,
+    "level": "pre2",
+    "korean": "근질근질하다",
+    "japanese": "むずむず うずうず"
+  },
+  {
+    "id": 109,
+    "level": "pre2",
+    "korean": "글짓기",
+    "japanese": "作文"
+  },
+  {
+    "id": 110,
+    "level": "pre2",
+    "korean": "글피",
+    "japanese": "しあさって"
+  },
+  {
+    "id": 111,
+    "level": "pre2",
+    "korean": "긁다",
+    "japanese": "搔く かき集める"
+  },
+  {
+    "id": 112,
+    "level": "pre2",
+    "korean": "금",
+    "japanese": "折り目 裂け目 ひび 筋 線"
+  },
+  {
+    "id": 113,
+    "level": "pre2",
+    "korean": "금년",
+    "japanese": "今年"
+  },
+  {
+    "id": 114,
+    "level": "pre2",
+    "korean": "금붕어",
+    "japanese": "金魚"
+  },
+  {
+    "id": 115,
+    "level": "pre2",
+    "korean": "금속",
+    "japanese": "金属"
+  },
+  {
+    "id": 116,
+    "level": "pre2",
+    "korean": "금액",
+    "japanese": "金額"
+  },
+  {
+    "id": 117,
+    "level": "pre2",
+    "korean": "금융",
+    "japanese": "金融"
+  },
+  {
+    "id": 118,
+    "level": "pre2",
+    "korean": "급격하다",
+    "japanese": "急激だ"
+  },
+  {
+    "id": 119,
+    "level": "pre2",
+    "korean": "급변하다",
+    "japanese": "急変する"
+  },
+  {
+    "id": 120,
+    "level": "pre2",
+    "korean": "급식",
+    "japanese": "給食"
+  },
+  {
+    "id": 121,
+    "level": "pre2",
+    "korean": "긋다",
+    "japanese": "（線を）ひく （マッチを）する つけで買う"
+  },
+  {
+    "id": 122,
+    "level": "pre2",
+    "korean": "긍정하다",
+    "japanese": "肯定する"
+  },
+  {
+    "id": 123,
+    "level": "pre2",
+    "korean": "기껏해야",
+    "japanese": "せいぜい"
+  },
+  {
+    "id": 124,
+    "level": "pre2",
+    "korean": "기대다",
+    "japanese": "もたれる 頼る"
+  },
+  {
+    "id": 125,
+    "level": "pre2",
+    "korean": "기독교",
+    "japanese": "キリスト教"
+  },
+  {
+    "id": 126,
+    "level": "pre2",
+    "korean": "기숙사",
+    "japanese": "寄宿舎 寮"
+  },
+  {
+    "id": 127,
+    "level": "pre2",
+    "korean": "기술",
+    "japanese": "記述"
+  },
+  {
+    "id": 128,
+    "level": "pre2",
+    "korean": "기압",
+    "japanese": "気圧"
+  },
+  {
+    "id": 129,
+    "level": "pre2",
+    "korean": "기어이",
+    "japanese": "かならず"
+  },
+  {
+    "id": 130,
+    "level": "pre2",
+    "korean": "기울다",
+    "japanese": "傾く"
+  },
+  {
+    "id": 131,
+    "level": "pre2",
+    "korean": "기원",
+    "japanese": "起源"
+  },
+  {
+    "id": 132,
+    "level": "pre2",
+    "korean": "기존하다",
+    "japanese": "既存する"
+  },
+  {
+    "id": 133,
+    "level": "pre2",
+    "korean": "기종",
+    "japanese": "機種"
+  },
+  {
+    "id": 134,
+    "level": "pre2",
+    "korean": "기침하다",
+    "japanese": "咳をする"
+  },
+  {
+    "id": 135,
+    "level": "pre2",
+    "korean": "기혼",
+    "japanese": "既婚"
+  },
+  {
+    "id": 136,
+    "level": "pre2",
+    "korean": "기획",
+    "japanese": "企画"
+  },
+  {
+    "id": 137,
+    "level": "pre2",
+    "korean": "긴팔",
+    "japanese": "長袖"
+  },
+  {
+    "id": 138,
+    "level": "pre2",
+    "korean": "까다",
+    "japanese": "皮をむく"
+  },
+  {
+    "id": 139,
+    "level": "pre2",
+    "korean": "까다롭다",
+    "japanese": "気難しい ややこしい"
+  },
+  {
+    "id": 140,
+    "level": "pre2",
+    "korean": "까닭",
+    "japanese": "原因 理由"
+  },
+  {
+    "id": 141,
+    "level": "pre2",
+    "korean": "까불다",
+    "japanese": "ふざける"
+  },
+  {
+    "id": 142,
+    "level": "pre2",
+    "korean": "깔깔",
+    "japanese": "大声で笑う様子 きゃっきゃと"
+  },
+  {
+    "id": 143,
+    "level": "pre2",
+    "korean": "깔보다",
+    "japanese": "見下す"
+  },
+  {
+    "id": 144,
+    "level": "pre2",
+    "korean": "깨",
+    "japanese": "ゴマ"
+  },
+  {
+    "id": 145,
+    "level": "pre2",
+    "korean": "깨닫다",
+    "japanese": "悟る 自覚する"
+  },
+  {
+    "id": 146,
+    "level": "pre2",
+    "korean": "꺼리다",
+    "japanese": "はばかる ためらう"
+  },
+  {
+    "id": 147,
+    "level": "pre2",
+    "korean": "꺾다",
+    "japanese": "折る"
+  },
+  {
+    "id": 148,
+    "level": "pre2",
+    "korean": "껍질",
+    "japanese": "皮 殻"
+  },
+  {
+    "id": 149,
+    "level": "pre2",
+    "korean": "껍데기",
+    "japanese": "（栗 卵 貝などの）殻 中身のない殻 皮"
+  },
+  {
+    "id": 150,
+    "level": "pre2",
+    "korean": "껏",
+    "japanese": "～の限り、 ～いっぱい ～まで"
+  },
+  {
+    "id": 151,
+    "level": "pre2",
+    "korean": "꼭지",
+    "japanese": "（蓋の）つまみ （果物 野菜などの）へた"
+  },
+  {
+    "id": 152,
+    "level": "pre2",
+    "korean": "꽁치",
+    "japanese": "サンマ"
+  },
+  {
+    "id": 153,
+    "level": "pre2",
+    "korean": "꽁꽁",
+    "japanese": "かちかちに（凍る） ぎゅうぎゅうに（結ぶ）"
+  },
+  {
+    "id": 154,
+    "level": "pre2",
+    "korean": "꾀하다",
+    "japanese": "企てる 図る"
+  },
+  {
+    "id": 155,
+    "level": "pre2",
+    "korean": "꽃잎",
+    "japanese": "花びら"
+  },
+  {
+    "id": 156,
+    "level": "pre2",
+    "korean": "꾀병",
+    "japanese": "仮病"
+  },
+  {
+    "id": 157,
+    "level": "pre2",
+    "korean": "꾸리다",
+    "japanese": "荷造りする"
+  },
+  {
+    "id": 158,
+    "level": "pre2",
+    "korean": "꾸미다",
+    "japanese": "飾る 整える 作る 企てる"
+  },
+  {
+    "id": 159,
+    "level": "pre2",
+    "korean": "꾸준하다",
+    "japanese": "粘りつよい 根気がある"
+  },
+  {
+    "id": 160,
+    "level": "pre2",
+    "korean": "꾸중하다",
+    "japanese": "叱る"
+  },
+  {
+    "id": 161,
+    "level": "pre2",
+    "korean": "꿩",
+    "japanese": "キジ"
+  },
+  {
+    "id": 162,
+    "level": "pre2",
+    "korean": "끄덕하다",
+    "japanese": "うなずく"
+  },
+  {
+    "id": 163,
+    "level": "pre2",
+    "korean": "끝없다",
+    "japanese": "限りない 果てしない"
+  },
+  {
+    "id": 164,
+    "level": "pre2",
+    "korean": "끊임없이",
+    "japanese": "絶え間なく ひっきりなしに"
+  },
+  {
+    "id": 165,
+    "level": "pre2",
+    "korean": "끈질기다",
+    "japanese": "粘り強い"
+  },
+  {
+    "id": 166,
+    "level": "pre2",
+    "korean": "끈기",
+    "japanese": "粘り気 根気 粘り強さ"
+  },
+  {
+    "id": 167,
+    "level": "pre2",
+    "korean": "끈적하다",
+    "japanese": "ねばねばしてる べとべと くどくてしつこい様子"
+  },
+  {
+    "id": 168,
+    "level": "pre2",
+    "korean": "끊기다",
+    "japanese": "絶たれる 切れる"
+  }
+]

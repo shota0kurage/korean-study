@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>韓国語学習サイト</title>
+
+<link
+    rel="stylesheet"
+    href="style.css"
+>
+
+<script src="study-tracker.js"></script>
+
+
+<style>
+
+/* =========================================
+   Study Dashboard
+========================================= */
+
+.study-dashboard{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:15px;
+
+}
+
+
+.dashboard-card{
+
+    background:#16181c;
+
+    border:
+        1px solid #2f3336;
+
+    border-radius:18px;
+
+    padding:22px;
+
+}
+
+
+.dashboard-label{
+
+    color:var(--sub);
+
+    font-size:.82rem;
+
+}
+
+
+.dashboard-value{
+
+    font-size:1.7rem;
+
+    font-weight:800;
+
+    margin-top:6px;
+
+}
+
+
+/* =========================================
+   Goal
+========================================= */
+
+.goal-card{
+
+    grid-column:
+        1 / -1;
+
+}
+
+
+
+
+
+.goal-progress-wrap{
+
+    margin-top:18px;
+
+}
+
+
+.goal-progress-text{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    color:var(--sub);
+
+    font-size:.82rem;
+
+}
+
+
+.goal-progress-bar{
+
+    width:100%;
+
+    height:8px;
+
+    margin-top:8px;
+
+    background:#2f3336;
+
+    border-radius:999px;
+
+    overflow:hidden;
+
+}
+
+
+.goal-progress-fill{
+
+    height:100%;
+
+    background:var(--primary);
+
+    border-radius:999px;
+
+    width:0;
+
+    transition:
+        width .3s ease;
+
+}
+
+
+.goal-status{
+
+    margin-top:10px;
+
+    font-size:.82rem;
+
+    color:var(--sub);
+
+}
+
+
+.dashboard-button{
+
+    margin-top:15px;
+
+}
+
+
+/* =========================================
+   Streak
+========================================= */
+
+.streak-card{
+
+    grid-column:
+        1 / -1;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:20px;
+
+    min-height:120px;
+
+    text-align:center;
+
+}
+
+
+.streak-icon{
+
+    font-size:2rem;
+
+    margin-bottom:6px;
+
+}
+
+
+/* =========================================
+   Mobile
+========================================= */
+
+@media(max-width:650px){
+
+    .study-dashboard{
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+    .goal-card{
+
+        grid-column:auto;
+
+    }
+
+    .goal-row{
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- =====================================
+         Header
+    ====================================== -->
+
+    <header class="site-header">
+
+        <div class="logo">
+            Korean <span>Study</span>
+        </div>
+
+        <div class="header-sub">
+            韓国語学習
+        </div>
+
+    </header>
+
+
+    <!-- =====================================
+         Hero
+    ====================================== -->
+
+    <section class="hero">
+
+        <h1>
+            한국어 학습
+        </h1>
+
+        <p>
+            韓国語を楽しく、効率よく学習しよう。
+        </p>
+
+    </section>
+
+
+    <!-- =====================================
+         Category
+    ====================================== -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <h2>
+                📚 学習カテゴリー
+            </h2>
+
+            <span>
+                学びたい分野を選択
+            </span>
+
+        </div>
+
+
+        <div class="category-grid">
+
+
+            <div
+                class="category-card"
+                onclick="openCategory('vocab')">
+
+                <div class="category-icon">
+                    📚
+                </div>
+
+                <div class="category-name">
+                    単語
+                </div>
+
+                <div class="category-description">
+                    韓国語の単語を学習します
+                </div>
+
+                <div class="category-arrow">
+                    →
+                </div>
+
+            </div>
+
+
+            <div
+                class="category-card"
+                onclick="openCategory('idiom')">
+
+                <div class="category-icon">
+                    💬
+                </div>
+
+                <div class="category-name">
+                    慣用句
+                </div>
+
+                <div class="category-description">
+                    韓国語の慣用句を学習します
+                </div>
+
+                <div class="category-arrow">
+                    →
+                </div>
+
+            </div>
+
+
+            <div
+                class="category-card"
+                onclick="openCategory('expression')">
+
+                <div class="category-icon">
+                    🗣️
+                </div>
+
+                <div class="category-name">
+                    慣用表現
+                </div>
+
+                <div class="category-description">
+                    自然な韓国語表現を学習します
+                </div>
+
+                <div class="category-arrow">
+                    →
+                </div>
+
+            </div>
+
+
+            <div
+                class="category-card"
+                onclick="openCategory('proverb')">
+
+                <div class="category-icon">
+                    📖
+                </div>
+
+                <div class="category-name">
+                    ことわざ
+                </div>
+
+                <div class="category-description">
+                    韓国のことわざを学習します
+                </div>
+
+                <div class="category-arrow">
+                    →
+                </div>
+
+            </div>
+
+
+            <div
+                class="category-card"
+                onclick="openCategory('saja')">
+
+                <div class="category-icon">
+                    🀄
+                </div>
+
+                <div class="category-name">
+                    四字熟語
+                </div>
+
+                <div class="category-description">
+                    韓国語の四字熟語を学習します
+                </div>
+
+                <div class="category-arrow">
+                    →
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================
+         My Deck
+    ====================================== -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <h2>
+                📚 マイ単語帳
+            </h2>
+
+        </div>
+
+
+        <div class="card">
+
+            <button
+                class="btn btn-primary"
+                onclick="openMyDeck()">
+
+                マイ単語帳を開く
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================
+         Study
+    ====================================== -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <h2>
+                📊 学習
+            </h2>
+
+        </div>
+
+
+        <div class="study-dashboard">
+
+
+            <!-- =================================
+                 Goal
+            ================================== -->
+
+            <div class="dashboard-card goal-card">
+
+    <div class="dashboard-label">
+        🎯 学習目標
+    </div>
+
+
+    <div
+        id="goalTitle"
+        class="dashboard-value">
+
+        目標を設定してください
+
+    </div>
+
+
+    <div
+        id="goalProgressArea"
+        class="goal-progress-wrap">
+
+    </div>
+
+
+    <button
+        class="btn btn-primary dashboard-button"
+        onclick="location.href='goal.html'">
+
+        🎯 目標を設定・変更する
+
+    </button>
+
+</div>
+
+
+            <!-- =================================
+                 Streak
+            ================================== -->
+
+            <div
+                class="dashboard-card streak-card">
+
+                <div class="streak-icon">
+                    🔥
+                </div>
+
+                <div class="dashboard-label">
+                    連続学習
+                </div>
+
+                <div
+                    id="streakValue"
+                    class="dashboard-value">
+
+                    0日
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+                 Wrong
+            ================================== -->
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-label">
+                    📕 復習
+                </div>
+
+                <div class="dashboard-value">
+                    苦手な問題
+                </div>
+
+                <button
+                    class="btn btn-secondary dashboard-button"
+                    onclick="openWrongWords()">
+
+                    苦手な問題を開く
+
+                </button>
+
+            </div>
+
+
+            <!-- =================================
+                 History
+            ================================== -->
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-label">
+                    📚 記録
+                </div>
+
+                <div class="dashboard-value">
+                    学習履歴
+                </div>
+
+                <button
+                    class="btn btn-secondary dashboard-button"
+                    onclick="openHistory()">
+
+                    学習履歴を開く
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <footer>
+        Korean Learning Project
+    </footer>
+
+
+</div>
+
+
+<script>
+
+/* =========================================
+   Category
+========================================= */
+
+function openCategory(category){
+
+    localStorage.setItem(
+        "selectedCategory",
+        category
+    );
+
+
+    window.location.href =
+        "category-select.html";
+
+}
+
+
+/* =========================================
+   My Deck
+========================================= */
+
+function openMyDeck(){
+
+    location.href =
+        "mydeck.html";
+
+}
+
+
+/* =========================================
+   Wrong Words
+========================================= */
+
+function openWrongWords(){
+
+    location.href =
+        "wrong.html";
+
+}
+
+
+/* =========================================
+   History
+========================================= */
+
+function openHistory(){
+
+    location.href =
+        "history.html";
+
+}
+
+
+
+/* =========================================
+   Dashboard
+========================================= */
+
+function renderStudyDashboard(){
+
+    const goal =
+        getStudyGoal();
+
+
+    const title =
+        document.getElementById(
+            "goalTitle"
+        );
+
+
+    const progressArea =
+        document.getElementById(
+            "goalProgressArea"
+        );
+
+
+    const streakValue =
+        document.getElementById(
+            "streakValue"
+        );
+
+
+    /*
+        連続学習
+    */
+
+    const streak =
+        getStudyStreak();
+
+
+    streakValue.textContent =
+        streak + "日";
+
+
+    /*
+        目標がない場合
+    */
+
+    if(!goal){
+
+        title.textContent =
+            "目標を設定してください";
+
+
+        progressArea.innerHTML = `
+
+            <div class="goal-status">
+
+                期間と目標問題数を設定すると、
+                ここに進捗が表示されます。
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /*
+        現在の進捗
+    */
+
+    const progress =
+        getStudyGoalProgress();
+
+
+    title.textContent =
+        `${goal.periodLabel}・${goal.targetQuestions}問`;
+
+
+    if(!progress){
+
+        progressArea.innerHTML =
+            "";
+
+        return;
+
+    }
+
+
+    /*
+        目標期間中
+    */
+
+    if(progress.active){
+
+        const remainingDays =
+            getRemainingGoalDays();
+
+
+        progressArea.innerHTML = `
+
+            <div class="goal-progress-text">
+
+                <span>
+
+                    ${progress.count}
+                    /
+                    ${goal.targetQuestions}問
+
+                </span>
+
+
+                <span>
+
+                    ${progress.progress}%
+
+                </span>
+
+            </div>
+
+
+            <div class="goal-progress-bar">
+
+                <div
+                    class="goal-progress-fill"
+                    style="
+                        width:
+                        ${progress.progress}%;
+                    ">
+
+                </div>
+
+            </div>
+
+
+            <div class="goal-status">
+
+                残り
+                ${remainingDays}
+                日
+
+            </div>
+
+        `;
+
+    }
+
+
+    /*
+        目標期間終了
+    */
+
+    else{
+
+        progressArea.innerHTML = `
+
+            <div class="goal-status">
+
+                この目標期間は終了しました。<br>
+
+                新しい目標を設定できます。
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================
+   Initial
+========================================= */
+
+renderStudyDashboard();
+
+</script>
+
+</body>
+
+</html>

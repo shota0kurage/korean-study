@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<title>苦手な問題</title>
+
+<link
+    rel="stylesheet"
+    href="style.css">
+
+<style>
+
+/* =========================================
+   Page
+========================================= */
+
+.wrong-page{
+    max-width:800px;
+    margin:0 auto;
+}
+
+
+/* =========================================
+   Header
+========================================= */
+
+.wrong-header{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.wrong-icon{
+    font-size:2.8rem;
+    margin-bottom:8px;
+}
+
+.wrong-header h1{
+    margin:0;
+    font-size:1.8rem;
+}
+
+.wrong-header p{
+    color:var(--sub);
+    margin-top:8px;
+}
+
+
+/* =========================================
+   Study Setting
+========================================= */
+
+.study-panel{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:24px;
+    margin-bottom:25px;
+    box-shadow:var(--shadow);
+}
+
+.study-count{
+    color:var(--sub);
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.study-setting{
+    margin-bottom:18px;
+}
+
+.study-setting label{
+    display:block;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+.study-setting input{
+    width:100%;
+    padding:13px;
+
+    border:1px solid var(--border);
+    border-radius:10px;
+
+    background:#0f1115;
+    color:var(--text);
+
+    font-size:1rem;
+    outline:none;
+}
+
+.study-setting input:focus{
+    border-color:var(--primary);
+}
+
+.study-setting p{
+    color:var(--sub);
+    font-size:.82rem;
+    margin-top:8px;
+}
+
+
+/* =========================================
+   Wrong List
+========================================= */
+
+.wrong-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+
+/* =========================================
+   Wrong Item
+========================================= */
+
+.wrong-item{
+    display:flex;
+    align-items:center;
+    gap:15px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+    border-radius:16px;
+
+    padding:18px;
+
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+.wrong-item:hover{
+    transform:translateY(-2px);
+
+    border-color:
+        rgba(29,155,240,.4);
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,0,0,.25);
+}
+
+.wrong-info{
+    flex:1;
+    min-width:0;
+}
+
+.wrong-category{
+    color:var(--sub);
+    font-size:.78rem;
+    margin-bottom:5px;
+}
+
+.wrong-question{
+    font-size:1.05rem;
+    font-weight:700;
+    word-break:break-word;
+}
+
+.wrong-answer{
+    color:var(--primary);
+    margin-top:5px;
+    word-break:break-word;
+}
+
+.wrong-streak{
+    color:var(--sub);
+    font-size:.8rem;
+    margin-top:6px;
+}
+
+
+/* =========================================
+   Delete
+========================================= */
+
+.wrong-delete{
+    flex-shrink:0;
+
+    width:auto;
+
+    padding:9px 13px;
+
+    border-radius:9px;
+
+    background:
+        rgba(244,33,46,.1);
+
+    color:
+        var(--danger);
+
+    cursor:pointer;
+}
+
+.wrong-delete:hover{
+    background:
+        rgba(244,33,46,.18);
+}
+
+
+/* =========================================
+   Empty
+========================================= */
+
+.wrong-empty{
+    text-align:center;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+    border-radius:18px;
+
+    padding:55px 20px;
+
+    box-shadow:var(--shadow);
+}
+
+.wrong-empty-icon{
+    font-size:3rem;
+    margin-bottom:15px;
+}
+
+.wrong-empty h2{
+    margin:0;
+    font-size:1.25rem;
+}
+
+.wrong-empty p{
+    color:var(--sub);
+    margin-top:10px;
+}
+
+
+/* =========================================
+   Back
+========================================= */
+
+.back-button{
+    margin-top:20px;
+}
+
+
+/* =========================================
+   Mobile
+========================================= */
+
+@media(max-width:650px){
+
+    .wrong-item{
+        align-items:flex-start;
+    }
+
+    .wrong-delete{
+        padding:8px 10px;
+    }
+
+}
+
+.slider-labels{
+    display:grid;
+
+    grid-template-columns:
+        repeat(11,1fr);
+
+    width:100%;
+
+    margin-top:5px;
+
+    color:var(--sub);
+
+    font-size:.7rem;
+
+    text-align:center;
+}
+
+/* =========================================
+   Count Control
+========================================= */
+
+.count-control{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+
+    margin-bottom:18px;
+}
+
+.count-control input{
+    width:90px;
+
+    padding:10px;
+
+    text-align:center;
+
+    font-size:1.3rem;
+    font-weight:700;
+
+    background:#16181c;
+    color:var(--text);
+
+    border:1px solid var(--border);
+    border-radius:10px;
+
+    outline:none;
+}
+
+.count-control input:focus{
+    border-color:var(--primary);
+}
+
+.count-control span{
+    color:var(--sub);
+}
+
+
+/* =========================================
+   Slider
+========================================= */
+
+#studySlider{
+    display:block;
+
+    width:100%;
+
+    margin:0;
+    padding:0;
+
+    cursor:pointer;
+}
+
+
+/* =========================================
+   Slider Track
+========================================= */
+
+#studySlider::-webkit-slider-runnable-track{
+    height:6px;
+
+    background:#2f3336;
+
+    border-radius:999px;
+}
+
+#studySlider::-moz-range-track{
+    height:6px;
+
+    background:#2f3336;
+
+    border-radius:999px;
+}
+
+
+/* =========================================
+   Slider Thumb
+========================================= */
+
+#studySlider::-webkit-slider-thumb{
+    appearance:none;
+
+    width:18px;
+    height:18px;
+
+    margin-top:-6px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    cursor:pointer;
+}
+
+#studySlider::-moz-range-thumb{
+    width:18px;
+    height:18px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    cursor:pointer;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+    <div
+    id="confirmOverlay"
+    class="confirm-overlay">
+
+    <div class="confirm-modal">
+
+        <div class="confirm-icon">
+            🗑️
+        </div>
+
+        <div class="confirm-title">
+            苦手問題を削除しますか？
+        </div>
+
+        <div
+            id="confirmMessage"
+            class="confirm-message">
+        </div>
+
+        <div class="confirm-warning">
+            この問題は苦手問題一覧から
+            削除されます。
+        </div>
+
+        <div class="confirm-buttons">
+
+            <button
+                class="btn btn-secondary"
+                onclick="closeDeleteModal()">
+
+                キャンセル
+
+            </button>
+
+            <button
+                class="btn confirm-delete-button"
+                onclick="confirmDeleteWrong()">
+
+                削除する
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="container wrong-page">
+
+
+    <!-- Header -->
+
+    <div class="site-header">
+
+        <div class="logo">
+            Korean <span>Study</span>
+        </div>
+
+    </div>
+
+
+    <div class="wrong-header">
+
+        <div class="wrong-icon">
+            📕
+        </div>
+
+        <h1>
+            苦手な問題
+        </h1>
+
+        <p>
+            間違えた問題を復習しましょう
+        </p>
+
+    </div>
+
+
+    <!-- Study Panel -->
+
+    <div
+        id="studyPanel"
+        class="study-panel">
+
+        <div
+            id="count"
+            class="study-count">
+        </div>
+
+
+        <div
+    id="studySetting"
+    class="study-setting">
+
+    <label for="studyCount">
+        復習する問題数
+    </label>
+
+    <div class="count-control">
+
+        <input
+            id="studyCount"
+            type="number"
+            min="1"
+            max="100"
+            value="5">
+
+        <span>問</span>
+
+    </div>
+
+    <input
+        id="studySlider"
+        type="range"
+        min="1"
+        max="100"
+        value="5">
+
+   <div class="slider-scale">
+
+    <div class="slider-ticks">
+
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </div>
+
+    <div class="slider-labels">
+
+        <span>1</span>
+        <span>10</span>
+        <span>20</span>
+        <span>30</span>
+        <span>40</span>
+        <span>50</span>
+        <span>60</span>
+        <span>70</span>
+        <span>80</span>
+        <span>90</span>
+        <span>100</span>
+
+    </div>
+
+</div>
+
+    <p>
+        ※苦手問題の数を超える場合は、
+        すべての苦手問題を出題します。
+    </p>
+
+        </div>
+
+
+        <button
+            id="studyButton"
+            class="btn btn-primary"
+            onclick="startWrongStudy()">
+
+            苦手な問題を学習する
+
+        </button>
+
+    </div>
+
+</div>
+
+
+    <!-- Wrong List -->
+
+    <div
+        id="wrongList"
+        class="wrong-list">
+    </div>
+
+
+    <!-- Home -->
+
+    <button
+        class="btn btn-secondary back-button"
+        onclick="location.href='index.html'">
+
+        ← ホームへ戻る
+
+    </button>
+
+
+</div>
+
+
+<script>
+
+/* =========================================
+   Data
+========================================= */
+
+let wrongWords =
+    JSON.parse(
+        localStorage.getItem("wrongWords")
+        || "[]"
+    );
+
+
+/* =========================================
+   Render
+========================================= */
+
+function renderWrongWords(){
+
+    const list =
+        document.getElementById("wrongList");
+
+    const count =
+        document.getElementById("count");
+
+    const panel =
+        document.getElementById("studyPanel");
+
+
+    count.textContent =
+        "現在の苦手問題：" +
+        wrongWords.length +
+        "問";
+
+
+    /*
+        苦手問題がない
+    */
+
+    if(wrongWords.length === 0){
+
+        panel.style.display = "none";
+
+
+        list.innerHTML = `
+
+            <div class="wrong-empty">
+
+                <div class="wrong-empty-icon">
+                    🎉
+                </div>
+
+                <h2>
+                    苦手な問題はありません
+                </h2>
+
+                <p>
+                    今のところ復習する問題はありません。
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    panel.style.display = "block";
+
+
+    /*
+        最大値
+    */
+
+    /*
+    最大値
+*/
+
+/*
+    問題数設定
+*/
+
+
+
+    /*
+        一覧
+    */
+
+    let html = "";
+
+
+    wrongWords.forEach(
+        (word,index) => {
+
+            html += `
+
+                <div class="wrong-item">
+
+                    <div class="wrong-info">
+
+                        <div class="wrong-category">
+                            ${escapeHtml(
+                                word.categoryName || ""
+                            )}
+                        </div>
+
+                        <div class="wrong-question">
+                            ${escapeHtml(
+                                word.question || ""
+                            )}
+                        </div>
+
+                        <div class="wrong-answer">
+                            → ${escapeHtml(
+                                word.answer || ""
+                            )}
+                        </div>
+
+                        <div class="wrong-streak">
+                            連続正解：
+                            ${word.correctStreak || 0}
+                            / 3
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="wrong-delete"
+                        onclick="deleteWrongWord(${index})">
+
+                        削除
+
+                    </button>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    list.innerHTML =
+        html;
+
+}
+
+
+/* =========================================
+   Delete
+========================================= */
+
+/* =========================================
+   Delete Wrong Word Modal
+========================================= */
+
+let deleteWrongIndex = null;
+
+
+/*
+    確認画面を開く
+*/
+
+function deleteWrongWord(index){
+
+    const word =
+        wrongWords[index];
+
+
+    if(!word){
+
+        return;
+
+    }
+
+
+    deleteWrongIndex =
+        index;
+
+
+    document.getElementById(
+        "confirmMessage"
+    ).textContent =
+        `「${word.question}」を削除しますか？`;
+
+
+    document.getElementById(
+        "confirmOverlay"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+/*
+    閉じる
+*/
+
+function closeDeleteModal(){
+
+    deleteWrongIndex =
+        null;
+
+
+    document.getElementById(
+        "confirmOverlay"
+    ).classList.remove(
+        "show"
+    );
+
+}
+
+
+/*
+    本当に削除
+*/
+
+function confirmDeleteWrong(){
+
+    if(
+        deleteWrongIndex === null
+    ){
+
+        return;
+
+    }
+
+
+    wrongWords.splice(
+        deleteWrongIndex,
+        1
+    );
+
+
+    localStorage.setItem(
+        "wrongWords",
+        JSON.stringify(
+            wrongWords
+        )
+    );
+
+
+    closeDeleteModal();
+
+
+    renderWrongWords();
+
+}
+
+
+/* =========================================
+   Start Study
+========================================= */
+
+function startWrongStudy(){
+
+    if(wrongWords.length === 0){
+
+        return;
+
+    }
+
+
+    const studyCount =
+        Number(
+            document.getElementById(
+                "studyCount"
+            ).value
+        );
+
+
+    if(
+        !Number.isInteger(studyCount) ||
+        studyCount < 1
+    ){
+
+        alert(
+            "復習する問題数は1問以上にしてください。"
+        );
+
+        return;
+
+    }
+
+
+    let studyWords =
+        [...wrongWords];
+
+
+    shuffle(studyWords);
+
+
+    studyWords =
+        studyWords.slice(
+            0,
+            Math.min(
+                studyCount,
+                studyWords.length
+            )
+        );
+
+
+    localStorage.setItem(
+        "wrongStudyWords",
+        JSON.stringify(studyWords)
+    );
+
+
+    location.href =
+        "wrong-quiz.html";
+
+}
+
+
+/* =========================================
+   Shuffle
+========================================= */
+
+function shuffle(array){
+
+    for(
+        let i = array.length - 1;
+        i > 0;
+        i--
+    ){
+
+        const j =
+            Math.floor(
+                Math.random() *
+                (i + 1)
+            );
+
+
+        [
+            array[i],
+            array[j]
+        ] =
+        [
+            array[j],
+            array[i]
+        ];
+
+    }
+
+}
+
+
+/* =========================================
+   Escape
+========================================= */
+
+function escapeHtml(text){
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================
+   Initial
+========================================= */
+
+const studyCount =
+    document.getElementById(
+        "studyCount"
+    );
+
+const studySlider =
+    document.getElementById(
+        "studySlider"
+    );
+
+
+/*
+    初期設定
+*/
+
+studyCount.min = 1;
+studyCount.max = 100;
+
+studySlider.min = 1;
+studySlider.max = 100;
+
+
+/*
+    初期値を同期
+*/
+
+studySlider.value =
+    studyCount.value;
+
+
+/*
+    スライダー → 数字入力
+*/
+
+studySlider.addEventListener(
+    "input",
+    function(){
+
+        studyCount.value =
+            this.value;
+
+    }
+);
+
+
+/*
+    数字入力 → スライダー
+*/
+
+studyCount.addEventListener(
+    "input",
+    function(){
+
+        let value =
+            Number(this.value);
+
+
+        if(value < 1){
+
+            value = 1;
+
+        }
+
+
+        if(value > 100){
+
+            value = 100;
+
+        }
+
+
+        studySlider.value =
+            value;
+
+    }
+);
+
+
+
+/*
+    スライダー → 数字入力
+*/
+
+studySlider.addEventListener(
+    "input",
+    function(){
+
+        studyCount.value =
+            this.value;
+
+    }
+);
+
+
+/*
+    数字入力 → スライダー
+*/
+
+studyCount.addEventListener(
+    "input",
+    function(){
+
+        let value =
+            Number(this.value);
+
+        if(value < 1){
+
+            value = 1;
+
+        }
+
+        if(value > 100){
+
+            value = 100;
+
+        }
+
+        studySlider.value =
+            value;
+
+    }
+);
+
+renderWrongWords();
+
+</script>
+
+</body>
+
+</html>
