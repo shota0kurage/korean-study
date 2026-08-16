@@ -3,354 +3,413 @@
     "id": 1,
     "level": "pre2",
     "korean": "가는 날이 장날",
-    "japanese": "何かをしようとしたときに予期せぬ出来事にあう"
+    "japanese": "何かをしようとしたときに予期せぬ出来事にあう",
+    "hint": "가〇〇〇〇〇"
   },
   {
     "id": 2,
     "level": "pre2",
     "korean": "아는 말이 고와야 오는 말이 곱다",
-    "japanese": "相手に善い行いをしてこそ、開いても自分に善い行いをしてくれる"
+    "japanese": "相手に善い行いをしてこそ、開いても自分に善い行いをしてくれる",
+    "hint": "아〇〇〇〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 3,
     "level": "pre2",
     "korean": "개구리 올챙이 적 생각 못 한다",
-    "japanese": "偉くなって昔の苦労を忘れるということ"
+    "japanese": "偉くなって昔の苦労を忘れるということ",
+    "hint": "개〇〇〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 4,
     "level": "pre2",
     "korean": "겉 다르고 속 다르다",
-    "japanese": "外と中が違う"
+    "japanese": "外と中が違う",
+    "hint": "겉〇〇〇〇〇〇〇"
   },
   {
     "id": 5,
     "level": "pre2",
     "korean": "고생 끝에 악이 온다",
-    "japanese": "苦は楽の種"
+    "japanese": "苦は楽の種",
+    "hint": "고〇〇〇〇〇〇〇"
   },
   {
     "id": 6,
     "level": "pre2",
     "korean": "고생을 사서 한다",
-    "japanese": "しなくてもいい苦労をすること"
+    "japanese": "しなくてもいい苦労をすること",
+    "hint": "고〇〇〇〇〇〇"
   },
   {
     "id": 7,
     "level": "pre2",
     "korean": "고양이 세수하듯",
-    "japanese": "中途半端に物事をしたり、真似事に終わることのたとえ"
+    "japanese": "中途半端に物事をしたり、真似事に終わることのたとえ",
+    "hint": "고〇〇〇〇〇〇"
   },
   {
     "id": 8,
     "level": "pre2",
     "korean": "고양이 앞에 쥐",
-    "japanese": "蛇に見込まれた蛙"
+    "japanese": "蛇に見込まれた蛙",
+    "hint": "고〇〇〇〇〇"
   },
   {
     "id": 9,
     "level": "pre2",
-    "korean": "고양야한테 생선을 맡기다",
-    "japanese": "猫に鰹節"
+    "korean": "고양이한테 생선을 맡기다",
+    "japanese": "猫に鰹節",
+    "hint": "고〇〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 10,
     "level": "pre2",
     "korean": "고운 자식 매로 키운다",
-    "japanese": "かわいい子には旅させよ"
+    "japanese": "かわいい子には旅させよ",
+    "hint": "고〇〇〇〇〇〇〇〇"
   },
   {
     "id": 11,
     "level": "pre2",
     "korean": "그 아버지에 그 아들",
-    "japanese": "この親にしてこの子あり"
+    "japanese": "この親にしてこの子あり",
+    "hint": "그〇〇〇〇〇〇〇"
   },
   {
     "id": 12,
     "level": "pre2",
     "korean": "길고 짧은 것은 대어 보아야 안다",
-    "japanese": "実際にやってみないとわからないというたとえ"
+    "japanese": "実際にやってみないとわからないというたとえ",
+    "hint": "길〇〇〇〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 13,
     "level": "pre2",
     "korean": "꿩 먹고 알 먹기",
-    "japanese": "一挙両得 一石二鳥"
+    "japanese": "一挙両得 一石二鳥",
+    "hint": "꿩〇〇〇〇〇"
   },
   {
     "id": 14,
     "level": "pre2",
     "korean": "꿩 대신 닭",
-    "japanese": "合うものが無い時に似たもので代用すること"
+    "japanese": "合うものが無い時に似たもので代用すること",
+    "hint": "꿩〇〇〇"
   },
   {
     "id": 15,
     "level": "pre2",
     "korean": "누워서 떡 먹기",
-    "japanese": "朝飯前"
+    "japanese": "朝飯前",
+    "hint": "누〇〇〇〇〇"
   },
   {
     "id": 16,
     "level": "pre2",
     "korean": "다 된 죽에 코 풀기",
-    "japanese": "完成したことを余計な介入やミスで台無しにすること"
+    "japanese": "完成したことを余計な介入やミスで台無しにすること",
+    "hint": "다〇〇〇〇〇〇"
   },
   {
     "id": 17,
     "level": "pre2",
     "korean": "도마에 오른 고기",
-    "japanese": "まな板の鯉"
+    "japanese": "まな板の鯉",
+    "hint": "도〇〇〇〇〇〇"
   },
   {
     "id": 18,
     "level": "pre2",
     "korean": "도토리 키 재기",
-    "japanese": "どんぐりの背比べ"
+    "japanese": "どんぐりの背比べ",
+    "hint": "도〇〇〇〇〇"
   },
   {
     "id": 19,
     "level": "pre2",
     "korean": "돌다기도 두들겨 보고 건너라",
-    "japanese": "石橋を叩いて渡る"
+    "japanese": "石橋を叩いて渡る",
+    "hint": "돌〇〇〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 20,
     "level": "pre2",
     "korean": "둘이 먹다 하나가 죽어도 모르겠다",
-    "japanese": "ほっぺたが落ちるほどおいしい"
+    "japanese": "ほっぺたが落ちるほどおいしい",
+    "hint": "둘〇〇〇〇〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 21,
     "level": "pre2",
     "korean": "등잔 밑이 어둡다",
-    "japanese": "灯台下暗し"
+    "japanese": "灯台下暗し",
+    "hint": "등〇〇〇〇〇〇"
   },
   {
     "id": 22,
     "level": "pre2",
     "korean": "뛰는 놈 위에 나는 놈 있다",
-    "japanese": "上には上がある"
+    "japanese": "上には上がある",
+    "hint": "뛰〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 23,
     "level": "pre2",
     "korean": "먼 시촌보다 가까운 이웃이 낫다",
-    "japanese": "遠くの親類より近くの他人"
+    "japanese": "遠くの親類より近くの他人",
+    "hint": "먼〇〇〇〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 24,
     "level": "pre2",
     "korean": "모르면 약이요 아는 게 병",
-    "japanese": "知らぬが仏"
+    "japanese": "知らぬが仏",
+    "hint": "모〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 25,
     "level": "pre2",
     "korean": "무소식이 희소식",
-    "japanese": "便りのないのは良い便り"
+    "japanese": "便りのないのは良い便り",
+    "hint": "무〇〇〇〇〇〇"
   },
   {
     "id": 26,
     "level": "pre2",
     "korean": "배보다 보꼽이 더 크다",
-    "japanese": "本末転倒"
+    "japanese": "本末転倒",
+    "hint": "배〇〇〇〇〇〇〇〇"
   },
   {
     "id": 27,
     "level": "pre2",
     "korean": "백 번 듣는 것이 한 번 보는 것만 못하다",
-    "japanese": "百聞は一見に如かず"
+    "japanese": "百聞は一見に如かず",
+    "hint": "백〇〇〇〇〇〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 28,
     "level": "pre2",
     "korean": "범에게 날개",
-    "japanese": "鬼に金棒"
+    "japanese": "鬼に金棒",
+    "hint": "범〇〇〇〇"
   },
   {
     "id": 29,
     "level": "pre2",
     "korean": "벼 이삭은 익을수록 고개를 숙인다",
-    "japanese": "実ほど頭の下がる稲穂かな"
+    "japanese": "実ほど頭の下がる稲穂かな",
+    "hint": "벼〇〇〇〇〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 30,
     "level": "pre2",
     "korean": "병 주고 약 준다",
-    "japanese": "人に害を及ぼしたのちに、助けるふりをすること"
+    "japanese": "人に害を及ぼしたのちに、助けるふりをすること",
+    "hint": "병〇〇〇〇〇"
   },
   {
     "id": 31,
     "level": "pre2",
-    "korean": "보기 좋은 떡이 억기도 좋다",
-    "japanese": "見た目が良ければ中身もよい"
+    "korean": "보기 좋은 떡이 먹기도 좋다",
+    "japanese": "見た目が良ければ中身もよい",
+    "hint": "보〇〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 32,
     "level": "pre2",
     "korean": "불난 집에 부채질한다",
-    "japanese": "火に油を注ぐ"
+    "japanese": "火に油を注ぐ",
+    "hint": "불〇〇〇〇〇〇〇〇"
   },
   {
     "id": 33,
     "level": "pre2",
     "korean": "비 온 뒤에 땅이 굳어진다",
-    "japanese": "雨降って地固まる"
+    "japanese": "雨降って地固まる",
+    "hint": "비〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 34,
     "level": "pre2",
     "korean": "사촌이 땅을 사면 배가 아프다",
-    "japanese": "人の幸運を妬むこと"
+    "japanese": "人の幸運を妬むこと",
+    "hint": "사〇〇〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 35,
     "level": "pre2",
     "korean": "소 닭 보듯",
-    "japanese": "お互いに関心がない様子"
+    "japanese": "お互いに関心がない様子",
+    "hint": "소〇〇〇"
   },
   {
     "id": 36,
     "level": "pre2",
     "korean": "시작이 반이다",
-    "japanese": "始めてしまえば半分成したも同様ということ"
+    "japanese": "始めてしまえば半分成したも同様ということ",
+    "hint": "시〇〇〇〇〇"
   },
   {
     "id": 37,
     "level": "pre2",
     "korean": "세 살 적 버릇이 여든까지 간다",
-    "japanese": "三つ子の魂百まで"
+    "japanese": "三つ子の魂百まで",
+    "hint": "세〇〇〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 38,
     "level": "pre2",
     "korean": "쇠귀에 경 읽기",
-    "japanese": "馬の耳に念仏"
+    "japanese": "馬の耳に念仏",
+    "hint": "쇠〇〇〇〇〇"
   },
   {
     "id": 39,
     "level": "pre2",
     "korean": "십 년이면 강산도 변한다",
-    "japanese": "十年一昔"
+    "japanese": "十年一昔",
+    "hint": "십〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 40,
     "level": "pre2",
     "korean": "아는 길도 물어 가라",
-    "japanese": "念には念を入れよ"
+    "japanese": "念には念を入れよ",
+    "hint": "아〇〇〇〇〇〇〇"
   },
   {
     "id": 41,
     "level": "pre2",
     "korean": "아니 땐 굴뚝에 연기 날까",
-    "japanese": "火のない所に煙は立たぬ"
+    "japanese": "火のない所に煙は立たぬ",
+    "hint": "아〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 42,
     "level": "pre2",
     "korean": "엎어지면 코 닿을 데",
-    "japanese": "目と鼻の先"
+    "japanese": "目と鼻の先",
+    "hint": "엎〇〇〇〇〇〇〇"
   },
   {
     "id": 43,
     "level": "pre2",
-    "korean": "누물 안 개구리",
-    "japanese": "井の中の蛙"
+    "korean": "우물 안 개구리",
+    "japanese": "井の中の蛙",
+    "hint": "우〇〇〇〇〇"
   },
   {
     "id": 44,
     "level": "pre2",
     "korean": "우물을 파도 한 우물을 파도",
-    "japanese": "何事でも一つのことに励めば成功する"
+    "japanese": "何事でも一つのことに励めば成功する",
+    "hint": "우〇〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 45,
     "level": "pre2",
     "korean": "웃는 낯에 침 못 뱉는다",
-    "japanese": "行かれるこぶし笑顔に当たらず袖の下に回る子は打たれぬ"
+    "japanese": "行かれるこぶし笑顔に当たらず袖の下に回る子は打たれぬ",
+    "hint": "웃〇〇〇〇〇〇〇〇"
   },
   {
     "id": 46,
     "level": "pre2",
-    "korean": "윗물이 앍아야 아랫물이 맑다",
-    "japanese": "上清めば下濁らず"
+    "korean": "윗물이 맑아야 아랫물이 맑다",
+    "japanese": "上清めば下濁らず",
+    "hint": "윗〇〇〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 47,
     "level": "pre2",
     "korean": "원숭이도 나무에서 떨어진다",
-    "japanese": "猿も木から落ちる"
+    "japanese": "猿も木から落ちる",
+    "hint": "원〇〇〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 48,
     "level": "pre2",
     "korean": "입이 열 개라도 할 말이 없다",
-    "japanese": "言い訳できない"
+    "japanese": "言い訳できない",
+    "hint": "입〇〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 49,
     "level": "pre2",
     "korean": "작은 고추가 더 맵다",
-    "japanese": "三賞は小粒でもピリリと辛い"
+    "japanese": "三賞は小粒でもピリリと辛い",
+    "hint": "작〇〇〇〇〇〇〇"
   },
   {
     "id": 50,
     "level": "pre2",
     "korean": "젊어서 고생은 사서도 한다",
-    "japanese": "若い時の苦労は買ってでもせよ"
+    "japanese": "若い時の苦労は買ってでもせよ",
+    "hint": "젊〇〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 51,
     "level": "pre2",
     "korean": "좋은 약은 입에 쓰다",
-    "japanese": "良薬口に苦し"
+    "japanese": "良薬口に苦し",
+    "hint": "좋〇〇〇〇〇〇〇"
   },
   {
     "id": 52,
     "level": "pre2",
     "korean": "천 리 길도 한 걸음부터",
-    "japanese": "千里の道も一歩から"
+    "japanese": "千里の道も一歩から",
+    "hint": "천〇〇〇〇〇〇〇〇"
   },
   {
     "id": 53,
     "level": "pre2",
     "korean": "토끼 둘을 잡으려다가 하나도 못 잡는다",
-    "japanese": "二兎負うものは一兎も得ず"
+    "japanese": "二兎負うものは一兎も得ず",
+    "hint": "토〇〇〇〇〇〇〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 54,
     "level": "pre2",
     "korean": "티끌 모아 태산",
-    "japanese": "塵も積もれば山となる"
+    "japanese": "塵も積もれば山となる",
+    "hint": "티〇〇〇〇〇"
   },
   {
     "id": 55,
     "level": "pre2",
     "korean": "피는 물보다 진하다",
-    "japanese": "血は水よりも濃い"
+    "japanese": "血は水よりも濃い",
+    "hint": "피〇〇〇〇〇〇〇"
   },
   {
     "id": 56,
     "level": "pre2",
     "korean": "하나를 보고 열을 안다",
-    "japanese": "一を聞いて十を知る"
+    "japanese": "一を聞いて十を知る",
+    "hint": "하〇〇〇〇〇〇〇〇"
   },
   {
     "id": 57,
     "level": "pre2",
     "korean": "하나만 알고 둘은 모른다",
-    "japanese": "一を知りて二を知らず"
+    "japanese": "一を知りて二を知らず",
+    "hint": "하〇〇〇〇〇〇〇〇〇"
   },
   {
     "id": 58,
     "level": "pre2",
     "korean": "하늘의 별 따기",
-    "japanese": "至難の業"
+    "japanese": "至難の業",
+    "hint": "하〇〇〇〇〇"
   },
   {
     "id": 59,
     "level": "pre2",
     "korean": "호랑이도 제 말 하면 온다",
-    "japanese": "噂をすれば影"
+    "japanese": "噂をすれば影",
+    "hint": "호〇〇〇〇〇〇〇〇〇"
   }
 ]

@@ -197,23 +197,143 @@
 
 @media(max-width:650px){
 
+    /* =====================================
+       学習カテゴリー
+    ====================================== */
+
+    .category-grid{
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap:10px;
+
+    }
+
+
+    .category-card{
+
+        padding:16px 12px;
+
+        min-height:155px;
+
+    }
+
+
+    .category-icon{
+
+        font-size:1.8rem;
+
+    }
+
+
+    .category-name{
+
+        font-size:1rem;
+
+    }
+
+
+    .category-description{
+
+        font-size:.75rem;
+
+        line-height:1.4;
+
+    }
+
+
+    .category-arrow{
+
+        font-size:.9rem;
+
+    }
+
+
+    /* =====================================
+       学習ダッシュボード
+    ====================================== */
+
     .study-dashboard{
 
         grid-template-columns:
-            1fr;
+            repeat(2, minmax(0, 1fr));
+
+        gap:10px;
 
     }
+
+
+    /* 目標 */
 
     .goal-card{
 
-        grid-column:auto;
+        grid-column:
+            1 / -1;
 
     }
 
-    .goal-row{
 
-        grid-template-columns:
-            1fr;
+    /* 連続学習 */
+
+    .streak-card{
+
+        grid-column:
+            1 / -1;
+
+        min-height:95px;
+
+        padding:16px;
+
+    }
+
+
+    .streak-icon{
+
+        font-size:1.7rem;
+
+    }
+
+
+    .dashboard-value{
+
+        font-size:1.25rem;
+
+    }
+
+
+    .dashboard-card{
+
+        padding:16px;
+
+    }
+
+
+    .dashboard-label{
+
+        font-size:.75rem;
+
+    }
+
+
+    .dashboard-button{
+
+        font-size:.8rem;
+
+        padding:10px;
+
+    }
+
+
+    /* =====================================
+       その他
+    ====================================== */
+
+    .container{
+
+        padding-left:12px;
+
+        padding-right:12px;
 
     }
 
@@ -398,9 +518,30 @@
                 </div>
 
             </div>
+            <div
+                class="category-card"
+                onclick="openSearch()">
+
+                <div class="category-icon">
+                    🔎
+                </div>
+
+                <div class="category-name">
+                    単語検索
+                </div>
+
+                <div class="category-description">
+                    登録されている単語を検索します
+                </div>
+
+                <div class="category-arrow">
+                    →
+                </div>
+
+            </div>
 
 
-        </div>
+
 
     </section>
 
@@ -434,6 +575,14 @@
 
     </section>
 
+    <!-- =====================================
+     Search
+====================================== -->
+
+
+
+
+</section>
 
     <!-- =====================================
          Study
@@ -803,6 +952,17 @@ function renderStudyDashboard(){
         `;
 
     }
+
+}
+
+/* =========================================
+   Search
+========================================= */
+
+function openSearch(){
+
+    location.href =
+        "search.html";
 
 }
 

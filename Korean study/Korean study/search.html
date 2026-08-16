@@ -1,0 +1,3256 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>単語検索 - 韓国語学習サイト</title>
+
+<link
+    rel="stylesheet"
+    href="style.css"
+>
+
+<script src="study-tracker.js"></script>
+
+
+<style>
+
+/* =========================================
+   Search Page
+========================================= */
+
+.search-page{
+
+    max-width:900px;
+
+    margin:0 auto;
+
+}
+
+
+/* =========================================
+   Search Header
+========================================= */
+
+.search-header{
+
+    margin-bottom:25px;
+
+}
+
+
+.search-header h1{
+
+    margin:0;
+
+    font-size:1.8rem;
+
+}
+
+
+.search-header p{
+
+    margin-top:8px;
+
+    color:var(--sub);
+
+    font-size:.9rem;
+
+}
+
+
+.home-button{
+
+    margin-top:15px;
+
+}
+
+
+/* =========================================
+   Search Box
+========================================= */
+
+.search-box{
+
+    display:flex;
+
+    width:100%;
+
+    box-sizing:border-box;
+
+    gap:10px;
+
+    margin-bottom:15px;
+
+}
+
+
+.search-input{
+
+    display:block;
+
+    flex:1 1 auto;
+
+    width:auto;
+
+    min-width:0;
+
+    box-sizing:border-box;
+
+    height:52px;
+
+    padding:12px 18px;
+
+    background:#16181c;
+
+    color:#fff;
+
+    border:
+        1px solid #2f3336;
+
+    border-radius:12px;
+
+    outline:none;
+
+    font-size:1rem;
+
+    line-height:1.5;
+
+}
+
+
+.search-input:focus{
+
+    border-color:
+        var(--primary);
+
+}
+
+
+.search-button{
+
+    flex:0 0 auto;
+
+    width:auto;
+
+    white-space:nowrap;
+
+}
+
+
+/* =========================================
+   Search History
+========================================= */
+
+.search-history{
+
+    margin-top:15px;
+
+    margin-bottom:20px;
+
+}
+
+
+.search-history-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:10px;
+
+}
+
+
+.search-history-title{
+
+    font-size:.9rem;
+
+    font-weight:700;
+
+}
+
+
+.clear-history-button{
+
+    border:none;
+
+    background:none;
+
+    color:var(--sub);
+
+    font-size:.75rem;
+
+    cursor:pointer;
+
+}
+
+
+.clear-history-button:hover{
+
+    color:#fff;
+
+}
+
+
+.search-history-list{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+}
+
+
+.search-history-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    max-width:100%;
+
+    padding:7px 10px;
+
+    background:#16181c;
+
+    border:
+        1px solid #2f3336;
+
+    border-radius:999px;
+
+    color:#fff;
+
+    cursor:pointer;
+
+    transition:
+        border-color .15s ease,
+        transform .15s ease;
+
+}
+
+
+.search-history-item:hover{
+
+    border-color:
+        var(--primary);
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+.search-history-keyword{
+
+    max-width:220px;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    white-space:nowrap;
+
+}
+
+
+.search-history-delete{
+
+    border:none;
+
+    background:none;
+
+    color:var(--sub);
+
+    cursor:pointer;
+
+    font-size:.8rem;
+
+    padding:0 2px;
+
+}
+
+
+.search-history-delete:hover{
+
+    color:#fff;
+
+}
+
+
+/* =========================================
+   Category Filter
+========================================= */
+
+.category-filter{
+
+    display:flex;
+
+    gap:8px;
+
+    overflow-x:auto;
+
+    padding-bottom:5px;
+
+    margin-bottom:25px;
+
+}
+
+
+.category-filter button{
+
+    border:
+        1px solid #2f3336;
+
+    background:#16181c;
+
+    color:var(--sub);
+
+    border-radius:999px;
+
+    padding:8px 14px;
+
+    cursor:pointer;
+
+    white-space:nowrap;
+
+}
+
+
+.category-filter button.active{
+
+    background:var(--primary);
+
+    color:#fff;
+
+    border-color:
+        var(--primary);
+
+}
+
+
+/* =========================================
+   Section
+========================================= */
+
+.search-section{
+
+    margin-top:30px;
+
+}
+
+
+.search-section-title{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:12px;
+
+}
+
+
+.search-section-title h2{
+
+    margin:0;
+
+    font-size:1.1rem;
+
+}
+
+
+.search-count{
+
+    color:var(--sub);
+
+    font-size:.8rem;
+
+}
+
+
+/* =========================================
+   Recent History
+========================================= */
+
+.recent-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+
+.recent-item{
+
+    width:100%;
+
+    box-sizing:border-box;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    padding:14px 16px;
+
+    background:#16181c;
+
+    border:
+        1px solid #2f3336;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    text-align:left;
+
+    color:#fff;
+
+}
+
+
+.recent-item:hover{
+
+    border-color:
+        var(--primary);
+
+}
+
+
+.recent-main{
+
+    min-width:0;
+
+}
+
+
+.recent-korean{
+
+    font-size:1rem;
+
+    font-weight:700;
+
+}
+
+
+.recent-japanese{
+
+    margin-top:4px;
+
+    color:var(--sub);
+
+    font-size:.8rem;
+
+}
+
+
+.recent-meta{
+
+    flex-shrink:0;
+
+    color:var(--sub);
+
+    font-size:.72rem;
+
+    text-align:right;
+
+}
+
+
+/* =========================================
+   Results
+========================================= */
+
+.result-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+
+.result-card{
+
+    background:#16181c;
+
+    border:
+        1px solid #2f3336;
+
+    border-radius:14px;
+
+    padding:17px;
+
+    cursor:pointer;
+
+    transition:
+        border-color .15s ease,
+        transform .15s ease;
+
+}
+
+
+.result-card:hover{
+
+    border-color:
+        var(--primary);
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+.result-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:10px;
+
+}
+
+
+.result-korean{
+
+    font-size:1.25rem;
+
+    font-weight:800;
+
+}
+
+
+.result-level{
+
+    flex-shrink:0;
+
+    padding:4px 8px;
+
+    border-radius:6px;
+
+    background:#24272c;
+
+    color:var(--sub);
+
+    font-size:.7rem;
+
+}
+
+
+.result-japanese{
+
+    margin-top:8px;
+
+    line-height:1.6;
+
+}
+
+
+.result-category{
+
+    margin-top:10px;
+
+    color:var(--sub);
+
+    font-size:.75rem;
+
+}
+
+
+/* =========================================
+   Empty
+========================================= */
+
+.empty-message{
+
+    padding:30px 15px;
+
+    text-align:center;
+
+    color:var(--sub);
+
+    background:#16181c;
+
+    border:
+        1px solid #2f3336;
+
+    border-radius:12px;
+
+}
+
+
+/* =========================================
+   Detail Modal
+========================================= */
+
+.modal-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+    background:
+        rgba(0,0,0,.7);
+
+    z-index:1000;
+
+    opacity:0;
+
+}
+
+
+.modal-overlay.show{
+
+    display:flex;
+
+    animation:
+        overlayFadeIn .2s ease forwards;
+
+}
+
+
+@keyframes overlayFadeIn{
+
+    from{
+
+        opacity:0;
+
+    }
+
+    to{
+
+        opacity:1;
+
+    }
+
+}
+
+
+.detail-modal{
+
+    width:100%;
+
+    max-width:600px;
+
+    max-height:
+        calc(100vh - 40px);
+
+    overflow-y:auto;
+
+    background:#16181c;
+
+    border:
+        1px solid #2f3336;
+
+    border-radius:18px;
+
+    padding:24px;
+
+    box-sizing:border-box;
+
+    transform:
+        translateY(20px)
+        scale(.97);
+
+    opacity:0;
+
+}
+
+
+.modal-overlay.show .detail-modal{
+
+    animation:
+        modalSlideIn .25s ease forwards;
+
+}
+
+
+@keyframes modalSlideIn{
+
+    from{
+
+        transform:
+            translateY(20px)
+            scale(.97);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:
+            translateY(0)
+            scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+
+.modal-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:15px;
+
+}
+
+
+.modal-close{
+
+    border:none;
+
+    background:none;
+
+    color:var(--sub);
+
+    font-size:1.5rem;
+
+    cursor:pointer;
+
+    line-height:1;
+
+}
+
+
+.modal-close:hover{
+
+    color:#fff;
+
+}
+
+
+.detail-korean{
+
+    font-size:2rem;
+
+    font-weight:800;
+
+}
+
+
+.detail-japanese{
+
+    margin-top:10px;
+
+    font-size:1.1rem;
+
+    line-height:1.7;
+
+}
+
+
+.detail-divider{
+
+    height:1px;
+
+    background:#2f3336;
+
+    margin:20px 0;
+
+}
+
+
+.detail-row{
+
+    display:grid;
+
+    grid-template-columns:100px 1fr;
+
+    gap:15px;
+
+    padding:10px 0;
+
+}
+
+
+.detail-label{
+
+    color:var(--sub);
+
+    font-size:.85rem;
+
+}
+
+
+.detail-value{
+
+    font-size:.9rem;
+
+    line-height:1.6;
+
+}
+
+
+.detail-hint{
+
+    font-size:1rem;
+
+    font-weight:700;
+
+}
+
+
+/* =========================================
+   Add To Deck
+========================================= */
+
+.deck-add-area{
+
+    margin-top:20px;
+
+}
+
+
+.deck-add-button{
+
+    width:100%;
+
+}
+
+
+.deck-added-message{
+
+    margin-top:10px;
+
+    text-align:center;
+
+    color:#5bdc8c;
+
+    font-size:.85rem;
+
+}
+
+
+/* =========================================
+   Deck Select
+========================================= */
+
+.deck-select-area{
+
+    margin-top:12px;
+
+    padding:15px;
+
+    background:#0f1115;
+
+    border:
+        1px solid #2f3336;
+
+    border-radius:12px;
+
+}
+
+
+.deck-select-title{
+
+    margin-bottom:10px;
+
+    color:var(--sub);
+
+    font-size:.8rem;
+
+}
+
+
+.deck-select-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+
+.deck-select-button{
+
+    width:100%;
+
+    padding:11px 13px;
+
+    border:
+        1px solid #2f3336;
+
+    border-radius:10px;
+
+    background:#16181c;
+
+    color:#fff;
+
+    text-align:left;
+
+    cursor:pointer;
+
+}
+
+
+.deck-select-button:hover{
+
+    border-color:
+        var(--primary);
+
+    background:#1b1e23;
+
+}
+
+
+/* =========================================
+   Mobile
+========================================= */
+
+@media(max-width:650px){
+
+    .search-page{
+
+        width:100%;
+
+    }
+
+
+    .search-header h1{
+
+        font-size:1.5rem;
+
+    }
+
+
+    .search-box{
+
+        gap:7px;
+
+    }
+
+
+    .search-input{
+
+        flex:1 1 auto;
+
+        width:auto;
+
+        min-width:0;
+
+        height:50px;
+
+        padding:12px 14px;
+
+        font-size:.95rem;
+
+    }
+
+
+    .search-button{
+
+        padding-left:14px;
+
+        padding-right:14px;
+
+    }
+
+
+    .search-history-keyword{
+
+        max-width:160px;
+
+    }
+
+
+    .result-card{
+
+        padding:14px;
+
+    }
+
+
+    .result-korean{
+
+        font-size:1.1rem;
+
+    }
+
+
+    .detail-modal{
+
+        padding:20px;
+
+    }
+
+
+    .detail-korean{
+
+        font-size:1.7rem;
+
+    }
+
+
+    .detail-row{
+
+        grid-template-columns:
+            85px 1fr;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- =====================================
+         Header
+    ====================================== -->
+
+    <header class="site-header">
+
+        <div class="logo">
+            Korean <span>Study</span>
+        </div>
+
+        <div class="header-sub">
+            韓国語学習
+        </div>
+
+    </header>
+
+
+    <!-- =====================================
+         Search
+    ====================================== -->
+
+    <main class="search-page">
+
+
+        <section class="section">
+
+
+            <div class="search-header">
+
+                <h1>
+                    🔎 単語検索
+                </h1>
+
+                <p>
+                    登録されている韓国語・日本語から単語を検索できます。
+                </p>
+
+
+                <button
+                    class="btn btn-secondary home-button"
+                    onclick="location.href='index.html'">
+
+                    ← ホームに戻る
+
+                </button>
+
+            </div>
+
+
+            <!-- =================================
+                 Search Box
+            ================================== -->
+
+            <div class="search-box">
+
+                <input
+                    id="searchInput"
+                    class="search-input"
+                    type="search"
+                    placeholder="韓国語・日本語を入力..."
+                    autocomplete="off"
+                >
+
+                <button
+                    id="searchButton"
+                    class="btn btn-primary search-button">
+
+                    検索
+
+                </button>
+
+            </div>
+
+
+            <!-- =================================
+                 Search History
+            ================================== -->
+
+            <section
+                id="searchHistorySection"
+                class="search-history">
+
+                <div class="search-history-header">
+
+                    <div class="search-history-title">
+                        🕘 検索履歴
+                    </div>
+
+                    <button
+                        id="clearSearchHistoryButton"
+                        class="clear-history-button">
+
+                        すべて削除
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="searchHistoryList"
+                    class="search-history-list">
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================
+                 Category Filter
+            ================================== -->
+
+            <div class="category-filter">
+
+                <button
+                    class="active"
+                    data-category="all">
+
+                    すべて
+
+                </button>
+
+                <button
+                    data-category="vocab">
+
+                    単語
+
+                </button>
+
+                <button
+                    data-category="idiom">
+
+                    慣用句
+
+                </button>
+
+                <button
+                    data-category="expression">
+
+                    慣用表現
+
+                </button>
+
+                <button
+                    data-category="proverb">
+
+                    ことわざ
+
+                </button>
+
+                <button
+                    data-category="saja">
+
+                    四字熟語
+
+                </button>
+
+            </div>
+
+
+            <!-- =================================
+                 Recent History
+            ================================== -->
+
+            <section
+                id="recentSection"
+                class="search-section">
+
+                <div class="search-section-title">
+
+                    <h2>
+                        🕘 最近学習した単語
+                    </h2>
+
+                </div>
+
+
+                <div
+                    id="recentList"
+                    class="recent-list">
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================
+                 Search Results
+            ================================== -->
+
+            <section
+                id="resultSection"
+                class="search-section"
+                style="display:none;">
+
+                <div class="search-section-title">
+
+                    <h2>
+                        🔎 検索結果
+                    </h2>
+
+                    <span
+                        id="resultCount"
+                        class="search-count">
+
+                    </span>
+
+                </div>
+
+
+                <div
+                    id="resultList"
+                    class="result-list">
+
+                </div>
+
+            </section>
+
+
+        </section>
+
+
+    </main>
+
+
+    <footer>
+        Korean Learning Project
+    </footer>
+
+
+</div>
+
+
+<!-- =========================================
+     Detail Modal
+========================================= -->
+
+<div
+    id="detailOverlay"
+    class="modal-overlay">
+
+
+    <div
+        class="detail-modal"
+        role="dialog"
+        aria-modal="true">
+
+
+        <div class="modal-header">
+
+            <div>
+
+                <div
+                    id="detailKorean"
+                    class="detail-korean">
+
+                </div>
+
+                <div
+                    id="detailJapanese"
+                    class="detail-japanese">
+
+                </div>
+
+            </div>
+
+
+            <button
+                id="modalClose"
+                class="modal-close"
+                aria-label="閉じる">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <div class="detail-divider"></div>
+
+
+        <div class="detail-row">
+
+            <div class="detail-label">
+                カテゴリー
+            </div>
+
+            <div
+                id="detailCategory"
+                class="detail-value">
+
+            </div>
+
+        </div>
+
+
+        <div class="detail-row">
+
+            <div class="detail-label">
+                レベル
+            </div>
+
+            <div
+                id="detailLevel"
+                class="detail-value">
+
+            </div>
+
+        </div>
+
+
+        <div class="detail-row">
+
+            <div class="detail-label">
+                ヒント
+            </div>
+
+            <div
+                id="detailHint"
+                class="detail-value detail-hint">
+
+            </div>
+
+        </div>
+
+
+        <div class="detail-row">
+
+            <div class="detail-label">
+                ID
+            </div>
+
+            <div
+                id="detailId"
+                class="detail-value">
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================
+             My Deck
+        ================================== -->
+
+        <div class="deck-add-area">
+
+            <button
+                id="deckAddButton"
+                class="btn btn-primary deck-add-button">
+
+                📚 マイ単語帳に追加
+
+            </button>
+
+
+            <div
+                id="deckAddedMessage"
+                class="deck-added-message"
+                style="display:none;">
+
+                ✓ マイ単語帳に追加済み
+
+            </div>
+
+
+            <div
+                id="deckSelectArea"
+                class="deck-select-area"
+                style="display:none;">
+
+                <div class="deck-select-title">
+
+                    追加する単語帳を選択してください
+
+                </div>
+
+
+                <div
+                    id="deckSelectList"
+                    class="deck-select-list">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   Category
+========================================= */
+
+const CATEGORY_INFO = {
+
+    vocab: {
+        name: "単語",
+        file: "data/vocab.json"
+    },
+
+    idiom: {
+        name: "慣用句",
+        file: "data/idiom.json"
+    },
+
+    expression: {
+        name: "慣用表現",
+        file: "data/expression.json"
+    },
+
+    proverb: {
+        name: "ことわざ",
+        file: "data/proverb.json"
+    },
+
+    saja: {
+        name: "四字熟語",
+        file: "data/saja.json"
+    }
+
+};
+
+
+/* =========================================
+   Search History Key
+========================================= */
+
+const SEARCH_HISTORY_KEY =
+    "searchHistory";
+
+
+const MAX_SEARCH_HISTORY =
+    20;
+
+
+/* =========================================
+   Data
+========================================= */
+
+let allData = [];
+
+let currentCategory = "all";
+
+let loadedCategories = new Set();
+
+let currentDetailItem = null;
+
+
+/* =========================================
+   DOM
+========================================= */
+
+const searchInput =
+    document.getElementById(
+        "searchInput"
+    );
+
+
+const searchButton =
+    document.getElementById(
+        "searchButton"
+    );
+
+
+const resultSection =
+    document.getElementById(
+        "resultSection"
+    );
+
+
+const resultList =
+    document.getElementById(
+        "resultList"
+    );
+
+
+const resultCount =
+    document.getElementById(
+        "resultCount"
+    );
+
+
+const recentList =
+    document.getElementById(
+        "recentList"
+    );
+
+
+const recentSection =
+    document.getElementById(
+        "recentSection"
+    );
+
+
+const detailOverlay =
+    document.getElementById(
+        "detailOverlay"
+    );
+
+
+const searchHistoryList =
+    document.getElementById(
+        "searchHistoryList"
+    );
+
+
+const searchHistorySection =
+    document.getElementById(
+        "searchHistorySection"
+    );
+
+
+const deckAddButton =
+    document.getElementById(
+        "deckAddButton"
+    );
+
+
+const deckAddedMessage =
+    document.getElementById(
+        "deckAddedMessage"
+    );
+
+
+const deckSelectArea =
+    document.getElementById(
+        "deckSelectArea"
+    );
+
+
+const deckSelectList =
+    document.getElementById(
+        "deckSelectList"
+    );
+
+
+/* =========================================
+   Search History
+========================================= */
+
+function getSearchHistory(){
+
+    try{
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem(
+                    SEARCH_HISTORY_KEY
+                ) || "[]"
+            );
+
+
+        if(!Array.isArray(saved)){
+
+            return [];
+
+        }
+
+
+        return saved;
+
+    }catch(error){
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================================
+   Save Search History
+========================================= */
+
+function saveSearchHistory(
+    keyword
+){
+
+    const trimmed =
+        keyword.trim();
+
+
+    if(!trimmed){
+
+        return;
+
+    }
+
+
+    let history =
+        getSearchHistory();
+
+
+    history =
+        history.filter(
+            item =>
+                item.toLowerCase() !==
+                trimmed.toLowerCase()
+        );
+
+
+    history.unshift(
+        trimmed
+    );
+
+
+    history =
+        history.slice(
+            0,
+            MAX_SEARCH_HISTORY
+        );
+
+
+    localStorage.setItem(
+        SEARCH_HISTORY_KEY,
+        JSON.stringify(
+            history
+        )
+    );
+
+
+    renderSearchHistory();
+
+}
+
+
+/* =========================================
+   Delete Search History
+========================================= */
+
+function deleteSearchHistory(
+    keyword
+){
+
+    const history =
+        getSearchHistory()
+            .filter(
+                item =>
+                    item !== keyword
+            );
+
+
+    localStorage.setItem(
+        SEARCH_HISTORY_KEY,
+        JSON.stringify(
+            history
+        )
+    );
+
+
+    renderSearchHistory();
+
+}
+
+
+/* =========================================
+   Clear Search History
+========================================= */
+
+function clearSearchHistory(){
+
+    localStorage.removeItem(
+        SEARCH_HISTORY_KEY
+    );
+
+
+    renderSearchHistory();
+
+}
+
+
+/* =========================================
+   Render Search History
+========================================= */
+
+function renderSearchHistory(){
+
+    const history =
+        getSearchHistory();
+
+
+    searchHistoryList.innerHTML =
+        "";
+
+
+    if(history.length === 0){
+
+        searchHistorySection.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    searchHistorySection.style.display =
+        "block";
+
+
+    history.forEach(
+        keyword => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "search-history-item";
+
+
+            item.innerHTML = `
+
+                <span
+                    class="search-history-keyword">
+
+                    ${escapeHTML(
+                        keyword
+                    )}
+
+                </span>
+
+
+                <button
+                    type="button"
+                    class="search-history-delete"
+                    aria-label="削除">
+
+                    ×
+
+                </button>
+
+            `;
+
+
+            item.addEventListener(
+                "click",
+                event => {
+
+                    if(
+                        event.target.classList.contains(
+                            "search-history-delete"
+                        )
+                    ){
+
+                        return;
+
+                    }
+
+
+                    searchInput.value =
+                        keyword;
+
+
+                    searchWords();
+
+                }
+            );
+
+
+            item
+                .querySelector(
+                    ".search-history-delete"
+                )
+                .addEventListener(
+                    "click",
+                    event => {
+
+                        event.stopPropagation();
+
+                        deleteSearchHistory(
+                            keyword
+                        );
+
+                    }
+                );
+
+
+            searchHistoryList.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   Load Category
+========================================= */
+
+async function loadCategory(
+    category
+){
+
+    if(
+        loadedCategories.has(
+            category
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const info =
+        CATEGORY_INFO[
+            category
+        ];
+
+
+    if(!info){
+
+        return;
+
+    }
+
+
+    try{
+
+        const response =
+            await fetch(
+                info.file
+            );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                `HTTP ${response.status}`
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if(!Array.isArray(data)){
+
+            throw new Error(
+                `${info.file} は配列ではありません`
+            );
+
+        }
+
+
+        data.forEach(
+            item => {
+
+                allData.push({
+
+                    ...item,
+
+                    category:
+                        category,
+
+                    categoryName:
+                        info.name
+
+                });
+
+            }
+        );
+
+
+        loadedCategories.add(
+            category
+        );
+
+
+    }catch(error){
+
+        console.error(
+            `${info.file} の読み込みに失敗しました`,
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   Load All Data
+========================================= */
+
+async function loadAllData(){
+
+    const categories =
+        Object.keys(
+            CATEGORY_INFO
+        );
+
+
+    await Promise.all(
+        categories.map(
+            category =>
+                loadCategory(
+                    category
+                )
+        )
+    );
+
+}
+
+
+/* =========================================
+   Search
+========================================= */
+
+async function searchWords(){
+
+    const keyword =
+        searchInput.value
+            .trim()
+            .toLowerCase();
+
+
+    /*
+        空の場合
+    */
+
+    if(!keyword){
+
+        resultSection.style.display =
+            "none";
+
+        recentSection.style.display =
+            "block";
+
+        renderRecentHistory();
+
+        return;
+
+    }
+
+
+    /*
+        検索履歴に保存
+    */
+
+    saveSearchHistory(
+        searchInput.value.trim()
+    );
+
+
+    /*
+        必要なデータを読み込む
+    */
+
+    if(
+        currentCategory === "all"
+    ){
+
+        await loadAllData();
+
+    }else{
+
+        await loadCategory(
+            currentCategory
+        );
+
+    }
+
+
+    let results =
+        allData.filter(
+            item => {
+
+                if(
+                    currentCategory !==
+                    "all" &&
+
+                    item.category !==
+                    currentCategory
+                ){
+
+                    return false;
+
+                }
+
+
+                const korean =
+                    String(
+                        item.korean || ""
+                    ).toLowerCase();
+
+
+                const japanese =
+                    String(
+                        item.japanese || ""
+                    ).toLowerCase();
+
+
+                const hint =
+                    String(
+                        item.hint || ""
+                    ).toLowerCase();
+
+
+                return (
+
+                    korean.includes(
+                        keyword
+                    ) ||
+
+                    japanese.includes(
+                        keyword
+                    ) ||
+
+                    hint.includes(
+                        keyword
+                    )
+
+                );
+
+            }
+        );
+
+
+    results =
+        removeDuplicateResults(
+            results
+        );
+
+
+    renderResults(
+        results
+    );
+
+
+    recentSection.style.display =
+        "none";
+
+    resultSection.style.display =
+        "block";
+
+}
+
+
+/* =========================================
+   Remove Duplicate
+========================================= */
+
+function removeDuplicateResults(
+    results
+){
+
+    const map =
+        new Map();
+
+
+    results.forEach(
+        item => {
+
+            const key =
+                `${item.category}_${item.id}`;
+
+
+            if(
+                !map.has(key)
+            ){
+
+                map.set(
+                    key,
+                    item
+                );
+
+            }
+
+        }
+    );
+
+
+    return [
+        ...map.values()
+    ];
+
+}
+
+
+/* =========================================
+   Render Results
+========================================= */
+
+function renderResults(
+    results
+){
+
+    resultList.innerHTML =
+        "";
+
+
+    resultCount.textContent =
+        `${results.length}件`;
+
+
+    if(results.length === 0){
+
+        resultList.innerHTML = `
+
+            <div class="empty-message">
+
+                該当する単語が見つかりませんでした。
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    results.forEach(
+        item => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "result-card";
+
+
+            card.innerHTML = `
+
+                <div class="result-top">
+
+                    <div class="result-korean">
+
+                        ${escapeHTML(
+                            item.korean || ""
+                        )}
+
+                    </div>
+
+
+                    <div class="result-level">
+
+                        ${escapeHTML(
+                            item.level || "-"
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <div class="result-japanese">
+
+                    ${escapeHTML(
+                        item.japanese || ""
+                    )}
+
+                </div>
+
+
+                <div class="result-category">
+
+                    ${escapeHTML(
+                        item.categoryName || ""
+                    )}
+
+                    ・ID
+
+                    ${escapeHTML(
+                        String(
+                            item.id ?? "-"
+                        )
+                    )}
+
+                </div>
+
+            `;
+
+
+            card.addEventListener(
+                "click",
+                () => {
+
+                    openDetail(
+                        item
+                    );
+
+                }
+            );
+
+
+            resultList.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   Recent History
+========================================= */
+
+function renderRecentHistory(){
+
+    const history =
+        getStudyHistory();
+
+
+    recentList.innerHTML =
+        "";
+
+
+    if(
+        !history ||
+        history.length === 0
+    ){
+
+        recentList.innerHTML = `
+
+            <div class="empty-message">
+
+                まだ学習履歴がありません。
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const recent =
+        [
+            ...history
+        ]
+        .sort(
+            (
+                a,
+                b
+            ) =>
+                getHistoryTimestamp(b) -
+                getHistoryTimestamp(a)
+        );
+
+
+    const unique = [];
+
+    const seen =
+        new Set();
+
+
+    recent.forEach(
+        item => {
+
+            const key =
+                `${item.category}_${item.id}`;
+
+
+            if(
+                !seen.has(key)
+            ){
+
+                seen.add(key);
+
+                unique.push(item);
+
+            }
+
+        }
+    );
+
+
+    unique
+        .slice(0,10)
+        .forEach(
+            historyItem => {
+
+                createRecentItem(
+                    historyItem
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================
+   Create Recent Item
+========================================= */
+
+async function createRecentItem(
+    historyItem
+){
+
+    const item =
+        await findDataFromHistory(
+            historyItem
+        );
+
+
+    const korean =
+        item?.korean ||
+        historyItem.question ||
+        "不明";
+
+
+    const japanese =
+        item?.japanese ||
+        historyItem.answer ||
+        "";
+
+
+    const categoryName =
+        item?.categoryName ||
+        historyItem.categoryName ||
+        historyItem.category ||
+        "";
+
+
+    const element =
+        document.createElement(
+            "button"
+        );
+
+
+    element.type =
+        "button";
+
+
+    element.className =
+        "recent-item";
+
+
+    element.innerHTML = `
+
+        <div class="recent-main">
+
+            <div class="recent-korean">
+
+                ${escapeHTML(
+                    korean
+                )}
+
+            </div>
+
+
+            <div class="recent-japanese">
+
+                ${escapeHTML(
+                    japanese
+                )}
+
+            </div>
+
+        </div>
+
+
+        <div class="recent-meta">
+
+            ${escapeHTML(
+                categoryName
+            )}
+
+            <br>
+
+            ${formatHistoryDate(
+                historyItem
+            )}
+
+        </div>
+
+    `;
+
+
+    element.addEventListener(
+        "click",
+        async () => {
+
+            if(item){
+
+                openDetail(
+                    item
+                );
+
+                return;
+
+            }
+
+
+            openDetail({
+
+                id:
+                    historyItem.id,
+
+                level:
+                    historyItem.level,
+
+                korean:
+                    korean,
+
+                japanese:
+                    japanese,
+
+                hint:
+                    "-",
+
+                category:
+                    historyItem.category,
+
+                categoryName:
+                    categoryName
+
+            });
+
+        }
+    );
+
+
+    recentList.appendChild(
+        element
+    );
+
+}
+
+
+/* =========================================
+   Find Data From History
+========================================= */
+
+async function findDataFromHistory(
+    historyItem
+){
+
+    const category =
+        historyItem.category;
+
+
+    if(
+        !CATEGORY_INFO[
+            category
+        ]
+    ){
+
+        return null;
+
+    }
+
+
+    await loadCategory(
+        category
+    );
+
+
+    const found =
+        allData.find(
+            item =>
+
+                item.category ===
+                    category &&
+
+                String(
+                    item.id
+                ) ===
+                String(
+                    historyItem.id
+                )
+        );
+
+
+    return found || null;
+
+}
+
+
+/* =========================================
+   Detail
+========================================= */
+
+function openDetail(
+    item
+){
+
+    currentDetailItem =
+        item;
+
+
+    document.getElementById(
+        "detailKorean"
+    ).textContent =
+        item.korean || "-";
+
+
+    document.getElementById(
+        "detailJapanese"
+    ).textContent =
+        item.japanese || "-";
+
+
+    document.getElementById(
+        "detailCategory"
+    ).textContent =
+        item.categoryName || "-";
+
+
+    document.getElementById(
+        "detailLevel"
+    ).textContent =
+        item.level || "-";
+
+
+    document.getElementById(
+        "detailHint"
+    ).textContent =
+        item.hint || "-";
+
+
+    document.getElementById(
+        "detailId"
+    ).textContent =
+        item.id ?? "-";
+
+
+    updateDeckButton();
+
+
+    detailOverlay.classList.add(
+        "show"
+    );
+
+}
+
+
+/* =========================================
+   Close Detail
+========================================= */
+
+function closeDetail(){
+
+    detailOverlay.classList.remove(
+        "show"
+    );
+
+
+    setTimeout(
+        () => {
+
+            deckSelectArea.style.display =
+                "none";
+
+        },
+        200
+    );
+
+}
+
+
+/* =========================================
+   Get My Decks
+========================================= */
+
+function getDecks(){
+
+    try{
+
+        const decks =
+            JSON.parse(
+                localStorage.getItem(
+                    "myDecks"
+                ) || "[]"
+            );
+
+
+        return Array.isArray(decks)
+            ? decks
+            : [];
+
+    }catch(error){
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================================
+   Check Word In Deck
+========================================= */
+
+function isWordInDeck(
+    deck,
+    item
+){
+
+    if(
+        !Array.isArray(
+            deck.words
+        )
+    ){
+
+        return false;
+
+    }
+
+
+    return deck.words.some(
+        word => {
+
+            return (
+
+                String(
+                    word.id
+                ) ===
+                String(
+                    item.id
+                )
+
+                &&
+
+                String(
+                    word.category
+                ) ===
+                String(
+                    item.category
+                )
+
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   Check All Decks
+========================================= */
+
+function isWordAlreadyInAnyDeck(
+    item
+){
+
+    const decks =
+        getDecks();
+
+
+    return decks.some(
+        deck =>
+            isWordInDeck(
+                deck,
+                item
+            )
+    );
+
+}
+
+
+/* =========================================
+   Update Deck Button
+========================================= */
+
+function updateDeckButton(){
+
+    if(!currentDetailItem){
+
+        return;
+
+    }
+
+
+    deckSelectArea.style.display =
+        "none";
+
+
+    const alreadyAdded =
+        isWordAlreadyInAnyDeck(
+            currentDetailItem
+        );
+
+
+    if(alreadyAdded){
+
+        deckAddButton.style.display =
+            "none";
+
+        deckAddedMessage.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    deckAddButton.style.display =
+        "block";
+
+    deckAddedMessage.style.display =
+        "none";
+
+}
+
+
+/* =========================================
+   Show Deck Selection
+========================================= */
+
+function showDeckSelection(){
+
+    const decks =
+        getDecks();
+
+
+    deckSelectList.innerHTML =
+        "";
+
+
+    if(decks.length === 0){
+
+        deckSelectList.innerHTML = `
+
+            <div class="empty-message">
+
+                まだ単語帳がありません。<br>
+                先にマイ単語帳で作成してください。
+
+            </div>
+
+        `;
+
+
+        deckSelectArea.style.display =
+            "block";
+
+
+        return;
+
+    }
+
+
+    decks.forEach(
+        deck => {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.type =
+                "button";
+
+
+            button.className =
+                "deck-select-button";
+
+
+            const count =
+                Array.isArray(deck.words)
+                ? deck.words.length
+                : 0;
+
+
+            button.innerHTML = `
+
+                📖
+
+                ${escapeHTML(
+                    deck.name
+                )}
+
+                <span
+                    style="
+                        color:var(--sub);
+                        font-size:.75rem;
+                    ">
+
+                    （${count}語）
+
+                </span>
+
+            `;
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    addWordToDeck(
+                        deck.id
+                    );
+
+                }
+            );
+
+
+            deckSelectList.appendChild(
+                button
+            );
+
+        }
+    );
+
+
+    deckSelectArea.style.display =
+        "block";
+
+}
+
+
+/* =========================================
+   Add Word To Deck
+========================================= */
+
+function addWordToDeck(
+    deckId
+){
+
+    if(!currentDetailItem){
+
+        return;
+
+    }
+
+
+    const decks =
+        getDecks();
+
+
+    const deck =
+        decks.find(
+            item =>
+                item.id ===
+                deckId
+        );
+
+
+    if(!deck){
+
+        return;
+
+    }
+
+
+    if(
+        !Array.isArray(
+            deck.words
+        )
+    ){
+
+        deck.words = [];
+
+    }
+
+
+    /*
+        すでに登録済みなら何もしない
+    */
+
+    if(
+        isWordInDeck(
+            deck,
+            currentDetailItem
+        )
+    ){
+
+        updateDeckButton();
+
+        return;
+
+    }
+
+
+    /*
+        単語帳には
+        単語情報をそのまま保存
+    */
+
+    deck.words.push({
+
+        id:
+            currentDetailItem.id,
+
+        category:
+            currentDetailItem.category || "",
+
+        categoryName:
+            currentDetailItem.categoryName || "",
+
+        korean:
+            currentDetailItem.korean || "",
+
+        japanese:
+            currentDetailItem.japanese || "",
+
+        level:
+            currentDetailItem.level || "",
+
+        hint:
+            currentDetailItem.hint || ""
+
+    });
+
+
+    localStorage.setItem(
+        "myDecks",
+        JSON.stringify(
+            decks
+        )
+    );
+
+
+    deckSelectArea.style.display =
+        "none";
+
+
+    deckAddButton.style.display =
+        "none";
+
+
+    deckAddedMessage.style.display =
+        "block";
+
+}
+
+
+/* =========================================
+   Modal Events
+========================================= */
+
+document.getElementById(
+    "modalClose"
+).addEventListener(
+    "click",
+    closeDetail
+);
+
+
+detailOverlay.addEventListener(
+    "click",
+    event => {
+
+        if(
+            event.target ===
+            detailOverlay
+        ){
+
+            closeDetail();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(
+            event.key ===
+            "Escape"
+        ){
+
+            closeDetail();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   Add Button
+========================================= */
+
+deckAddButton.addEventListener(
+    "click",
+    showDeckSelection
+);
+
+
+/* =========================================
+   Category Buttons
+========================================= */
+
+document
+    .querySelectorAll(
+        ".category-filter button"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                async () => {
+
+                    document
+                        .querySelectorAll(
+                            ".category-filter button"
+                        )
+                        .forEach(
+                            button => {
+
+                                button.classList.remove(
+                                    "active"
+                                );
+
+                            }
+                        );
+
+
+                    button.classList.add(
+                        "active"
+                    );
+
+
+                    currentCategory =
+                        button.dataset.category;
+
+
+                    if(
+                        searchInput.value.trim()
+                    ){
+
+                        await searchWords();
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================
+   Search Events
+========================================= */
+
+searchButton.addEventListener(
+    "click",
+    searchWords
+);
+
+
+searchInput.addEventListener(
+    "keydown",
+    event => {
+
+        if(
+            event.key ===
+            "Enter"
+        ){
+
+            searchWords();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   Input
+========================================= */
+
+searchInput.addEventListener(
+    "input",
+    () => {
+
+        if(
+            searchInput.value.trim() === ""
+        ){
+
+            resultSection.style.display =
+                "none";
+
+            recentSection.style.display =
+                "block";
+
+            renderRecentHistory();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   Clear Search History Button
+========================================= */
+
+document.getElementById(
+    "clearSearchHistoryButton"
+).addEventListener(
+    "click",
+    clearSearchHistory
+);
+
+
+/* =========================================
+   Format Date
+========================================= */
+
+function formatHistoryDate(
+    item
+){
+
+    const timestamp =
+        getHistoryTimestamp(
+            item
+        );
+
+
+    if(!timestamp){
+
+        return "";
+
+    }
+
+
+    const date =
+        new Date(
+            timestamp
+        );
+
+
+    return date.toLocaleDateString(
+        "ja-JP",
+        {
+            month:"numeric",
+            day:"numeric"
+        }
+    );
+
+}
+
+
+/* =========================================
+   Escape HTML
+========================================= */
+
+function escapeHTML(
+    value
+){
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================
+   Initial
+========================================= */
+
+async function initializeSearch(){
+
+    renderSearchHistory();
+
+    renderRecentHistory();
+
+}
+
+
+initializeSearch();
+
+</script>
+
+</body>
+
+</html>

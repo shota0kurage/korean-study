@@ -437,6 +437,49 @@
 
 }
 
+/* =========================================
+   Reset Goal
+========================================= */
+
+.goal-reset-button{
+
+    width:100%;
+
+    margin-top:10px;
+
+    padding:12px;
+
+    border:1px solid rgba(244,33,46,.35);
+
+    border-radius:10px;
+
+    background:rgba(244,33,46,.08);
+
+    color:var(--danger);
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:
+        background .15s ease,
+        transform .15s ease;
+
+}
+
+.goal-reset-button:hover{
+
+    background:rgba(244,33,46,.15);
+
+}
+
+.goal-reset-button:active{
+
+    transform:scale(.98);
+
+}
 
 /* =========================================
    Mobile
@@ -452,12 +495,264 @@
 
 }
 
+/* =========================================
+   Reset Goal
+========================================= */
+
+.goal-reset-button{
+
+    width:100%;
+
+    margin-top:10px;
+
+    padding:12px;
+
+    border:1px solid rgba(244,33,46,.35);
+
+    border-radius:10px;
+
+    background:rgba(244,33,46,.08);
+
+    color:var(--danger);
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:
+        background .15s ease,
+        transform .15s ease;
+
+}
+
+
+.goal-reset-button:hover{
+
+    background:rgba(244,33,46,.15);
+
+}
+
+
+.goal-reset-button:active{
+
+    transform:scale(.98);
+
+}
+
+/* =========================================
+   Reset Confirm Modal
+========================================= */
+
+.goal-confirm-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+    background:rgba(0,0,0,.7);
+
+    z-index:1000;
+
+}
+
+.goal-confirm-overlay.show{
+
+    display:flex;
+
+}
+
+
+.goal-confirm-modal{
+
+    width:100%;
+
+    max-width:420px;
+
+    padding:28px 24px;
+
+    box-sizing:border-box;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    box-shadow:var(--shadow);
+
+    text-align:center;
+
+}
+
+
+.goal-confirm-icon{
+
+    font-size:2.5rem;
+
+    margin-bottom:12px;
+
+}
+
+
+.goal-confirm-title{
+
+    font-size:1.2rem;
+
+    font-weight:700;
+
+}
+
+
+.goal-confirm-message{
+
+    margin-top:10px;
+
+    color:var(--sub);
+
+    font-size:.9rem;
+
+    line-height:1.6;
+
+}
+
+
+.goal-confirm-warning{
+
+    margin-top:15px;
+
+    color:var(--danger);
+
+    font-size:.8rem;
+
+    line-height:1.6;
+
+}
+
+
+.goal-confirm-buttons{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:22px;
+
+}
+
+
+.goal-confirm-buttons .btn{
+
+    flex:1;
+
+}
+
+
+.goal-confirm-delete-button{
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:12px;
+
+    background:rgba(244,33,46,.12);
+
+    color:var(--danger);
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+
+.goal-confirm-delete-button:hover{
+
+    background:rgba(244,33,46,.2);
+
+}
+
+
+@media(max-width:650px){
+
+    .goal-confirm-buttons{
+
+        flex-direction:column;
+
+    }
+
+}
+
 </style>
 
 </head>
 
 
 <body>
+
+<!-- =========================================
+     Reset Confirm Modal
+========================================= -->
+
+<div
+    id="goalConfirmOverlay"
+    class="goal-confirm-overlay">
+
+    <div class="goal-confirm-modal">
+
+        <div class="goal-confirm-icon">
+            🔄
+        </div>
+
+        <div class="goal-confirm-title">
+            学習目標をリセットしますか？
+        </div>
+
+        <div
+            id="goalConfirmMessage"
+            class="goal-confirm-message">
+        </div>
+
+        <div class="goal-confirm-warning">
+            現在設定している学習目標が削除されます。
+        </div>
+
+        <div class="goal-confirm-buttons">
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="closeGoalResetModal()">
+
+                キャンセル
+
+            </button>
+
+            <button
+                type="button"
+                class="goal-confirm-delete-button"
+                onclick="confirmResetGoal()">
+
+                リセットする
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
 
 <div class="container goal-page">
 
@@ -686,26 +981,35 @@
              Actions
         ================================== -->
 
-        <div class="goal-actions">
+<div class="goal-actions">
 
-            <button
-                class="btn btn-primary"
-                onclick="saveGoal()">
+    <button
+        class="btn btn-primary"
+        onclick="saveGoal()">
 
-                この目標を保存
+        この目標を保存
 
-            </button>
+    </button>
 
 
-            <button
-                class="btn btn-secondary"
-                onclick="location.href='index.html'">
+    <button
+        class="btn btn-secondary"
+        onclick="location.href='index.html'">
 
-                キャンセル
+        キャンセル
 
-            </button>
+    </button>
 
-        </div>
+
+    <button
+        class="goal-reset-button"
+        onclick="resetGoal()">
+
+        🔄 学習目標をリセット
+
+    </button>
+
+</div>
 
     </div>
 
@@ -999,6 +1303,133 @@ function saveGoal(){
         "index.html";
 
 }
+
+
+/* =========================================
+   Reset Goal Modal
+========================================= */
+
+function resetGoal(){
+
+    const goal =
+        getStudyGoal();
+
+
+    /*
+        目標がない場合
+    */
+
+    if(!goal){
+
+        return;
+
+    }
+
+
+    /*
+        確認メッセージ
+    */
+
+    document.getElementById(
+        "goalConfirmMessage"
+    ).textContent =
+        `${goal.periodLabel}・${goal.targetQuestions}問`;
+
+
+    /*
+        モーダル表示
+    */
+
+    document.getElementById(
+        "goalConfirmOverlay"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+/* =========================================
+   Close Reset Modal
+========================================= */
+
+function closeGoalResetModal(){
+
+    document.getElementById(
+        "goalConfirmOverlay"
+    ).classList.remove(
+        "show"
+    );
+
+}
+
+
+/* =========================================
+   Confirm Reset
+========================================= */
+
+function confirmResetGoal(){
+
+    /*
+        現在の目標を削除
+    */
+
+    localStorage.removeItem(
+        STUDY_GOAL_KEY
+    );
+
+
+    /*
+        ホームへ戻る
+    */
+
+    location.href =
+        "index.html";
+
+}
+
+
+/* =========================================
+   Overlay Click
+========================================= */
+
+document.getElementById(
+    "goalConfirmOverlay"
+).addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target ===
+            this
+        ){
+
+            closeGoalResetModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   Escape Key
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape"
+        ){
+
+            closeGoalResetModal();
+
+        }
+
+    }
+);
 
 </script>
 
