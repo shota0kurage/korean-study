@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>単語帳</title>
+
+<link
+    rel="stylesheet"
+    href="style.css">
+    
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 id="title"></h1>
+
+<div class="card">
+
+<input
+id="jp"
+placeholder="日本語">
+
+<input
+id="kr"
+placeholder="韓国語">
+
+<button onclick="addWord()">
+単語追加
+</button>
+
+<button onclick="startStudy()">
+📚 この単語帳を学習する
+</button>
+
+</div>
+
+<div id="wordList"></div>
+
+</div>
+
+<script>
+
+const deckIndex =
+localStorage.getItem(
+"currentDeck"
+);
+
+let decks =
+JSON.parse(
+localStorage.getItem(
+"myDecks"
+) || "[]"
+);
+
+let deck =
+decks[deckIndex];
+
+document
+.getElementById("title")
+.textContent =
+deck.name;
+
+function save(){
+
+    localStorage.setItem(
+        "myDecks",
+        JSON.stringify(decks)
+    );
+
+}
+
+function addWord(){
+
+    const jp =
+    document
+    .getElementById("jp")
+    .value
+    .trim();
+
+    const kr =
+    document
+    .getElementById("kr")
+    .value
+    .trim();
+
+    if(!jp || !kr){
+
+        alert("入力してください");
+        return;
+
+    }
+const exists = deck.words.some(word =>
+    word.japanese === jp ||
+    word.korean === kr
+);
+
+if(exists){
+
+    alert("すでに登録されています");
+
+    return;
+
+}
+    deck.words.push({
+
+        japanese:jp,
+        korean:kr
+
+    });
+
+    save();
+
+    renderWords();
+
+    document
+    .getElementById("jp")
+    .value = "";
+
+    document
+    .getElementById("kr")
+    .value = "";
+
+}
+
+function renderWords(){
+
+    const list =
+    document.getElementById("wordList");
+
+    list.innerHTML = "";
+
+    deck.words.forEach((word,index)=>{
+
+        list.innerHTML += `
+        <div class="word">
+
+            <div>
+                ${word.japanese}
+                →
+                ${word.korean}
+            </div>
+
+            <button
+            onclick="deleteWord(${index})">
+
+            削除
+
+            </button>
+
+        </div>
+        `;
+
+    });
+
+}
+function deleteWord(index){
+
+    if(
+        !confirm("この単語を削除しますか？")
+    ){
+        return;
+    }
+
+    deck.words.splice(index,1);
+
+    save();
+
+    renderWords();
+
+}
+
+function startStudy(){
+
+    localStorage.setItem(
+        "studyDeckIndex",
+        deckIndex
+    );
+
+    location.href =
+        "deck-quiz.html";
+
+}
+
+renderWords();
+
+</script>
+
+</body>
+</html>

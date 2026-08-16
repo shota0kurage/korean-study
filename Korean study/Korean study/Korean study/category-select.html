@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>学習設定 - Korean Study</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+/* =========================================
+   学習設定画面
+========================================= */
+
+.quiz-select-card{
+    padding:30px;
+}
+
+.quiz-select-header{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.quiz-select-icon{
+    font-size:3rem;
+    margin-bottom:10px;
+}
+
+.quiz-select-header h1{
+    margin:0;
+    font-size:1.8rem;
+}
+
+.quiz-select-header p{
+    margin-top:8px;
+    color:var(--sub);
+}
+
+
+
+/* =========================================
+   級選択
+========================================= */
+
+.level-title{
+    font-size:1rem;
+    font-weight:700;
+    margin-bottom:12px;
+}
+
+.level-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:10px;
+
+    margin-bottom:20px;
+}
+
+.level-button{
+    padding:14px 10px;
+
+    border-radius:12px;
+
+    border:1px solid var(--border);
+
+    background:#16181c;
+
+    color:var(--text);
+
+    cursor:pointer;
+
+    transition:
+        background .2s ease,
+        border-color .2s ease,
+        transform .15s ease;
+}
+
+.level-button:hover{
+    border-color:var(--primary);
+
+    transform:translateY(-2px);
+}
+
+.level-button.selected{
+
+    background:
+        var(--primary);
+
+    color:white;
+
+    border-color:
+        var(--primary);
+
+    box-shadow:
+        0 5px 15px
+        rgba(29,155,240,.25);
+
+}
+
+
+.level-button.disabled{
+
+    background:
+        rgba(255,255,255,.04);
+
+    color:
+        rgba(231,233,234,.35);
+
+    border-color:
+        rgba(47,51,54,.6);
+
+    opacity:.45;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+}
+
+
+.level-button.disabled:hover{
+
+    transform:none;
+
+    background:
+        rgba(255,255,255,.04);
+
+    border-color:
+        rgba(47,51,54,.6);
+
+    box-shadow:none;
+
+}
+
+
+/* =========================================
+   選択状況
+========================================= */
+
+.selected-info{
+    text-align:center;
+
+    color:var(--sub);
+
+    font-size:.9rem;
+
+    min-height:24px;
+
+    margin-bottom:28px;
+}
+
+
+/* =========================================
+   問題数
+========================================= */
+
+/* =========================================
+   問題数
+========================================= */
+
+.count-title{
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    margin-bottom:14px;
+
+}
+
+
+/* =========================================
+   現在の問題数
+========================================= */
+
+.count-current{
+
+    text-align:center;
+
+    margin-bottom:18px;
+
+}
+
+
+.count-current-number{
+
+    font-size:2.2rem;
+
+    font-weight:800;
+
+    color:var(--primary);
+
+    line-height:1;
+
+}
+
+
+.count-current-unit{
+
+    margin-top:7px;
+
+    color:var(--sub);
+
+    font-size:.9rem;
+
+}
+
+
+/* =========================================
+   数字入力
+========================================= */
+
+.count-input-wrap{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-bottom:18px;
+
+}
+
+
+.count-input{
+
+    width:110px;
+
+    padding:11px;
+
+    box-sizing:border-box;
+
+    text-align:center;
+
+    font-size:1.2rem;
+
+    font-weight:700;
+
+    background:#0f1115;
+
+    color:var(--text);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:10px;
+
+    outline:none;
+
+}
+
+
+.count-input:focus{
+
+    border-color:
+        var(--primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(29,155,240,.10);
+
+}
+
+
+.count-input-unit{
+
+    color:var(--sub);
+
+}
+
+
+/* =========================================
+   問題数スライダー
+========================================= */
+
+.count-slider{
+
+    width:100%;
+
+    margin:0;
+
+    padding:0;
+
+    cursor:pointer;
+
+}
+
+
+/* WebKit */
+
+.count-slider::-webkit-slider-runnable-track{
+
+    height:6px;
+
+    background:#2f3336;
+
+    border-radius:999px;
+
+}
+
+
+.count-slider::-webkit-slider-thumb{
+
+    appearance:none;
+
+    width:18px;
+
+    height:18px;
+
+    margin-top:-6px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    cursor:pointer;
+
+}
+
+
+/* Firefox */
+
+.count-slider::-moz-range-track{
+
+    height:6px;
+
+    background:#2f3336;
+
+    border-radius:999px;
+
+}
+
+
+.count-slider::-moz-range-thumb{
+
+    width:18px;
+
+    height:18px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    cursor:pointer;
+
+}
+
+
+/* =========================================
+   スライダー範囲表示
+========================================= */
+
+.count-range-info{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:8px;
+
+    color:var(--sub);
+
+    font-size:.75rem;
+
+}
+
+
+.count-description{
+
+    margin-top:10px;
+
+    color:var(--sub);
+
+    font-size:.82rem;
+
+    line-height:1.6;
+
+}
+
+
+/* =========================================
+   ボタン
+========================================= */
+
+.start-button{
+    margin-top:0;
+}
+
+
+/* =========================================
+   スマホ
+========================================= */
+
+@media(max-width:650px){
+
+    .quiz-select-card{
+        padding:22px;
+    }
+
+    .level-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+/* =========================================
+   Exam Note
+========================================= */
+
+.exam-note{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:12px;
+
+    margin-bottom:20px;
+
+    padding:16px 18px;
+
+    background:#16181c;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:14px;
+
+    color:var(--text);
+
+}
+
+.exam-note-icon{
+
+    flex-shrink:0;
+
+    font-size:1.15rem;
+
+}
+
+.exam-note-text{
+
+    min-width:0;
+
+}
+
+.exam-note-text strong{
+
+    font-weight:700;
+
+}
+
+.exam-note-text p{
+
+    margin:5px 0 0;
+
+    color:var(--sub);
+
+    font-size:.85rem;
+
+    line-height:1.6;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container container-small">
+
+    <div class="site-header">
+
+        <div class="logo">
+            Korean <span>Study</span>
+        </div>
+
+    </div>
+
+
+    <div class="card quiz-select-card">
+
+
+        <!-- =====================================
+             ヘッダー
+        ====================================== -->
+
+        <div class="quiz-select-header">
+
+            <div
+                id="categoryIcon"
+                class="quiz-select-icon">
+
+                📚
+
+            </div>
+
+
+            <h1 id="categoryTitle">
+                読み込み中...
+            </h1>
+
+
+            <p>
+                学習したい級と問題数を設定してください
+            </p>
+
+        </div>
+
+        <div class="exam-note">
+
+    <div class="exam-note-icon">
+        ℹ️
+    </div>
+
+    <div class="exam-note-text">
+
+        <strong>
+            級について
+        </strong>
+
+        <p>
+            このサイトでは
+            <strong>ハングル検定</strong>
+            の級を基準に問題を設定しています。
+        </p>
+
+    </div>
+
+</div>
+
+        <!-- =====================================
+             級選択
+        ====================================== -->
+
+        <div class="level-title">
+            学習する級
+        </div>
+
+
+        <div class="level-grid">
+
+
+            <button
+                type="button"
+                class="level-button"
+                data-level="5"
+                onclick="toggleLevel(this)">
+
+                5級
+
+            </button>
+
+
+            <button
+                type="button"
+                class="level-button"
+                data-level="4"
+                onclick="toggleLevel(this)">
+
+                4級
+
+            </button>
+
+
+            <button
+                type="button"
+                class="level-button"
+                data-level="3"
+                onclick="toggleLevel(this)">
+
+                3級
+
+            </button>
+
+
+            <button
+                type="button"
+                class="level-button"
+                data-level="pre2"
+                onclick="toggleLevel(this)">
+
+                準2級
+
+            </button>
+
+
+            <button
+                type="button"
+                class="level-button"
+                data-level="2"
+                onclick="toggleLevel(this)">
+
+                2級
+
+            </button>
+
+
+            <button
+                type="button"
+                class="level-button"
+                data-level="1"
+                onclick="toggleLevel(this)">
+
+                1級
+
+            </button>
+
+
+        </div>
+
+
+        <!-- =====================================
+             選択状況
+        ====================================== -->
+
+        <div
+            id="selectedInfo"
+            class="selected-info">
+
+            まだ級が選択されていません
+
+        </div>
+
+
+        <!-- =====================================
+             問題数
+        ====================================== -->
+
+       <!-- =====================================
+     問題数
+====================================== -->
+
+<div class="count-title">
+
+    問題数
+
+</div>
+
+
+<div class="count-current">
+
+    <div
+        id="questionDisplay"
+        class="count-current-number">
+
+        10
+
+    </div>
+
+    <div class="count-current-unit">
+
+        問
+
+    </div>
+
+</div>
+
+
+<div class="count-input-wrap">
+
+    <input
+        id="questionCount"
+        class="count-input"
+        type="number"
+        min="1"
+        max="100"
+        value="10"
+    >
+
+    <span class="count-input-unit">
+        問
+    </span>
+
+</div>
+
+
+<input
+    id="questionSlider"
+    class="count-slider"
+    type="range"
+    min="1"
+    max="100"
+    value="10"
+>
+
+
+<div class="count-range-info">
+
+    <span>1問</span>
+
+    <span id="questionMaxLabel">
+        最大100問
+    </span>
+
+</div>
+
+
+<div class="count-description">
+
+    スライダーまたは数字入力から
+    問題数を設定できます。
+
+</div>
+
+
+        <!-- =====================================
+             学習開始
+        ====================================== -->
+
+        <button
+            class="btn btn-primary start-button"
+            onclick="startQuiz()">
+
+            この設定で学習する
+
+        </button>
+
+
+        <!-- =====================================
+             ホーム
+        ====================================== -->
+
+        <button
+            class="btn btn-secondary"
+            onclick="location.href='index.html'">
+
+            ホームへ戻る
+
+        </button>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   カテゴリー情報
+========================================= */
+
+const categoryNames = {
+
+    vocab:
+        "単語",
+
+    idiom:
+        "慣用句",
+
+    expression:
+        "慣用表現",
+
+    proverb:
+        "ことわざ",
+
+    saja:
+        "四字熟語"
+
+};
+
+const dataFiles = {
+
+    vocab:
+        "data/vocab.json",
+
+    idiom:
+        "data/idiom.json",
+
+    expression:
+        "data/expression.json",
+
+    proverb:
+        "data/proverb.json",
+
+    saja:
+        "data/saja.json"
+
+};
+
+
+const categoryIcons = {
+
+    vocab:
+        "📚",
+
+    idiom:
+        "💬",
+
+    expression:
+        "🗣️",
+
+    proverb:
+        "🌱",
+
+    saja:
+        "漢"
+
+};
+
+
+/* =========================================
+   現在のカテゴリー
+========================================= */
+
+const category =
+    localStorage.getItem(
+        "selectedCategory"
+    );
+
+
+/* =========================================
+   カテゴリー確認
+========================================= */
+
+if(
+    !category ||
+    !categoryNames[category]
+){
+
+    alert(
+        "カテゴリー情報がありません。"
+    );
+
+    location.href =
+        "index.html";
+
+}
+
+
+/* =========================================
+   カテゴリー表示
+========================================= */
+
+document.getElementById(
+    "categoryTitle"
+).textContent =
+    categoryNames[category];
+
+
+document.getElementById(
+    "categoryIcon"
+).textContent =
+    categoryIcons[category];
+
+
+/* =========================================
+   選択中の級
+========================================= */
+
+const selectedLevels = [];
+
+/* =========================================
+   問題数
+========================================= */
+
+const questionCount =
+    document.getElementById(
+        "questionCount"
+    );
+
+const questionSlider =
+    document.getElementById(
+        "questionSlider"
+    );
+
+const questionDisplay =
+    document.getElementById(
+        "questionDisplay"
+    );
+
+const questionMaxLabel =
+    document.getElementById(
+        "questionMaxLabel"
+    );
+
+
+/*
+    現在選択されている級に
+    存在する問題数
+*/
+
+let availableQuestionCount = 1;
+
+/*
+    読み込んだ全問題
+*/
+
+let allQuestions = [];
+
+
+/* =========================================
+   問題数を更新
+========================================= */
+
+function updateQuestionCount(value){
+
+    let count =
+        Number(value);
+
+
+    if(!Number.isInteger(count)){
+
+        count = 1;
+
+    }
+
+
+    if(count < 1){
+
+        count = 1;
+
+    }
+
+
+    if(
+        count >
+        availableQuestionCount
+    ){
+
+        count =
+            availableQuestionCount;
+
+    }
+
+
+    questionCount.value =
+        count;
+
+    questionSlider.value =
+        count;
+
+    questionDisplay.textContent =
+        count;
+
+}
+
+
+/* =========================================
+   数字入力
+========================================= */
+
+questionCount.addEventListener(
+    "input",
+    function(){
+
+        updateQuestionCount(
+            this.value
+        );
+
+    }
+);
+
+
+/* =========================================
+   スライダー
+========================================= */
+
+questionSlider.addEventListener(
+    "input",
+    function(){
+
+        updateQuestionCount(
+            this.value
+        );
+
+    }
+);
+
+
+/* =========================================
+   問題が存在する級を確認
+========================================= */
+
+async function checkAvailableLevels(){
+
+    try{
+
+        const response =
+            await fetch(
+                dataFiles[category]
+            );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "問題データを読み込めませんでした。"
+            );
+
+        }
+
+
+ const questions =
+    await response.json();
+
+allQuestions =
+    questions;
+
+
+        const levels = [
+            "5",
+            "4",
+            "3",
+            "pre2",
+            "2",
+            "1"
+        ];
+
+
+        /*
+            各級の問題数を確認
+        */
+
+        levels.forEach(
+            level => {
+
+                const count =
+                    questions.filter(
+                        question =>
+                            question.level ===
+                            level
+                    ).length;
+
+
+                const button =
+                    document.querySelector(
+                        `.level-button[data-level="${level}"]`
+                    );
+
+
+                if(!button){
+
+                    return;
+
+                }
+
+
+                if(count === 0){
+
+                    button.classList.add(
+                        "disabled"
+                    );
+
+                    button.disabled =
+                        true;
+
+                    button.title =
+                        "この級には現在問題がありません。";
+
+                }
+
+            }
+        );
+
+
+        /*
+            最初は現在選択されている級が
+            ないので1問
+        */
+
+        updateAvailableQuestionCount(
+            questions
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+        alert(
+            "問題データを読み込めませんでした。"
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   級選択
+========================================= */
+
+function toggleLevel(button){
+
+    if(button.disabled){
+
+        return;
+
+    }
+
+
+    const level =
+        button.dataset.level;
+
+
+    const index =
+        selectedLevels.indexOf(
+            level
+        );
+
+
+    if(index === -1){
+
+        selectedLevels.push(
+            level
+        );
+
+        button.classList.add(
+            "selected"
+        );
+
+    }else{
+
+        selectedLevels.splice(
+            index,
+            1
+        );
+
+        button.classList.remove(
+            "selected"
+        );
+
+    }
+
+
+    updateSelectedInfo();
+
+
+    /*
+        級が変わったので
+        問題数の最大値も更新する
+    */
+
+    updateAvailableQuestionCount(
+        allQuestions
+    );
+
+}
+
+/* =========================================
+   選択状況表示
+========================================= */
+
+function updateSelectedInfo(){
+
+    const info =
+        document.getElementById(
+            "selectedInfo"
+        );
+
+
+    if(
+        selectedLevels.length === 0
+    ){
+
+        info.textContent =
+            "まだ級が選択されていません";
+
+        return;
+
+    }
+
+
+    const levelNames =
+        selectedLevels.map(
+            level => {
+
+                if(
+                    level === "pre2"
+                ){
+
+                    return "準2級";
+
+                }
+
+
+                return level + "級";
+
+            }
+        );
+
+
+    info.textContent =
+        "選択中：" +
+        levelNames.join("・");
+
+}
+
+
+/* =========================================
+   学習開始
+========================================= */
+
+function startQuiz(){
+
+    /* -------------------------------
+       級チェック
+    ------------------------------- */
+
+    if(
+        selectedLevels.length === 0
+    ){
+
+        alert(
+            "学習する級を1つ以上選択してください。"
+        );
+
+        return;
+
+    }
+
+
+    /* -------------------------------
+       問題数
+    ------------------------------- */
+
+    const count =
+    Number(
+        questionCount.value
+    );
+
+
+if(
+    !Number.isInteger(count) ||
+    count < 1
+){
+
+    alert(
+        "問題数は1問以上にしてください。"
+    );
+
+    return;
+
+}
+
+
+if(
+    count >
+    availableQuestionCount
+){
+
+    alert(
+        `選択した級には${availableQuestionCount}問しかありません。`
+    );
+
+    return;
+
+}
+
+
+    /* -------------------------------
+       カテゴリー保存
+    ------------------------------- */
+
+    localStorage.setItem(
+        "selectedCategory",
+        category
+    );
+
+
+    /* -------------------------------
+       級保存
+    ------------------------------- */
+
+    localStorage.setItem(
+        "selectedLevels",
+        JSON.stringify(
+            selectedLevels
+        )
+    );
+
+
+    /* -------------------------------
+       問題数保存
+    ------------------------------- */
+
+    localStorage.setItem(
+        "questionCount",
+        count
+    );
+
+
+    /* -------------------------------
+       クイズ開始
+    ------------------------------- */
+
+    location.href =
+        "category-quiz.html";
+
+}
+
+checkAvailableLevels();
+
+/* =========================================
+   選択中の級の問題数を計算
+========================================= */
+
+function updateAvailableQuestionCount(
+    questions
+){
+
+    /*
+        まだ級を選択していない場合
+    */
+
+    if(
+        selectedLevels.length === 0
+    ){
+
+        availableQuestionCount =
+            1;
+
+        questionSlider.max =
+            1;
+
+        questionMaxLabel.textContent =
+            "最大1問";
+
+        updateQuestionCount(
+            1
+        );
+
+        return;
+
+    }
+
+
+    /*
+        選択された級の問題を取得
+    */
+
+    const availableQuestions =
+        questions.filter(
+            question =>
+                selectedLevels.includes(
+                    question.level
+                )
+        );
+
+
+    availableQuestionCount =
+        availableQuestions.length;
+
+
+    /*
+        最低1問
+    */
+
+    if(
+        availableQuestionCount < 1
+    ){
+
+        availableQuestionCount =
+            1;
+
+    }
+
+
+    /*
+        スライダー最大値を変更
+    */
+
+    questionSlider.max =
+        availableQuestionCount;
+
+
+    questionMaxLabel.textContent =
+        `最大${availableQuestionCount}問`;
+
+
+    /*
+        現在の問題数が
+        最大値を超えていたら調整
+    */
+
+    let currentCount =
+        Number(
+            questionCount.value
+        );
+
+
+    if(
+        !Number.isInteger(
+            currentCount
+        ) ||
+        currentCount < 1
+    ){
+
+        currentCount =
+            1;
+
+    }
+
+
+    if(
+        currentCount >
+        availableQuestionCount
+    ){
+
+        currentCount =
+            availableQuestionCount;
+
+    }
+
+
+    updateQuestionCount(
+        currentCount
+    );
+
+}
+
+</script>
+
+</body>
+
+</html>

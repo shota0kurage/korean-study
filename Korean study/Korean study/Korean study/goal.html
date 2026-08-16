@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<title>学習目標を設定</title>
+
+<link
+    rel="stylesheet"
+    href="style.css">
+
+<script src="study-tracker.js"></script>
+
+<style>
+
+/* =========================================
+   Page
+========================================= */
+
+.goal-page{
+
+    max-width:700px;
+
+    margin:0 auto;
+
+}
+
+
+/* =========================================
+   Header
+========================================= */
+
+.goal-header{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+}
+
+.goal-icon{
+
+    font-size:3rem;
+
+    margin-bottom:10px;
+
+}
+
+.goal-header h1{
+
+    margin:0;
+
+    font-size:1.8rem;
+
+}
+
+.goal-header p{
+
+    margin-top:8px;
+
+    color:var(--sub);
+
+}
+
+
+/* =========================================
+   Goal Card
+========================================= */
+
+.goal-card{
+
+    background:var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:22px;
+
+    padding:30px;
+
+    box-shadow:var(--shadow);
+
+}
+
+
+/* =========================================
+   Section
+========================================= */
+
+.setting-section{
+
+    margin-top:25px;
+
+}
+
+.setting-section:first-child{
+
+    margin-top:0;
+
+}
+
+.setting-title{
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    margin-bottom:14px;
+
+}
+
+
+/* =========================================
+   Current Value
+========================================= */
+
+.current-value{
+
+    text-align:center;
+
+    margin-bottom:18px;
+
+}
+
+.current-value-number{
+
+    font-size:2.2rem;
+
+    font-weight:800;
+
+    color:var(--primary);
+
+    line-height:1;
+
+}
+
+.current-value-unit{
+
+    color:var(--sub);
+
+    font-size:.9rem;
+
+    margin-top:7px;
+
+}
+
+
+/* =========================================
+   Number Input
+========================================= */
+
+.number-control{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-bottom:18px;
+
+}
+
+.number-input{
+
+    width:110px;
+
+    padding:11px;
+
+    text-align:center;
+
+    font-size:1.2rem;
+
+    font-weight:700;
+
+    background:#0f1115;
+
+    color:var(--text);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:10px;
+
+    outline:none;
+
+}
+
+.number-input:focus{
+
+    border-color:
+        var(--primary);
+
+}
+
+.number-unit{
+
+    color:var(--sub);
+
+}
+
+
+/* =========================================
+   Range
+========================================= */
+
+.goal-range{
+
+    width:100%;
+
+    margin:0;
+
+    padding:0;
+
+    cursor:pointer;
+
+}
+
+
+/* =========================================
+   Range Track
+========================================= */
+
+.goal-range::-webkit-slider-runnable-track{
+
+    height:6px;
+
+    background:#2f3336;
+
+    border-radius:999px;
+
+}
+
+.goal-range::-moz-range-track{
+
+    height:6px;
+
+    background:#2f3336;
+
+    border-radius:999px;
+
+}
+
+
+/* =========================================
+   Range Thumb
+========================================= */
+
+.goal-range::-webkit-slider-thumb{
+
+    appearance:none;
+
+    width:18px;
+
+    height:18px;
+
+    margin-top:-6px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    cursor:pointer;
+
+}
+
+.goal-range::-moz-range-thumb{
+
+    width:18px;
+
+    height:18px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    cursor:pointer;
+
+}
+
+
+/* =========================================
+   Scale
+========================================= */
+
+.range-scale{
+
+    margin-top:7px;
+
+}
+
+.range-ticks{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(11,1fr);
+
+    width:100%;
+
+    height:8px;
+
+}
+
+.range-ticks span{
+
+    width:1px;
+
+    height:6px;
+
+    background:var(--sub);
+
+    justify-self:center;
+
+}
+
+.range-ticks span:nth-child(1),
+.range-ticks span:nth-child(6),
+.range-ticks span:nth-child(11){
+
+    height:9px;
+
+}
+
+.range-labels{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(11,1fr);
+
+    width:100%;
+
+    margin-top:5px;
+
+    color:var(--sub);
+
+    font-size:.7rem;
+
+    text-align:center;
+
+}
+
+.range-labels span:first-child{
+
+    text-align:left;
+
+}
+
+.range-labels span:last-child{
+
+    text-align:right;
+
+}
+
+
+/* =========================================
+   Description
+========================================= */
+
+.setting-description{
+
+    margin-top:10px;
+
+    color:var(--sub);
+
+    font-size:.82rem;
+
+    line-height:1.6;
+
+}
+
+
+/* =========================================
+   Summary
+========================================= */
+
+.goal-summary{
+
+    margin-top:25px;
+
+    padding:18px;
+
+    background:#0f1115;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:14px;
+
+}
+
+.goal-summary-title{
+
+    color:var(--sub);
+
+    font-size:.8rem;
+
+}
+
+.goal-summary-text{
+
+    margin-top:6px;
+
+    font-weight:700;
+
+    line-height:1.7;
+
+}
+
+
+/* =========================================
+   Buttons
+========================================= */
+
+.goal-actions{
+
+    margin-top:25px;
+
+}
+
+.goal-actions .btn + .btn{
+
+    margin-top:10px;
+
+}
+
+/* =========================================
+   Reset Goal
+========================================= */
+
+.goal-reset-button{
+
+    width:100%;
+
+    margin-top:10px;
+
+    padding:12px;
+
+    border:1px solid rgba(244,33,46,.35);
+
+    border-radius:10px;
+
+    background:rgba(244,33,46,.08);
+
+    color:var(--danger);
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:
+        background .15s ease,
+        transform .15s ease;
+
+}
+
+.goal-reset-button:hover{
+
+    background:rgba(244,33,46,.15);
+
+}
+
+.goal-reset-button:active{
+
+    transform:scale(.98);
+
+}
+
+/* =========================================
+   Mobile
+========================================= */
+
+@media(max-width:650px){
+
+    .goal-card{
+
+        padding:22px 18px;
+
+    }
+
+}
+
+/* =========================================
+   Reset Goal
+========================================= */
+
+.goal-reset-button{
+
+    width:100%;
+
+    margin-top:10px;
+
+    padding:12px;
+
+    border:1px solid rgba(244,33,46,.35);
+
+    border-radius:10px;
+
+    background:rgba(244,33,46,.08);
+
+    color:var(--danger);
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:
+        background .15s ease,
+        transform .15s ease;
+
+}
+
+
+.goal-reset-button:hover{
+
+    background:rgba(244,33,46,.15);
+
+}
+
+
+.goal-reset-button:active{
+
+    transform:scale(.98);
+
+}
+
+/* =========================================
+   Reset Confirm Modal
+========================================= */
+
+.goal-confirm-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+    background:rgba(0,0,0,.7);
+
+    z-index:1000;
+
+}
+
+.goal-confirm-overlay.show{
+
+    display:flex;
+
+}
+
+
+.goal-confirm-modal{
+
+    width:100%;
+
+    max-width:420px;
+
+    padding:28px 24px;
+
+    box-sizing:border-box;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    box-shadow:var(--shadow);
+
+    text-align:center;
+
+}
+
+
+.goal-confirm-icon{
+
+    font-size:2.5rem;
+
+    margin-bottom:12px;
+
+}
+
+
+.goal-confirm-title{
+
+    font-size:1.2rem;
+
+    font-weight:700;
+
+}
+
+
+.goal-confirm-message{
+
+    margin-top:10px;
+
+    color:var(--sub);
+
+    font-size:.9rem;
+
+    line-height:1.6;
+
+}
+
+
+.goal-confirm-warning{
+
+    margin-top:15px;
+
+    color:var(--danger);
+
+    font-size:.8rem;
+
+    line-height:1.6;
+
+}
+
+
+.goal-confirm-buttons{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:22px;
+
+}
+
+
+.goal-confirm-buttons .btn{
+
+    flex:1;
+
+}
+
+
+.goal-confirm-delete-button{
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:12px;
+
+    background:rgba(244,33,46,.12);
+
+    color:var(--danger);
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+
+.goal-confirm-delete-button:hover{
+
+    background:rgba(244,33,46,.2);
+
+}
+
+
+@media(max-width:650px){
+
+    .goal-confirm-buttons{
+
+        flex-direction:column;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<!-- =========================================
+     Reset Confirm Modal
+========================================= -->
+
+<div
+    id="goalConfirmOverlay"
+    class="goal-confirm-overlay">
+
+    <div class="goal-confirm-modal">
+
+        <div class="goal-confirm-icon">
+            🔄
+        </div>
+
+        <div class="goal-confirm-title">
+            学習目標をリセットしますか？
+        </div>
+
+        <div
+            id="goalConfirmMessage"
+            class="goal-confirm-message">
+        </div>
+
+        <div class="goal-confirm-warning">
+            現在設定している学習目標が削除されます。
+        </div>
+
+        <div class="goal-confirm-buttons">
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="closeGoalResetModal()">
+
+                キャンセル
+
+            </button>
+
+            <button
+                type="button"
+                class="goal-confirm-delete-button"
+                onclick="confirmResetGoal()">
+
+                リセットする
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="container goal-page">
+
+
+    <!-- Header -->
+
+    <div class="site-header">
+
+        <div class="logo">
+            Korean <span>Study</span>
+        </div>
+
+    </div>
+
+
+    <!-- Title -->
+
+    <div class="goal-header">
+
+        <div class="goal-icon">
+            🎯
+        </div>
+
+        <h1>
+            学習目標を設定
+        </h1>
+
+        <p>
+            自分のペースに合わせて目標を決めましょう
+        </p>
+
+    </div>
+
+
+    <!-- Settings -->
+
+    <div class="goal-card">
+
+
+        <!-- =================================
+             Period
+        ================================== -->
+
+        <div class="setting-section">
+
+            <div class="setting-title">
+                📅 目標期間
+            </div>
+
+
+            <div class="current-value">
+
+                <div
+                    id="periodDisplay"
+                    class="current-value-number">
+
+                    7
+
+                </div>
+
+                <div class="current-value-unit">
+                    日間
+                </div>
+
+            </div>
+
+
+            <div class="number-control">
+
+                <input
+                    id="periodInput"
+                    class="number-input"
+                    type="number"
+                    min="1"
+                    max="365"
+                    value="7">
+
+                <span class="number-unit">
+                    日
+                </span>
+
+            </div>
+
+
+            <input
+                id="periodSlider"
+                class="goal-range"
+                type="range"
+                min="1"
+                max="365"
+                value="7">
+
+
+            <div class="range-scale">
+
+                <div class="range-ticks">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+
+                <div class="range-labels">
+
+                    <span>1</span>
+                    <span>30</span>
+                    <span>60</span>
+                    <span>90</span>
+                    <span>120</span>
+                    <span>180</span>
+                    <span>210</span>
+                    <span>240</span>
+                    <span>270</span>
+                    <span>330</span>
+                    <span>365</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="setting-description">
+
+                1～365日の範囲で自由に設定できます。
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================
+             Questions
+        ================================== -->
+
+        <div class="setting-section">
+
+            <div class="setting-title">
+                📚 目標問題数
+            </div>
+
+
+            <div class="current-value">
+
+                <div
+                    id="questionDisplay"
+                    class="current-value-number">
+
+                    100
+
+                </div>
+
+                <div class="current-value-unit">
+                    問
+                </div>
+
+            </div>
+
+
+            <div class="number-control">
+
+                <input
+                    id="questionInput"
+                    class="number-input"
+                    type="number"
+                    min="1"
+                    max="10000"
+                    value="100">
+
+                <span class="number-unit">
+                    問
+                </span>
+
+            </div>
+
+
+            <input
+                id="questionSlider"
+                class="goal-range"
+                type="range"
+                min="1"
+                max="10000"
+                value="100">
+
+
+            <div class="setting-description">
+
+                期間内に解く問題数を設定します。
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================
+             Summary
+        ================================== -->
+
+        <div class="goal-summary">
+
+            <div class="goal-summary-title">
+                現在の目標
+            </div>
+
+            <div
+                id="summaryText"
+                class="goal-summary-text">
+
+                7日間で100問
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================
+             Actions
+        ================================== -->
+
+<div class="goal-actions">
+
+    <button
+        class="btn btn-primary"
+        onclick="saveGoal()">
+
+        この目標を保存
+
+    </button>
+
+
+    <button
+        class="btn btn-secondary"
+        onclick="location.href='index.html'">
+
+        キャンセル
+
+    </button>
+
+
+    <button
+        class="goal-reset-button"
+        onclick="resetGoal()">
+
+        🔄 学習目標をリセット
+
+    </button>
+
+</div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   Elements
+========================================= */
+
+const periodInput =
+    document.getElementById(
+        "periodInput"
+    );
+
+const periodSlider =
+    document.getElementById(
+        "periodSlider"
+    );
+
+const periodDisplay =
+    document.getElementById(
+        "periodDisplay"
+    );
+
+const questionInput =
+    document.getElementById(
+        "questionInput"
+    );
+
+const questionSlider =
+    document.getElementById(
+        "questionSlider"
+    );
+
+const questionDisplay =
+    document.getElementById(
+        "questionDisplay"
+    );
+
+const summaryText =
+    document.getElementById(
+        "summaryText"
+    );
+
+
+/* =========================================
+   Existing Goal
+========================================= */
+
+const existingGoal =
+    getStudyGoal();
+
+
+if(existingGoal){
+
+    periodInput.value =
+        existingGoal.periodDays;
+
+    periodSlider.value =
+        existingGoal.periodDays;
+
+    questionInput.value =
+        existingGoal.targetQuestions;
+
+    questionSlider.value =
+        Math.min(
+            existingGoal.targetQuestions,
+            10000
+        );
+
+}
+
+
+/* =========================================
+   Period Update
+========================================= */
+
+function updatePeriod(value){
+
+    let number =
+        Number(value);
+
+
+    if(number < 1){
+
+        number = 1;
+
+    }
+
+
+    if(number > 365){
+
+        number = 365;
+
+    }
+
+
+    periodInput.value =
+        number;
+
+    periodSlider.value =
+        number;
+
+    periodDisplay.textContent =
+        number;
+
+
+    updateSummary();
+
+}
+
+
+periodSlider.addEventListener(
+    "input",
+    function(){
+
+        updatePeriod(
+            this.value
+        );
+
+    }
+);
+
+
+periodInput.addEventListener(
+    "input",
+    function(){
+
+        updatePeriod(
+            this.value
+        );
+
+    }
+);
+
+
+/* =========================================
+   Question Update
+========================================= */
+
+function updateQuestion(value){
+
+    let number =
+        Number(value);
+
+
+    if(number < 1){
+
+        number = 1;
+
+    }
+
+
+    if(number > 10000){
+
+        number = 10000;
+
+    }
+
+
+    questionInput.value =
+        number;
+
+
+    questionSlider.value =
+        number;
+
+
+    questionDisplay.textContent =
+        number;
+
+
+    updateSummary();
+
+}
+
+
+questionSlider.addEventListener(
+    "input",
+    function(){
+
+        updateQuestion(
+            this.value
+        );
+
+    }
+);
+
+
+questionInput.addEventListener(
+    "input",
+    function(){
+
+        updateQuestion(
+            this.value
+        );
+
+    }
+);
+
+
+/* =========================================
+   Summary
+========================================= */
+
+function updateSummary(){
+
+    const days =
+        Number(
+            periodInput.value
+        );
+
+    const questions =
+        Number(
+            questionInput.value
+        );
+
+
+    summaryText.textContent =
+        `${days}日間で${questions}問`;
+
+}
+
+
+updatePeriod(
+    periodInput.value
+);
+
+updateQuestion(
+    questionInput.value
+);
+
+
+/* =========================================
+   Save
+========================================= */
+
+function saveGoal(){
+
+    const days =
+        Number(
+            periodInput.value
+        );
+
+    const questions =
+        Number(
+            questionInput.value
+        );
+
+
+    if(
+        !Number.isInteger(days) ||
+        days < 1 ||
+        days > 365
+    ){
+
+        alert(
+            "目標期間は1～365日の範囲で設定してください。"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !Number.isInteger(questions) ||
+        questions < 1 ||
+        questions > 10000
+    ){
+
+        alert(
+            "目標問題数は1～10000問の範囲で設定してください。"
+        );
+
+        return;
+
+    }
+
+
+    saveStudyGoal(
+        days,
+        questions
+    );
+
+
+    location.href =
+        "index.html";
+
+}
+
+
+/* =========================================
+   Reset Goal Modal
+========================================= */
+
+function resetGoal(){
+
+    const goal =
+        getStudyGoal();
+
+
+    /*
+        目標がない場合
+    */
+
+    if(!goal){
+
+        return;
+
+    }
+
+
+    /*
+        確認メッセージ
+    */
+
+    document.getElementById(
+        "goalConfirmMessage"
+    ).textContent =
+        `${goal.periodLabel}・${goal.targetQuestions}問`;
+
+
+    /*
+        モーダル表示
+    */
+
+    document.getElementById(
+        "goalConfirmOverlay"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+/* =========================================
+   Close Reset Modal
+========================================= */
+
+function closeGoalResetModal(){
+
+    document.getElementById(
+        "goalConfirmOverlay"
+    ).classList.remove(
+        "show"
+    );
+
+}
+
+
+/* =========================================
+   Confirm Reset
+========================================= */
+
+function confirmResetGoal(){
+
+    /*
+        現在の目標を削除
+    */
+
+    localStorage.removeItem(
+        STUDY_GOAL_KEY
+    );
+
+
+    /*
+        ホームへ戻る
+    */
+
+    location.href =
+        "index.html";
+
+}
+
+
+/* =========================================
+   Overlay Click
+========================================= */
+
+document.getElementById(
+    "goalConfirmOverlay"
+).addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target ===
+            this
+        ){
+
+            closeGoalResetModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   Escape Key
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape"
+        ){
+
+            closeGoalResetModal();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>
