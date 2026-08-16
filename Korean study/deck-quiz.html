@@ -83,6 +83,235 @@
 
 
 /* =========================================
+   Setup - Problem Count
+========================================= */
+
+.count-title{
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    margin-top:25px;
+
+    margin-bottom:14px;
+
+}
+
+
+.count-current{
+
+    text-align:center;
+
+    margin-bottom:18px;
+
+}
+
+
+.count-current-number{
+
+    font-size:2.2rem;
+
+    font-weight:800;
+
+    color:var(--primary);
+
+    line-height:1;
+
+}
+
+
+.count-current-unit{
+
+    margin-top:7px;
+
+    color:var(--sub);
+
+    font-size:.9rem;
+
+}
+
+
+/* =========================================
+   Number Input
+========================================= */
+
+.count-input-wrap{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-bottom:18px;
+
+}
+
+
+.count-input{
+
+    width:110px;
+
+    padding:11px;
+
+    box-sizing:border-box;
+
+    text-align:center;
+
+    font-size:1.2rem;
+
+    font-weight:700;
+
+    background:#0f1115;
+
+    color:var(--text);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:10px;
+
+    outline:none;
+
+}
+
+
+.count-input:focus{
+
+    border-color:
+        var(--primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(29,155,240,.10);
+
+}
+
+
+.count-input-unit{
+
+    color:var(--sub);
+
+}
+
+
+/* =========================================
+   Slider
+========================================= */
+
+.count-slider{
+
+    width:100%;
+
+    margin:0;
+
+    padding:0;
+
+    cursor:pointer;
+
+}
+
+
+/* WebKit */
+
+.count-slider::-webkit-slider-runnable-track{
+
+    height:6px;
+
+    background:#2f3336;
+
+    border-radius:999px;
+
+}
+
+
+.count-slider::-webkit-slider-thumb{
+
+    appearance:none;
+
+    width:18px;
+
+    height:18px;
+
+    margin-top:-6px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    cursor:pointer;
+
+}
+
+
+/* Firefox */
+
+.count-slider::-moz-range-track{
+
+    height:6px;
+
+    background:#2f3336;
+
+    border-radius:999px;
+
+}
+
+
+.count-slider::-moz-range-thumb{
+
+    width:18px;
+
+    height:18px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    cursor:pointer;
+
+}
+
+
+/* =========================================
+   Slider Range
+========================================= */
+
+.count-range-info{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:8px;
+
+    color:var(--sub);
+
+    font-size:.75rem;
+
+}
+
+
+.count-description{
+
+    margin-top:10px;
+
+    color:var(--sub);
+
+    font-size:.82rem;
+
+    line-height:1.6;
+
+}
+
+
+/* =========================================
    Quiz
 ========================================= */
 
@@ -653,6 +882,13 @@ function showSetup(){
         false;
 
 
+    const defaultCount =
+        Math.min(
+            10,
+            deck.words.length
+        );
+
+
     document.getElementById(
         "quizArea"
     ).innerHTML = `
@@ -677,20 +913,85 @@ function showSetup(){
             </p>
 
 
+            <!-- =================================
+                 問題数
+            ================================== -->
+
+            <div class="count-title">
+
+                問題数
+
+            </div>
+
+
+            <div class="count-current">
+
+                <div
+                    id="questionDisplay"
+                    class="count-current-number">
+
+                    ${defaultCount}
+
+                </div>
+
+                <div class="count-current-unit">
+
+                    問
+
+                </div>
+
+            </div>
+
+
+            <div class="count-input-wrap">
+
+                <input
+                    id="countInput"
+                    class="count-input"
+                    type="number"
+                    min="1"
+                    max="${deck.words.length}"
+                    value="${defaultCount}"
+                >
+
+                <span class="count-input-unit">
+
+                    問
+
+                </span>
+
+            </div>
+
+
             <input
-                id="countInput"
-                class="answer-input"
-                type="number"
+                id="countSlider"
+                class="count-slider"
+                type="range"
                 min="1"
                 max="${deck.words.length}"
-                value="${Math.min(
-                    10,
-                    deck.words.length
-                )}"
-                style="
-                    text-align:center;
-                "
+                value="${defaultCount}"
             >
+
+
+            <div class="count-range-info">
+
+                <span>
+                    1問
+                </span>
+
+                <span>
+                    最大${deck.words.length}問
+                </span>
+
+            </div>
+
+
+            <div class="count-description">
+
+                スライダーまたは数字入力から
+                問題数を設定できます。
+
+            </div>
 
 
             <button
@@ -698,7 +999,7 @@ function showSetup(){
                 class="btn btn-primary"
                 style="margin-top:20px;">
 
-                学習開始
+                ${defaultCount}問で学習開始
 
             </button>
 
@@ -707,15 +1008,126 @@ function showSetup(){
     `;
 
 
+    const countInput =
+        document.getElementById(
+            "countInput"
+        );
+
+
+    const countSlider =
+        document.getElementById(
+            "countSlider"
+        );
+
+
+    const questionDisplay =
+        document.getElementById(
+            "questionDisplay"
+        );
+
+
+    /*
+        問題数更新
+    */
+
+    function updateCount(value){
+
+        let count =
+            Number(value);
+
+
+        if(
+            !Number.isInteger(count)
+        ){
+
+            count = 1;
+
+        }
+
+
+        if(count < 1){
+
+            count = 1;
+
+        }
+
+
+        if(
+            count >
+            deck.words.length
+        ){
+
+            count =
+                deck.words.length;
+
+        }
+
+
+        countInput.value =
+            count;
+
+        countSlider.value =
+            count;
+
+        questionDisplay.textContent =
+            count;
+
+
+        document.getElementById(
+            "startButton"
+        ).textContent =
+            `${count}問で学習開始`;
+
+    }
+
+
+    /*
+        数字入力
+    */
+
+    countInput.addEventListener(
+        "input",
+        function(){
+
+            updateCount(
+                this.value
+            );
+
+        }
+    );
+
+
+    /*
+        スライダー
+    */
+
+    countSlider.addEventListener(
+        "input",
+        function(){
+
+            updateCount(
+                this.value
+            );
+
+        }
+    );
+
+
+    /*
+        学習開始
+    */
+
     document.getElementById(
         "startButton"
     ).onclick =
         startQuiz;
 
 
-    document.getElementById(
-        "countInput"
-    ).addEventListener(
+    /*
+        Enterキー
+    */
+
+    countInput.addEventListener(
         "keydown",
         function(event){
 
@@ -740,11 +1152,22 @@ function showSetup(){
 
 function startQuiz(){
 
+    const countInput =
+        document.getElementById(
+            "countInput"
+        );
+
+
+    if(!countInput){
+
+        return;
+
+    }
+
+
     const count =
         Number(
-            document.getElementById(
-                "countInput"
-            ).value
+            countInput.value
         );
 
 
@@ -761,6 +1184,16 @@ function startQuiz(){
         return;
 
     }
+
+
+    /*
+        問題数を保存
+    */
+
+    localStorage.setItem(
+        "questionCount",
+        count
+    );
 
 
     questions =

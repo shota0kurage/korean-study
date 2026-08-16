@@ -164,41 +164,234 @@
    問題数
 ========================================= */
 
+/* =========================================
+   問題数
+========================================= */
+
 .count-title{
+
     font-size:1rem;
 
     font-weight:700;
 
-    margin-bottom:10px;
+    margin-bottom:14px;
+
 }
 
+
+/* =========================================
+   現在の問題数
+========================================= */
+
+.count-current{
+
+    text-align:center;
+
+    margin-bottom:18px;
+
+}
+
+
+.count-current-number{
+
+    font-size:2.2rem;
+
+    font-weight:800;
+
+    color:var(--primary);
+
+    line-height:1;
+
+}
+
+
+.count-current-unit{
+
+    margin-top:7px;
+
+    color:var(--sub);
+
+    font-size:.9rem;
+
+}
+
+
+/* =========================================
+   数字入力
+========================================= */
+
+.count-input-wrap{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-bottom:18px;
+
+}
+
+
 .count-input{
-    width:100%;
 
-    padding:14px;
+    width:110px;
 
-    border-radius:12px;
+    padding:11px;
 
-    border:
-        2px solid var(--border);
+    box-sizing:border-box;
 
-    background:#0f1114;
+    text-align:center;
+
+    font-size:1.2rem;
+
+    font-weight:700;
+
+    background:#0f1115;
 
     color:var(--text);
 
+    border:
+        1px solid var(--border);
+
+    border-radius:10px;
+
     outline:none;
 
-    font-size:1rem;
-
-    margin-bottom:20px;
 }
 
+
 .count-input:focus{
-    border-color:var(--primary);
+
+    border-color:
+        var(--primary);
 
     box-shadow:
-        0 0 0 4px
+        0 0 0 3px
         rgba(29,155,240,.10);
+
+}
+
+
+.count-input-unit{
+
+    color:var(--sub);
+
+}
+
+
+/* =========================================
+   問題数スライダー
+========================================= */
+
+.count-slider{
+
+    width:100%;
+
+    margin:0;
+
+    padding:0;
+
+    cursor:pointer;
+
+}
+
+
+/* WebKit */
+
+.count-slider::-webkit-slider-runnable-track{
+
+    height:6px;
+
+    background:#2f3336;
+
+    border-radius:999px;
+
+}
+
+
+.count-slider::-webkit-slider-thumb{
+
+    appearance:none;
+
+    width:18px;
+
+    height:18px;
+
+    margin-top:-6px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    cursor:pointer;
+
+}
+
+
+/* Firefox */
+
+.count-slider::-moz-range-track{
+
+    height:6px;
+
+    background:#2f3336;
+
+    border-radius:999px;
+
+}
+
+
+.count-slider::-moz-range-thumb{
+
+    width:18px;
+
+    height:18px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    cursor:pointer;
+
+}
+
+
+/* =========================================
+   スライダー範囲表示
+========================================= */
+
+.count-range-info{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:8px;
+
+    color:var(--sub);
+
+    font-size:.75rem;
+
+}
+
+
+.count-description{
+
+    margin-top:10px;
+
+    color:var(--sub);
+
+    font-size:.82rem;
+
+    line-height:1.6;
+
 }
 
 
@@ -454,21 +647,81 @@
              問題数
         ====================================== -->
 
-        <div class="count-title">
+       <!-- =====================================
+     問題数
+====================================== -->
 
-            問題数
+<div class="count-title">
 
-        </div>
+    問題数
+
+</div>
 
 
-        <input
-            id="questionCount"
-            class="count-input"
-            type="number"
-            min="1"
-            value="10"
-            placeholder="問題数を入力"
-        >
+<div class="count-current">
+
+    <div
+        id="questionDisplay"
+        class="count-current-number">
+
+        10
+
+    </div>
+
+    <div class="count-current-unit">
+
+        問
+
+    </div>
+
+</div>
+
+
+<div class="count-input-wrap">
+
+    <input
+        id="questionCount"
+        class="count-input"
+        type="number"
+        min="1"
+        max="100"
+        value="10"
+    >
+
+    <span class="count-input-unit">
+        問
+    </span>
+
+</div>
+
+
+<input
+    id="questionSlider"
+    class="count-slider"
+    type="range"
+    min="1"
+    max="100"
+    value="10"
+>
+
+
+<div class="count-range-info">
+
+    <span>1問</span>
+
+    <span id="questionMaxLabel">
+        最大100問
+    </span>
+
+</div>
+
+
+<div class="count-description">
+
+    スライダーまたは数字入力から
+    問題数を設定できます。
+
+</div>
 
 
         <!-- =====================================
@@ -618,6 +871,123 @@ document.getElementById(
 
 const selectedLevels = [];
 
+/* =========================================
+   問題数
+========================================= */
+
+const questionCount =
+    document.getElementById(
+        "questionCount"
+    );
+
+const questionSlider =
+    document.getElementById(
+        "questionSlider"
+    );
+
+const questionDisplay =
+    document.getElementById(
+        "questionDisplay"
+    );
+
+const questionMaxLabel =
+    document.getElementById(
+        "questionMaxLabel"
+    );
+
+
+/*
+    現在選択されている級に
+    存在する問題数
+*/
+
+let availableQuestionCount = 1;
+
+/*
+    読み込んだ全問題
+*/
+
+let allQuestions = [];
+
+
+/* =========================================
+   問題数を更新
+========================================= */
+
+function updateQuestionCount(value){
+
+    let count =
+        Number(value);
+
+
+    if(!Number.isInteger(count)){
+
+        count = 1;
+
+    }
+
+
+    if(count < 1){
+
+        count = 1;
+
+    }
+
+
+    if(
+        count >
+        availableQuestionCount
+    ){
+
+        count =
+            availableQuestionCount;
+
+    }
+
+
+    questionCount.value =
+        count;
+
+    questionSlider.value =
+        count;
+
+    questionDisplay.textContent =
+        count;
+
+}
+
+
+/* =========================================
+   数字入力
+========================================= */
+
+questionCount.addEventListener(
+    "input",
+    function(){
+
+        updateQuestionCount(
+            this.value
+        );
+
+    }
+);
+
+
+/* =========================================
+   スライダー
+========================================= */
+
+questionSlider.addEventListener(
+    "input",
+    function(){
+
+        updateQuestionCount(
+            this.value
+        );
+
+    }
+);
+
 
 /* =========================================
    問題が存在する級を確認
@@ -642,8 +1012,11 @@ async function checkAvailableLevels(){
         }
 
 
-        const questions =
-            await response.json();
+ const questions =
+    await response.json();
+
+allQuestions =
+    questions;
 
 
         const levels = [
@@ -655,6 +1028,10 @@ async function checkAvailableLevels(){
             "1"
         ];
 
+
+        /*
+            各級の問題数を確認
+        */
 
         levels.forEach(
             level => {
@@ -695,6 +1072,16 @@ async function checkAvailableLevels(){
                 }
 
             }
+        );
+
+
+        /*
+            最初は現在選択されている級が
+            ないので1問
+        */
+
+        updateAvailableQuestionCount(
+            questions
         );
 
 
@@ -759,6 +1146,16 @@ function toggleLevel(button){
 
 
     updateSelectedInfo();
+
+
+    /*
+        級が変わったので
+        問題数の最大値も更新する
+    */
+
+    updateAvailableQuestionCount(
+        allQuestions
+    );
 
 }
 
@@ -840,25 +1237,37 @@ function startQuiz(){
     ------------------------------- */
 
     const count =
-        Number(
-            document.getElementById(
-                "questionCount"
-            ).value
-        );
+    Number(
+        questionCount.value
+    );
 
 
-    if(
-        !Number.isInteger(count) ||
-        count < 1
-    ){
+if(
+    !Number.isInteger(count) ||
+    count < 1
+){
 
-        alert(
-            "問題数は1以上の数字を入力してください。"
-        );
+    alert(
+        "問題数は1問以上にしてください。"
+    );
 
-        return;
+    return;
 
-    }
+}
+
+
+if(
+    count >
+    availableQuestionCount
+){
+
+    alert(
+        `選択した級には${availableQuestionCount}問しかありません。`
+    );
+
+    return;
+
+}
 
 
     /* -------------------------------
@@ -903,6 +1312,124 @@ function startQuiz(){
 }
 
 checkAvailableLevels();
+
+/* =========================================
+   選択中の級の問題数を計算
+========================================= */
+
+function updateAvailableQuestionCount(
+    questions
+){
+
+    /*
+        まだ級を選択していない場合
+    */
+
+    if(
+        selectedLevels.length === 0
+    ){
+
+        availableQuestionCount =
+            1;
+
+        questionSlider.max =
+            1;
+
+        questionMaxLabel.textContent =
+            "最大1問";
+
+        updateQuestionCount(
+            1
+        );
+
+        return;
+
+    }
+
+
+    /*
+        選択された級の問題を取得
+    */
+
+    const availableQuestions =
+        questions.filter(
+            question =>
+                selectedLevels.includes(
+                    question.level
+                )
+        );
+
+
+    availableQuestionCount =
+        availableQuestions.length;
+
+
+    /*
+        最低1問
+    */
+
+    if(
+        availableQuestionCount < 1
+    ){
+
+        availableQuestionCount =
+            1;
+
+    }
+
+
+    /*
+        スライダー最大値を変更
+    */
+
+    questionSlider.max =
+        availableQuestionCount;
+
+
+    questionMaxLabel.textContent =
+        `最大${availableQuestionCount}問`;
+
+
+    /*
+        現在の問題数が
+        最大値を超えていたら調整
+    */
+
+    let currentCount =
+        Number(
+            questionCount.value
+        );
+
+
+    if(
+        !Number.isInteger(
+            currentCount
+        ) ||
+        currentCount < 1
+    ){
+
+        currentCount =
+            1;
+
+    }
+
+
+    if(
+        currentCount >
+        availableQuestionCount
+    ){
+
+        currentCount =
+            availableQuestionCount;
+
+    }
+
+
+    updateQuestionCount(
+        currentCount
+    );
+
+}
 
 </script>
 
